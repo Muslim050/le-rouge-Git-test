@@ -75,6 +75,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const isDev = process.env.NODE_ENV === 'development';
+const shouldOptimizeImages = !isDev && process.env.ENABLE_IMAGE_MINIFY === 'true';
 
 const PATHS = {
 	src: path.resolve(__dirname, 'src'),
@@ -318,7 +319,7 @@ export default {
 			});
 		}),
 
-		new ImageminWebpWebpackPlugin(),
+		...(shouldOptimizeImages ? [new ImageminWebpWebpackPlugin()] : []),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
 			...envKeys
@@ -352,17 +353,21 @@ export default {
 			new TerserPlugin({
 				extractComments: false
 			}),
-			new ImageMinimizerPlugin({
-				minimizer: {
-					implementation: ImageMinimizerPlugin.imageminMinify,
-					options: {
-						plugins: [
-							['imagemin-mozjpeg', { progressive: true }],
-							['imagemin-optipng', { optimizationLevel: 5 }]
-						]
-					}
-				}
-			})
+			...(shouldOptimizeImages
+				? [
+						new ImageMinimizerPlugin({
+							minimizer: {
+								implementation: ImageMinimizerPlugin.imageminMinify,
+								options: {
+									plugins: [
+										['imagemin-mozjpeg', { progressive: true }],
+										['imagemin-optipng', { optimizationLevel: 5 }]
+									]
+								}
+							}
+						})
+					]
+				: [])
 		]
 	},
 
