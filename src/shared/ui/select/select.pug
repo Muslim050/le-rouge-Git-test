@@ -1,0 +1,18 @@
+mixin select({name = '', placeholder = '', options = [], required = false, value = ''} = {})
+    - const selectId = name || 'select-' + Math.random().toString(36).substr(2, 9);
+    .form-group.custom-select(class=attributes.class data-required=required ? 'true' : undefined)
+        .custom-select__wrapper
+            input(type="text" name=name id=selectId placeholder=placeholder readonly).input.custom-select__input&attributes(attributes)
+            .custom-select__icon
+                //- chevron-down как в дизайне (тот же, что у переключателя города). Inline-path —
+                //- чтобы стрелка рисовалась и в fetch-модалках (внешний <use> там не отрисовывается).
+                svg(xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none")
+                    path(d="M3 5L8 10L13 5" stroke="currentColor")
+            .custom-select__dropdown
+                each option in options
+                    .custom-select__option(data-value=option.value)
+                        span.custom-select__option-text= option.label
+                        .custom-select__option-icon
+                            svg(xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none")
+                                path(d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929")
+

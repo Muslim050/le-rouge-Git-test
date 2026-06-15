@@ -1,0 +1,15 @@
+extends @/app/templates/template.pug
+block head
+    +head()
+
+block header
+    +header()
+
+block content
+    main.girls-page
+        +girls-detail()
+        +show-gallery()
+
+        +contacts()
+block footer
+    +footer()(class='footer--compact')

@@ -1,0 +1,316 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.header {
+	position: fixed;
+	inset: 0 0 auto 0;
+	z-index: 100;
+	padding: rem(36) rem(48) rem(16);
+	transition: var(--trs-300);
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			180deg,
+			#0b0b0b 0%,
+			rgba(11, 11, 11, 0.48) 62.5%,
+			rgba(11, 11, 11, 0) 100%
+		);
+		opacity: 0;
+		pointer-events: none;
+		transition: var(--trs-300);
+	}
+
+	&.is-scrolled {
+		padding: rem(16) rem(48);
+
+		&::before {
+			opacity: 1;
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			-webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0, 0, 0, 0) 100%);
+			mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0, 0, 0, 0) 100%);
+		}
+
+		.header__logo img {
+			height: rem(44);
+			width: rem(154);
+		}
+	}
+
+	&__container {
+		position: relative;
+		z-index: 1;
+	}
+
+	&__top {
+		display: none;
+	}
+
+	&__main {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+		align-items: center;
+		gap: rem(80); // увеличенный gap между колонками — безопасный зазор от логотипа
+	}
+
+	&__col {
+		display: flex;
+		align-items: center;
+		gap: rem(48);
+
+		&--left {
+			justify-self: start; // содержимое прижато к левому краю своей ячейки
+		}
+
+		&--right {
+			justify-self: end; // содержимое прижато к правому краю
+			justify-content: flex-end;
+		}
+	}
+
+	// Логотип — строго по центру своей ячейки
+	&__logo {
+		justify-self: center;
+	}
+
+	&__menu-btn {
+		flex-shrink: 0;
+	}
+
+	&__lang {
+		display: flex;
+		align-items: center;
+		gap: rem(24);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		&-item {
+			button {
+				@include descr-s;
+				color: var(--beige-color);
+				background: none;
+				border: none;
+				padding: 0;
+				cursor: pointer;
+				transition: var(--trs-300);
+			}
+
+			&.is-active button {
+				color: var(--gold-color);
+			}
+		}
+	}
+
+	&__city {
+		display: inline-flex;
+		align-items: center;
+		gap: rem(10);
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		color: var(--beige-color);
+		@include descr-s;
+		transition: var(--trs-300);
+
+		&-icon {
+			display: inline-flex;
+			width: rem(16);
+			height: rem(16);
+
+			svg {
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+
+	&__logo {
+		display: inline-flex;
+		flex-shrink: 0;
+		transition: var(--trs-300);
+
+		img {
+			display: block;
+			width: rem(210);
+			height: rem(60);
+			transition: var(--trs-300);
+		}
+	}
+
+	&__address {
+		@include descr-s;
+		color: var(--beige-color);
+		text-align: right;
+		max-width: rem(284);
+	}
+
+	&__booking-btn {
+		flex-shrink: 0;
+	}
+
+	// ============================================
+	// 1440 — desktop compact
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		padding: rem(28) rem(48);
+
+		&.is-scrolled {
+			padding: rem(12) rem(48);
+
+			.header__logo img {
+				height: rem(34);
+				width: rem(120);
+			}
+		}
+
+		&__main {
+			gap: rem(36);
+		}
+
+		&__col {
+			gap: rem(36);
+		}
+
+		&__lang {
+			gap: rem(24);
+
+			&-item button {
+				@include descr-xs;
+			}
+		}
+
+		&__city {
+			@include descr-xs;
+		}
+
+		&__logo img {
+			width: rem(168);
+			height: rem(48);
+		}
+
+		&__address {
+			@include descr-xs;
+		}
+	}
+
+	// ============================================
+	// 360 — mobile
+	// ============================================
+	@media (max-width: $tab-sm) {
+		padding: rem(10) rem(16) 0;
+
+		&.is-scrolled {
+			padding: rem(18) rem(16);
+
+			&::before {
+				background: linear-gradient(
+					180deg,
+					#0b0b0b 0%,
+					rgba(11, 11, 11, 0.48) 62.5%,
+					rgba(11, 11, 11, 0) 100%
+				);
+			}
+
+			.header__top {
+				display: none;
+			}
+
+			.header__logo {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				pointer-events: none;
+
+				img {
+					width: rem(88);
+					height: rem(20);
+				}
+			}
+
+			.header__main {
+				justify-content: space-between;
+			}
+		}
+
+		// На мобиле горизонтальные отступы держит только сам .header (rem(16)).
+		// Контейнер обнуляем — иначе двойной padding (16+16) уводил кнопки/город/адрес
+		// от краёв экрана. Теперь меню и бронь прибиты к краям на 16px, как в Figma.
+		&__container {
+			padding-right: 0;
+			padding-left: 0;
+		}
+
+		&__top {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding-bottom: rem(14);
+
+			.header__address {
+				@include descr-xs;
+			}
+
+			// Разделительная линия Figma Line 35 — на всю ширину экрана (full-bleed),
+			// градиент: прозрачный → золото → прозрачный, opacity 0.4. Выходит за padding
+			// контента (rem(-16) с каждой стороны), чтобы дотянуться до краёв экрана.
+			&::after {
+				content: '';
+				position: absolute;
+				left: rem(-16);
+				right: rem(-16);
+				bottom: 0;
+				height: 1px;
+				background: linear-gradient(
+					90deg,
+					rgba(244, 185, 125, 0) 0%,
+					rgba(244, 185, 125, 0.4) 50%,
+					rgba(244, 185, 125, 0) 100%
+				);
+			}
+		}
+
+		&__main {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: rem(16);
+			margin-top: rem(12);
+			position: relative;
+		}
+
+		&__col {
+			gap: 0;
+
+			&--left .header__lang,
+			&--left .header__city--desktop,
+			&--right .header__address--desktop {
+				display: none;
+			}
+		}
+
+		&__city {
+			gap: rem(4); // chevron вплотную за «москва», как в Figma
+		}
+
+		&__logo img {
+			width: rem(88);
+			height: rem(29);
+		}
+
+		&__booking-btn {
+			.btn__text {
+				order: 2;
+			}
+
+			.btn__icon {
+				order: 1;
+			}
+		}
+	}
+}

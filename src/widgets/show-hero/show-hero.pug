@@ -1,0 +1,25 @@
+//- Параметры видео-фона (необязательны), как в +hero():
+//-   videoSrc    — десктопный mp4 (≥769)
+//-   mobVideoSrc — мобильный mp4 (≤768); если не задан — на мобиле возьмётся десктопный
+//- Пусто → только картинка (текущее поведение). Картинка остаётся постером/фолбэком.
+mixin show-hero(videoSrc = '', mobVideoSrc = '')
+    section.show-hero
+        //- Десктоп — широкое фото; мобайл (≤768) — портретный кадр из макета,
+        //- чтобы фигура помещалась целиком и не зумилась/мылилась при object-cover.
+        picture.show-hero__pic
+            source(media='(max-width: 768px)' srcset=PUBLIC + 'assets/img/show-hero/hero-bg-mobile.png')
+            img.show-hero__bg(src=PUBLIC + 'assets/img/show-hero/hero-bg.png' alt='' aria-hidden='true' fetchpriority='high')
+
+        if videoSrc || mobVideoSrc
+            video.show-hero__video(autoplay muted loop playsinline preload='metadata' poster=PUBLIC + 'assets/img/show-hero/hero-bg.png' aria-hidden='true')
+                if mobVideoSrc
+                    source(media='(max-width: 768px)' src=mobVideoSrc type='video/mp4')
+                if videoSrc
+                    source(src=videoSrc type='video/mp4')
+
+        .show-hero__gradient.show-hero__gradient--top(aria-hidden='true')
+        .show-hero__gradient.show-hero__gradient--bottom(aria-hidden='true')
+
+        h1.show-hero__title
+            span.show-hero__title-line Шоу перформанс
+            span.show-hero__title-line Le&nbsp;Rouge

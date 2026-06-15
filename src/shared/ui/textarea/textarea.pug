@@ -1,0 +1,8 @@
+mixin textarea({placeholder = '', value = '', name = '', id = '', label = '', labelClass = '', rows = 4} = {})
+    - const resolvedId = id || name || null;
+    .form-group
+        if label
+            label(for=resolvedId class=labelClass)
+                p !{label}
+        textarea(placeholder=placeholder name=name id=resolvedId rows=rows).input.textarea&attributes(attributes)= value
+

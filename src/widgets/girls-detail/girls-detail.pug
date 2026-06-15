@@ -1,0 +1,173 @@
+mixin girls-detail()
+    //- ============================================================
+    //- ИСТОЧНИК ДАННЫХ — В РАЗМЕТКЕ (для бэкенда / Bitrix).
+    //- Каждая девушка рендерится в DOM, все её поля лежат в data-*
+    //- атрибутах элемента аватарки. JS НИЧЕГО не хранит — только читает
+    //- эти данные из DOM (как сделано в halls-detail / events-detail).
+    //- Бэкенд заменяет цикл `each g in girls` на свой вывод из Bitrix,
+    //- сохраняя те же классы и data-атрибуты — JS продолжит работать.
+    //- ============================================================
+    -
+        const girls = [
+            {
+                name: 'джерси',
+                age: '22 года',
+                params: '90 / 57 / 82',
+                zodiac: 'скорпион',
+                photos: [
+                    PUBLIC + 'assets/img/girls/mercedes.png',
+                    PUBLIC + 'assets/img/girls/angelika.png',
+                    PUBLIC + 'assets/img/girls/viktoriya.png',
+                    PUBLIC + 'assets/img/girls/mercedes.png'
+                ],
+                stats: [
+                    { label: 'Скромность', value: 20 },
+                    { label: 'Обаяние', value: 80 },
+                    { label: 'Темперамент', value: 100 },
+                    { label: 'Напористость', value: 50 }
+                ],
+                bio: 'Уже более 5 лет я работаю профессиональной моделью и развиваюсь в искусстве работы в кадре. Мои снимки уже можно увидеть на обложках популярных глянцевых журналов, а также в рекламных кампаниях.',
+                loves: 'Путешествовать и кино',
+                dislikes: 'Когда туфли натирают'
+            },
+            {
+                name: 'анжелика',
+                age: '24 года',
+                params: '88 / 60 / 90',
+                zodiac: 'весы',
+                photos: [
+                    PUBLIC + 'assets/img/girls/angelika.png',
+                    PUBLIC + 'assets/img/girls/viktoriya.png',
+                    PUBLIC + 'assets/img/girls/mercedes.png'
+                ],
+                stats: [
+                    { label: 'Скромность', value: 40 },
+                    { label: 'Темперамент', value: 85 },
+                    { label: 'Обаяние', value: 95 },
+                    { label: 'Напористость', value: 70 }
+                ],
+                bio: 'Танцую с 5 лет, профессионально с 14. Сцена для меня — это другая жизнь, в которой я перевоплощаюсь и отдаюсь моменту.',
+                loves: 'Хорошее вино и долгие разговоры',
+                dislikes: 'Поверхностность'
+            },
+            {
+                name: 'виктория',
+                age: '23 года',
+                params: '92 / 58 / 88',
+                zodiac: 'лев',
+                photos: [
+                    PUBLIC + 'assets/img/girls/viktoriya.png',
+                    PUBLIC + 'assets/img/girls/mercedes.png',
+                    PUBLIC + 'assets/img/girls/angelika.png',
+                    PUBLIC + 'assets/img/girls/viktoriya.png',
+                    PUBLIC + 'assets/img/girls/mercedes.png'
+                ],
+                stats: [
+                    { label: 'Скромность', value: 30 },
+                    { label: 'Темперамент', value: 90 },
+                    { label: 'Обаяние', value: 100 },
+                    { label: 'Напористость', value: 60 }
+                ],
+                bio: 'Внимание — моя стихия. Я обожаю быть в центре, но знаю когда стоит уйти в тень. Это и есть искусство.',
+                loves: 'Красное вино и свет софитов',
+                dislikes: 'Дешёвые духи'
+            }
+        ];
+        //- Бэкенд выводит свой список девушек из Bitrix — длина любая.
+        const first = girls[0];
+
+    section.girls-detail
+        // Заголовок страницы — только на мобиле
+        h1.girls-detail__page-title Девушки
+
+        // Верхний слайдер аватарок (с именами) — только на мобиле
+        ul.girls-detail__mobile-avatars(role='list')
+            each g, i in girls
+                li.girls-detail__mobile-avatar-item(class=i === 0 ? 'is-active' : null)
+                    button.girls-detail__mobile-avatar.btn-reset(type='button' aria-label=g.name)
+                        img(src=g.photos[0] alt='' loading='lazy')
+                    span.girls-detail__mobile-avatar-name= g.name
+
+        // Левая часть — фото девушки. <img> сюда НЕ пишем руками:
+        // JS сам строит слайдер из data-photos активной девушки (см. аватарки ниже) —
+        // один источник фото, без дублей. Видна только .is-active (CSS прячет остальные).
+        .girls-detail__photo
+            .girls-detail__photo-gradient(aria-hidden='true')
+
+            nav.girls-detail__photo-nav(aria-label='Переключение фото')
+                button.girls-detail__photo-btn.girls-detail__photo-btn--prev.btn-reset(type='button' aria-label='Предыдущее фото')
+                    +svg('arrow-l')
+                .girls-detail__photo-counter
+                    span.girls-detail__photo-num.is-active 01
+                    span.girls-detail__photo-sep
+                    span.girls-detail__photo-num= String(first.photos.length).padStart(2, '0')
+                button.girls-detail__photo-btn.girls-detail__photo-btn--next.btn-reset(type='button' aria-label='Следующее фото')
+                    +svg('arrow-l')
+
+        // Правая часть — инфо-карта на тёмном фоне с glow
+        .girls-detail__info
+            .girls-detail__lights(aria-hidden='true')
+
+            article.girls-detail__card
+                header.girls-detail__head
+                    h1.girls-detail__name
+                        = first.name + ' '
+                        span.girls-detail__zodiac-icon(aria-hidden='true')
+                            +svg('zodiac')
+
+                    .girls-detail__meta
+                        span.girls-detail__meta-item= first.age
+                        span.girls-detail__meta-divider
+                        span.girls-detail__meta-item= first.params
+                        span.girls-detail__meta-divider
+                        span.girls-detail__meta-item= first.zodiac
+
+                .girls-detail__stats
+                    each s in first.stats
+                        .girls-detail__stat
+                            .girls-detail__stat-head
+                                span.girls-detail__stat-label= s.label
+                                span.girls-detail__stat-value #{s.value}%
+                            .girls-detail__stat-bar
+                                span.girls-detail__stat-fill(style=`width: ${s.value}%`)
+
+                .girls-detail__bio
+                    p.girls-detail__bio-text= first.bio
+
+                    hr.girls-detail__bio-divider
+
+                    .girls-detail__pref
+                        span.girls-detail__pref-label любит
+                        p.girls-detail__pref-text= first.loves
+
+                    hr.girls-detail__bio-divider
+
+                    .girls-detail__pref
+                        span.girls-detail__pref-label не&nbsp;любит
+                        p.girls-detail__pref-text= first.dislikes
+
+            // Слайдер аватарок — КАЖДАЯ несёт все данные девушки в data-* (источник для JS).
+            // При выборе девушки JS берёт её фото из data-photos и пересобирает фото-блок слева.
+            nav.girls-detail__avatars(aria-label='Выбор девушки')
+                button.girls-detail__avatar-btn.girls-detail__avatar-btn--prev.btn-reset(type='button' aria-label='Назад')
+                    +svg('arrow-l')
+
+                ul.girls-detail__avatar-list(role='list')
+                    each g, i in girls
+                        li.girls-detail__avatar-item(
+                            class=i === 0 ? 'is-active' : null
+                            data-name=g.name
+                            data-age=g.age
+                            data-params=g.params
+                            data-zodiac=g.zodiac
+                            data-bio=g.bio
+                            data-loves=g.loves
+                            data-dislikes=g.dislikes
+                            data-photos=JSON.stringify(g.photos)
+                            data-stats=JSON.stringify(g.stats)
+                        )
+                            button.girls-detail__avatar.btn-reset(type='button' aria-label=g.name)
+                                img(src=g.photos[0] alt='' loading='lazy')
+
+                button.girls-detail__avatar-btn.girls-detail__avatar-btn--next.btn-reset(type='button' aria-label='Вперёд')
+                    +svg('arrow-l')

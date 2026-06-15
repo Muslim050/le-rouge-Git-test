@@ -1,0 +1,129 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.vacancy-about {
+	margin-bottom: rem(128);
+	@media (max-width: $desktop-xxl) {
+		margin-bottom: rem(96);
+	}
+	@media (max-width: $tab-sm) {
+		margin-bottom: 0;
+		overflow: hidden;
+	}
+	.vacancy-about__inner {
+		.vacancy-about__content {
+			display: grid;
+			grid-template-columns: 0.81fr 1fr;
+			gap: rem(100);
+			@media (max-width: $desktop-xxl) {
+				grid-template-columns: repeat(2, 1fr);
+				gap: rem(25);
+			}
+			@media (max-width: $tab-sm) {
+				grid-template-columns: 1fr;
+				gap: 0;
+			}
+			.vacancy-about__text {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: rem(64);
+				@media (max-width: $desktop-xxl) {
+					gap: rem(28);
+				}
+				@media (max-width: $tab-sm) {
+					position: relative;
+					z-index: 3;
+				}
+				.vacancy-about__title {
+					text-align: center;
+					@include h2;
+					@media (max-width: $tab-sm) {
+						@include h4;
+					}
+				}
+			}
+			.vacancy-about__image {
+				position: relative;
+				padding-bottom: 75%;
+				@media (max-width: $tab-sm) {
+					margin-top: rem(-148);
+					padding-bottom: 0;
+					height: rem(640);
+					margin-left: rem(-16);
+					margin-right: rem(-16);
+					&:before {
+						content: '';
+						top: 0;
+						left: 0;
+						right: 0;
+						height: rem(148);
+						background: linear-gradient(180deg, #0b0b0b 0%, rgba(20, 0, 0, 0) 100%);
+						position: absolute;
+						z-index: 2;
+					}
+					&:after {
+						content: '';
+						bottom: 0;
+						left: 0;
+						right: 0;
+						height: rem(153);
+						background: linear-gradient(0deg, #0b0b0b 0%, rgba(20, 0, 0, 0) 100%);
+						position: absolute;
+						z-index: 2;
+					}
+				}
+				img {
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					object-fit: contain;
+					@media (max-width: $tab-sm) {
+						object-fit: cover;
+						object-position: top;
+					}
+				}
+				.vacancy-about__lights {
+					display: none;
+					@media (max-width: $tab-sm) {
+						display: block;
+					}
+					.light {
+						position: absolute;
+						border-radius: 50%;
+
+						&:nth-child(1) {
+							width: rem(150);
+							height: rem(150);
+							background: linear-gradient(
+								337.01deg,
+								rgba(211, 137, 91, 0) 8.4%,
+								#ba6a6c 34.59%,
+								#fcd883 60.78%
+							);
+							filter: blur(100px);
+							top: 0;
+							bottom: 0;
+							margin: auto;
+							left: rem(-80);
+						}
+						&:nth-child(2) {
+							width: rem(250);
+							height: rem(250);
+							background: linear-gradient(
+								238.44deg,
+								rgba(11, 11, 11, 0.6) 1.42%,
+								rgba(210, 137, 91, 0.6) 19.65%,
+								rgba(166, 91, 68, 0.6) 37.88%
+							);
+							filter: blur(80px);
+							top: 0;
+							bottom: 0;
+							margin: auto;
+							right: rem(-162);
+						}
+					}
+				}
+			}
+		}
+	}
+}

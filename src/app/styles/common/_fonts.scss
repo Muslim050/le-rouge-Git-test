@@ -1,0 +1,81 @@
+@font-face {
+	font-family: 'TT Ricordi Allegria Trl';
+	src:
+		local('TT_Ricordi_Allegria_Trial_Light'),
+		url('@/shared/fonts/TT_Ricordi_Allegria_Trial_Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'TT Ricordi Allegria Trl';
+	src:
+		local('TT_Ricordi_Allegria_Trial_Light'),
+		url('@/shared/fonts/TT_Ricordi_Allegria_Trial_Light.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'VelaSans';
+	src:
+		local('VelaSans-ExtraBold'),
+		url('@/shared/fonts/VelaSans-ExtraBold.woff2') format('woff2');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'VelaSans';
+	src:
+		local('VelaSans-Bold'),
+		url('@/shared/fonts/VelaSans-Bold.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'VelaSans';
+	src:
+		local('VelaSans-SemiBold'),
+		url('@/shared/fonts/VelaSans-SemiBold.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'VelaSans';
+	src:
+		local('VelaSans-Medium'),
+		url('@/shared/fonts/VelaSans-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'VelaSans';
+	src:
+		local('VelaSans-Regular'),
+		url('@/shared/fonts/VelaSans-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'VelaSans';
+	src:
+		local('VelaSans-Light'),
+		url('@/shared/fonts/VelaSans-Light.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'VelaSans';
+	src:
+		local('VelaSans-ExtraLight'),
+		url('@/shared/fonts/VelaSans-ExtraLight.woff2') format('woff2');
+	font-weight: 200;
+	font-style: normal;
+	font-display: swap;
+}

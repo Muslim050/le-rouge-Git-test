@@ -1,0 +1,48 @@
+mixin girl-card(data = {})
+    -
+        const {
+            name = '',
+            photo = '',
+            age = '',
+            params = '',
+            zodiac = '',
+            zodiacIcon = '',
+            stats = []
+        } = data;
+
+    article.girl-card
+        .girl-card__photo
+            if photo
+                img(src=photo alt=name loading='lazy')
+            else
+                .girl-card__photo-placeholder(aria-hidden='true')
+
+        .girl-card__info
+            .girl-card__name-row
+                h3.girl-card__name= name
+                if zodiacIcon
+                    span.girl-card__zodiac-icon(aria-hidden='true')
+                        +svg(zodiacIcon)
+
+            if age || params || zodiac
+                .girl-card__meta
+                    if age
+                        span.girl-card__meta-item= age
+                    if params
+                        span.girl-card__meta-divider
+                        span.girl-card__meta-item= params
+                    if zodiac
+                        span.girl-card__meta-divider
+                        span.girl-card__meta-item= zodiac
+
+            if stats.length
+                .girl-card__stats
+                    each row in stats
+                        .girl-card__stats-row
+                            each stat in row
+                                .girl-card__stat
+                                    .girl-card__stat-head
+                                        span.girl-card__stat-label= stat.label
+                                        span.girl-card__stat-value #{stat.value}%
+                                    .girl-card__stat-bar
+                                        span.girl-card__stat-fill(style=`width: ${stat.value}%`)

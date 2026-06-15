@@ -1,0 +1,13 @@
+mixin switch({name = '', id = '', checked = false, label = '', labelPosition = 'right'} = {})
+    - const resolvedId = id || name || ('switch-' + Math.random().toString(36).slice(2, 9));
+
+    label.switch(for=resolvedId class=`switch--label-${labelPosition}`)&attributes(attributes)
+        if label && labelPosition === 'left'
+            span.switch__label !{label}
+
+        input.switch__input(type='checkbox' id=resolvedId name=name checked=checked)
+        span.switch__track
+            span.switch__thumb
+
+        if label && labelPosition === 'right'
+            span.switch__label !{label}

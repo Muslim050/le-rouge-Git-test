@@ -1,0 +1,45 @@
+//- Шеврон выбора города как в Figma: градиентный stroke (прозрачный сверху → кремовый снизу).
+//- Inline-svg, а не +svg('chevron-down'): градиент во внешнем спрайте через <use> рендерится ненадёжно.
+mixin headerChevron(id)
+    span.header__city-icon
+        svg(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
+            path(d='M3 4L8 9L13 4' stroke=`url(#hdrChev-${id})`)
+            defs
+                linearGradient(id=`hdrChev-${id}` x1='8' y1='4' x2='8' y2='9' gradientUnits='userSpaceOnUse')
+                    stop(stop-color='#F6F2EC' stop-opacity='0')
+                    stop(offset='1' stop-color='#F6F2EC')
+
+mixin header()
+    header.header
+        .header__container.container
+            .header__top
+                button.header__city(type='button' aria-haspopup='listbox' aria-expanded='false')
+                    span.header__city-name москва
+                    +headerChevron('m')
+                span.header__address Б. Путинковский пер., 5
+
+            .header__main
+                .header__col.header__col--left
+                    +button({variant: 'ghost'}).header__menu-btn(aria-expanded='false' aria-controls='site-menu')
+                        span.btn__icon
+                            +svg('menu')
+                        span.btn__text меню
+
+                    ul.header__lang(role='list')
+                        li.header__lang-item.is-active
+                            button(type='button' data-lang='ru') ru
+                        li.header__lang-item
+                            button(type='button' data-lang='en') en
+                        li.header__lang-item
+                            button(type='button' data-lang='cn') cn
+
+                    button.header__city.header__city--desktop(type='button' aria-haspopup='listbox' aria-expanded='false')
+                        span.header__city-name москва
+                        +headerChevron('d')
+
+                a.header__logo(href=ROUTES.home aria-label='Le Rouge — главная')
+                    img(src=PUBLIC + 'assets/img/logo.svg' alt='Le Rouge' width='210' height='60')
+
+                .header__col.header__col--right
+                    span.header__address.header__address--desktop Б. Путинковский пер., 5
+                    +button({variant: 'gold', text: 'бронь', icon: 'phone'})(data-modal-load='modals/booking-table.html').header__booking-btn

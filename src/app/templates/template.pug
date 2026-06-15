@@ -1,0 +1,15 @@
+doctype html
+html(lang='ru')
+  include ./mixins.pug
+  block head
+  body
+    block header
+    block content-inner
+    block content
+    block footer
+    +main-menu()
+    +city-switcher()
+    +cookies-notice()
+    .modals
+      block modals
+    script(src="https://api-maps.yandex.ru/2.1/?apikey=a836c5ff-d201-4b8d-a539-25b87beb6450&lang=ru_RU" defer)

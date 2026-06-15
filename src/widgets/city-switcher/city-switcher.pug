@@ -1,0 +1,26 @@
+mixin city-switcher()
+    aside.city-switcher(role='dialog' aria-modal='true' aria-hidden='true' aria-label='Выбор города')
+        .city-switcher__backdrop(data-city-close)
+
+        .city-switcher__panel
+            button.city-switcher__close.btn-reset(type='button' aria-label='Закрыть' data-city-close)
+                +svg('close')
+
+            ul.city-switcher__list(role='list')
+                li.city-switcher__item.is-active
+                    a.city-switcher__card(href=ROUTES.home aria-current='page')
+                        img.city-switcher__logo(src=PUBLIC + 'assets/img/city/le-rouge.svg' alt='Le Rouge' width='128' height='40')
+                        span.city-switcher__city москва
+                        span.city-switcher__address Б. Путинковский пер., 5
+
+                li.city-switcher__item
+                    a.city-switcher__card(href='https://show-girls.ru/ekaterinburg' rel='noopener')
+                        img.city-switcher__logo(src=PUBLIC + 'assets/img/city/show-girls.svg' alt='Show Girls' width='128' height='56' loading='lazy')
+                        span.city-switcher__city екатеринбург
+                        span.city-switcher__address ул. Малышева, 7а
+
+                li.city-switcher__item
+                    a.city-switcher__card(href='https://show-girls.ru/chelyabinsk' rel='noopener')
+                        img.city-switcher__logo(src=PUBLIC + 'assets/img/city/show-girls-cabaret.svg' alt='Show Girls Cabaret' width='128' height='56' loading='lazy')
+                        span.city-switcher__city челябинск
+                        span.city-switcher__address проспект Ленина, 89

@@ -1,0 +1,193 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.girl-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: rem(20);
+	width: 100%;
+
+	&__photo {
+		position: relative;
+		width: 100%;
+		height: clamp(#{rem(400)}, 55vh, #{rem(600)});
+		overflow: hidden;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			object-position: center bottom;
+			display: block;
+		}
+
+		&-placeholder {
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(
+				135deg,
+				rgba(244, 185, 125, 0.08),
+				rgba(11, 11, 11, 0.6)
+			);
+		}
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(16);
+		width: min(rem(895), 90vw);
+		padding: 0 rem(16);
+	}
+
+	&__name-row {
+		position: relative;
+		display: inline-flex;
+		align-items: flex-start;
+		gap: rem(10);
+	}
+
+	&__name {
+		@include h2;
+		font-size: clamp(#{rem(36)}, 4vw, #{rem(64)});
+		color: var(--beige-color);
+		text-align: center;
+		margin: 0;
+		line-height: 1.06;
+	}
+
+	&__zodiac-icon {
+		display: inline-flex;
+		width: rem(20);
+		height: rem(20);
+		margin-top: rem(6);
+		color: var(--beige-color);
+
+		svg {
+			width: 100%;
+			height: 100%;
+
+			path {
+				fill: currentColor;
+			}
+		}
+	}
+
+	&__meta {
+		display: inline-flex;
+		align-items: center;
+		gap: rem(10);
+		flex-wrap: wrap;
+		justify-content: center;
+
+		&-item {
+			@include descr-xs;
+			color: var(--beige-color);
+		}
+
+		&-divider {
+			width: rem(20);
+			height: 1px;
+			background: var(--beige-color);
+			opacity: 0.4;
+		}
+	}
+
+	&__stats {
+		display: flex;
+		flex-direction: column;
+		gap: rem(16);
+		width: 100%;
+		max-width: rem(1140);
+		margin-top: rem(4);
+	}
+
+	&__stats-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: rem(64);
+	}
+
+	&__stat {
+		display: flex;
+		flex-direction: column;
+		gap: rem(6);
+	}
+
+	&__stat-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.girl-card__stat-label {
+			@include descr-xs;
+			color: var(--gold-color);
+		}
+
+		.girl-card__stat-value {
+			@include descr-xs;
+			color: var(--beige-color);
+		}
+	}
+
+	&__stat-bar {
+		height: 1px;
+		background: rgba(255, 245, 229, 0.2);
+		position: relative;
+		overflow: hidden;
+	}
+
+	&__stat-fill {
+		display: block;
+		height: 100%;
+		background: linear-gradient(90deg, var(--gold-color) 0%, rgba(241, 185, 101, 0.4) 100%);
+	}
+
+	// ============================================
+	// 1440
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		gap: rem(16);
+
+		&__photo {
+			height: clamp(#{rem(360)}, 52vh, #{rem(520)});
+		}
+
+		&__stats {
+			gap: rem(12);
+		}
+
+		&__stats-row {
+			gap: rem(48);
+		}
+	}
+
+	// ============================================
+	// 360
+	// ============================================
+	@media (max-width: $tab-sm) {
+		gap: rem(20);
+
+		&__photo {
+			height: rem(440);
+		}
+
+		&__info {
+			gap: rem(16);
+			padding: 0;
+		}
+
+		&__name {
+			font-size: rem(40);
+		}
+
+		&__stats-row {
+			grid-template-columns: 1fr;
+			gap: rem(12);
+		}
+	}
+}

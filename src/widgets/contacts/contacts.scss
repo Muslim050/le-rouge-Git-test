@@ -1,0 +1,539 @@
+@use '@/app/styles/config/index.scss' as *;
+
+// ============================================
+// Страница «Контакты» (Figma 764-2971):
+// full-bleed карта + плавающая карточка контактов слева (1920/1440),
+// на мобиле — карточка сверху, карта под ней (360)
+// ============================================
+.contacts {
+	position: relative;
+	min-height: rem(988);
+	background: var(--black-color);
+	overflow: hidden;
+
+	&__map {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+
+		&-bg {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
+
+		// Контейнер интерактивной карты — поверх фолбэк-картинки
+		&-canvas {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		// верхний градиент затемнения (под шапку), Figma — 228px. Поверх карты.
+		&-gradient {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: rem(228);
+			background: linear-gradient(180deg, #0b0b0b 0%, rgba(11, 11, 11, 0) 100%);
+			z-index: 1;
+			pointer-events: none;
+		}
+
+		// Тёмная стилизация тайлов под чёрный фон секции
+		[class*='ground-pane'] {
+			filter: grayscale(0.6) invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+		}
+	}
+
+	// Когда карта отрисовалась — прячем статичный фолбэк
+	&__map.is-map-ready &__map-bg {
+		display: none;
+	}
+
+	// ---- Карточка ----
+	&__card {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(48);
+		width: rem(746);
+		max-width: calc(100% - #{rem(96)});
+		margin: rem(180) 0 rem(104) rem(48);
+		padding: rem(64) rem(48);
+		border-radius: rem(16);
+		border: 1px solid transparent;
+		background: linear-gradient(180deg, rgba(11, 11, 11, 0.9) 0%, rgba(11, 11, 11, 0.5) 100%);
+		backdrop-filter: blur(8px);
+		// Сглаживание шрифтов — чтобы текст был тонким/изящным как в Figma (а не плотным)
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
+		// Золотая обводка как в Figma — видна по всему периметру, чуть ярче сверху
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			padding: 1px;
+			background: linear-gradient(
+				180deg,
+				rgba(244, 185, 125, 0.45) 0%,
+				rgba(244, 185, 125, 0.26) 55%,
+				rgba(244, 185, 125, 0.2) 100%
+			);
+			-webkit-mask:
+				linear-gradient(#fff 0 0) content-box,
+				linear-gradient(#fff 0 0);
+			-webkit-mask-composite: xor;
+			mask-composite: exclude;
+			pointer-events: none;
+		}
+	}
+
+	// бейдж FC/DC | 18+
+	&__badge {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: rem(24);
+		height: rem(48);
+		padding: rem(6) rem(24);
+		border-radius: rem(99);
+		border: 1px solid rgba(241, 185, 101, 0.12);
+
+		&-text {
+			@include h6;
+			font-size: rem(20);
+			line-height: 1.16;
+			letter-spacing: 0;
+			color: var(--gold-color);
+		}
+
+		&-divider {
+			width: 1px;
+			height: rem(20);
+			// разделитель FC/DC | 18+ с затуханием сверху/снизу
+			background: linear-gradient(
+				180deg,
+				rgba(244, 185, 125, 0) 0%,
+				rgba(244, 185, 125, 0.5) 50%,
+				rgba(244, 185, 125, 0) 100%
+			);
+		}
+	}
+
+	&__main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(12);
+		width: 100%;
+		text-align: center;
+	}
+
+	&__phone {
+		// titles/1920/h2 — точно по Figma (через rem — масштаб без брейкпоинт-ступеней)
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(64);
+		font-weight: 400;
+		line-height: 1.06;
+		letter-spacing: rem(-2);
+		text-transform: uppercase;
+		color: var(--gold-color);
+		text-decoration: none;
+		display: block;
+		width: 100%;
+		transition: var(--trs-300);
+
+		@media (hover: hover) {
+			&:hover {
+				opacity: 0.85;
+			}
+		}
+	}
+
+	&__address {
+		display: flex;
+		flex-direction: column;
+		gap: rem(6);
+		width: 100%;
+
+		&-line {
+			// txt/body/XL — Vela Light 24px
+			font-family: 'VelaSans', sans-serif;
+			font-size: rem(24);
+			font-weight: 300;
+			line-height: 1.64;
+			color: var(--beige-color);
+			margin: 0;
+		}
+
+		&-metro {
+			// txt/body/S — Vela Regular 14px, золотой
+			font-family: 'VelaSans', sans-serif;
+			font-size: rem(14);
+			font-weight: 400;
+			line-height: 1.64;
+			color: var(--gold-color);
+			margin: 0;
+		}
+	}
+
+	&__hours {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+
+		&-item {
+			font-family: 'VelaSans', sans-serif;
+			font-size: rem(14);
+			font-weight: 400;
+			line-height: 1.64;
+			color: var(--beige-color);
+			white-space: nowrap;
+		}
+
+		&-divider {
+			flex-shrink: 0;
+			width: 1px;
+			height: rem(28);
+			// вертикальный разделитель с затуханием сверху/снизу, как в Figma
+			background: linear-gradient(
+				180deg,
+				rgba(244, 185, 125, 0) 0%,
+				rgba(244, 185, 125, 0.35) 50%,
+				rgba(244, 185, 125, 0) 100%
+			);
+		}
+	}
+
+	&__prices {
+		display: flex;
+		flex-direction: column;
+		gap: rem(24);
+		width: 100%;
+	}
+
+	&__divider {
+		width: 100%;
+		height: 1px;
+		margin: 0;
+		border: 0;
+		// Разделитель как в Figma — градиент с затуханием по краям, тёплый золотой
+		background: linear-gradient(
+			90deg,
+			rgba(244, 185, 125, 0) 0%,
+			rgba(244, 185, 125, 0.35) 50%,
+			rgba(244, 185, 125, 0) 100%
+		);
+	}
+
+	&__price {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(6);
+		width: 100%;
+		text-align: center;
+
+		&-amount {
+			// titles/1920/h5 — точно по Figma
+			font-family: 'TT Ricordi Allegria Trl', sans-serif;
+			font-size: rem(36);
+			font-weight: 400;
+			line-height: 1.06;
+			letter-spacing: rem(-1);
+			text-transform: uppercase;
+			color: var(--gold-color);
+			margin: 0;
+		}
+
+		&-label {
+			font-family: 'VelaSans', sans-serif;
+			font-size: rem(14);
+			font-weight: 400;
+			line-height: 1.64;
+			color: var(--beige-color);
+			margin: 0;
+		}
+	}
+
+	// Элементы только мобильного макета «360-подвал» — на десктопе скрыты
+	&__heading,
+	&__photo,
+	&__fcdc {
+		display: none;
+	}
+
+	// короткие подписи расписания (ПН-ЧТ) — только мобайл; на десктопе — полные
+	&__hours-label--short {
+		display: none;
+	}
+
+	// нижняя линия блока цен — только мобайл (макет 360-подвал)
+	&__divider--mobile {
+		display: none;
+	}
+
+	// ============================================
+	// 1440
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		min-height: rem(760);
+
+		&__card {
+			margin: rem(120) 0 rem(80) rem(48);
+		}
+	}
+
+	// ============================================
+	// 360 — макет «360-подвал»: pill → телефон → адрес → цены →
+	// фото девушки → расписание+FC/DC поверх низа фото → карта-квадрат
+	// (мобильная вёрстка повторяет верх футера 665-890)
+	// ============================================
+	@media (max-width: $tab-sm) {
+		min-height: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(28);
+		padding: rem(40) rem(16) rem(40);
+		overflow: visible;
+		background: var(--black-color);
+
+		// карточка разворачивается в плоский поток секции, чтобы переставить
+		// фото/расписание/карту порядком (order), как в макете
+		&__card {
+			display: contents;
+
+			// при display:contents Chrome всё равно рисует ::before (золотую
+			// рамку карточки) — убираем, иначе на секции появляется лишний бордер
+			&::before {
+				content: none;
+			}
+		}
+
+		// pill «контакты»
+		&__heading {
+			order: 1;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			@include descr-sd;
+			color: var(--gold-color);
+			padding: rem(8) rem(16) rem(6);
+			border: 1px solid rgba(244, 185, 125, 0.12);
+			border-radius: rem(99);
+		}
+
+		// бейдж FC/DC|18+ — десктопный, на мобиле скрыт
+		&__badge {
+			display: none;
+		}
+
+		// по макету: телефон+метро сгруппированы (gap 8), адрес ниже (gap 16)
+		&__main {
+			order: 2;
+			gap: rem(8);
+		}
+
+		&__phone {
+			@include h4; // 28px gold
+		}
+
+		&__address {
+			order: 3;
+			gap: rem(16);
+
+			// порядок по макету: метро (золото) над адресом
+			&-line {
+				@include h4;
+				color: var(--beige-color);
+				order: 2;
+			}
+
+			&-metro {
+				@include descr-xs;
+				color: var(--gold-color);
+				order: 1;
+			}
+		}
+
+		&__prices {
+			order: 4;
+			gap: rem(16);
+		}
+
+		// нижняя линия блока цен — видна только на мобиле
+		&__divider--mobile {
+			display: block;
+		}
+
+		&__price-amount {
+			@include h4; // 28px gold
+		}
+
+		&__price-label {
+			@include descr-xs;
+		}
+
+		// «только в сопровождении мужчин» — отдельной строкой золотом
+		&__price-label-note {
+			display: block;
+			margin-top: rem(6);
+			color: var(--gold-color);
+		}
+
+		// фото девушки (full-bleed) + свечения
+		&__photo {
+			order: 5;
+			display: block;
+			position: relative;
+			width: rem(360);
+			max-width: 100vw;
+			margin: 0 auto;
+			height: rem(640);
+			overflow: hidden;
+
+			&-img {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			// низ фото затемняем в чёрный — на него заходят расписание и FC/DC
+			&::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					180deg,
+					var(--black-color) 0%,
+					rgba(11, 11, 11, 0) 28%,
+					rgba(11, 11, 11, 0) 40%,
+					rgba(11, 11, 11, 0.92) 60%,
+					var(--black-color) 100%
+				);
+				z-index: 1;
+			}
+		}
+
+		&__glow {
+			position: absolute;
+			pointer-events: none;
+			z-index: 0;
+			border-radius: 50%;
+			filter: blur(40px);
+			opacity: 0.6;
+
+			&--tl {
+				width: rem(170);
+				height: rem(166);
+				bottom: rem(160);
+				left: rem(-110);
+				background: radial-gradient(circle, rgba(241, 185, 101, 0.5) 0%, transparent 70%);
+			}
+
+			&--tr {
+				width: rem(207);
+				height: rem(242);
+				top: rem(80);
+				right: rem(-80);
+				background: radial-gradient(circle, rgba(241, 185, 101, 0.5) 0%, transparent 70%);
+			}
+
+			&--br {
+				width: rem(125);
+				height: rem(116);
+				top: rem(200);
+				right: rem(-50);
+				background: radial-gradient(circle, rgba(241, 185, 101, 0.4) 0%, transparent 70%);
+			}
+		}
+
+		// расписание заходит на затемнённый низ фото (как в макете)
+		&__hours {
+			order: 6;
+			margin-top: rem(-240);
+			position: relative;
+			z-index: 2;
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: space-between;
+			width: 100%;
+
+			&-label:not(.contacts__hours-label--short) {
+				display: none;
+			}
+
+			&-label--short {
+				display: inline;
+				@include descr-xs;
+				color: var(--beige-color);
+				opacity: 0.6;
+			}
+
+			&-item {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				gap: rem(8);
+				@include descr-s;
+				color: var(--beige-color);
+				white-space: nowrap;
+			}
+
+			&-item:last-child {
+				align-items: flex-end;
+			}
+
+			&-divider {
+				display: none;
+			}
+		}
+
+		// FC/DC ⋮ 18+ — крупной строкой между расписанием и картой
+		// (-12 к section-gap 28 → 16, как в группе расписание/FC-DC/карта макета)
+		&__fcdc {
+			order: 7;
+			margin-top: rem(-12);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+			position: relative;
+			z-index: 2;
+
+			&-text {
+				@include h1; // 40px на <768
+				color: var(--beige-color);
+			}
+		}
+
+		// карта — квадрат снизу
+		&__map {
+			order: 8;
+			position: relative;
+			inset: auto;
+			width: rem(328);
+			max-width: 100%;
+			margin: rem(-12) auto 0; // gap до FC/DC = 16 (как в макете)
+			height: rem(328);
+			background: #6e6e6e;
+			overflow: hidden;
+
+			&-gradient {
+				display: none;
+			}
+		}
+	}
+}

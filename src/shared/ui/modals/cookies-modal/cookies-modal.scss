@@ -1,0 +1,116 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.cookies-notice {
+	position: fixed;
+	right: rem(20);
+	bottom: rem(20);
+	z-index: 150;
+	width: rem(340);
+	max-width: calc(100vw - #{rem(32)});
+	padding: rem(36) rem(28);
+	display: flex;
+	flex-direction: column;
+	gap: rem(20);
+	border-radius: rem(24);
+	border: 1px solid rgba(244, 185, 125, 0.1);
+	background: linear-gradient(180deg, rgba(11, 11, 11, 0.9) 0%, rgba(11, 11, 11, 0.5) 100%);
+	backdrop-filter: blur(8px);
+	opacity: 0;
+	transform: translateY(rem(12));
+	pointer-events: none;
+	transition: opacity 0.35s ease, transform 0.35s ease;
+
+	&[hidden] {
+		display: none;
+	}
+
+	&.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+
+	&__close {
+		position: absolute;
+		top: rem(9);
+		right: rem(9);
+		width: rem(32);
+		height: rem(32);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		border: 1px solid rgba(255, 245, 229, 0.6);
+		background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.5) 100%);
+		cursor: pointer;
+		color: var(--beige-color);
+		padding: 0;
+		transition: var(--trs-300);
+
+		svg {
+			width: rem(8);
+			height: rem(8);
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				color: var(--gold-color);
+				border-color: rgba(244, 185, 125, 0.6);
+			}
+		}
+	}
+
+	&__text {
+		@include descr-s;
+		color: var(--beige-color);
+		text-align: center;
+		margin: 0;
+		line-height: 1.28;
+	}
+
+	&__link {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: rem(2);
+		transition: var(--trs-300);
+
+		@media (hover: hover) {
+			&:hover {
+				color: var(--gold-color);
+			}
+		}
+	}
+
+	&__accept {
+		@include descr-md;
+		color: var(--beige-color);
+		height: rem(48);
+		padding: rem(8) rem(16) rem(6);
+		border-radius: rem(99);
+		border: 1px solid rgba(101, 54, 10, 0.8);
+		background: linear-gradient(
+			192deg,
+			rgba(242, 182, 79, 0.9) 2%,
+			rgba(221, 148, 71, 0.6) 33%,
+			rgba(121, 64, 34, 0.2) 93%
+		);
+		backdrop-filter: blur(2px);
+		cursor: pointer;
+		transition: var(--trs-300);
+
+		@media (hover: hover) {
+			&:hover {
+				transform: translateY(-1px);
+			}
+		}
+	}
+
+	@media (max-width: $tab-sm) {
+		left: rem(10);
+		right: rem(10);
+		bottom: rem(10);
+		width: auto;
+		max-width: none;
+		padding: rem(36) rem(28);
+	}
+}

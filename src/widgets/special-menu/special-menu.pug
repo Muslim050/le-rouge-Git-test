@@ -1,0 +1,32 @@
+mixin special-menu()
+    section.special-menu
+        .special-menu__bg(aria-hidden='true')
+            img.special-menu__bg-img(src=PUBLIC + 'assets/img/special-menu/girl-bg.png' alt='' loading='lazy')
+
+        .special-menu__container
+            h2.special-menu__title Special menu
+
+            //- Картинка кружка для каждого слова — в data-img (бэк подставляет свою на каждое слово)
+            .special-menu__cloud
+                button.special-menu__hint.special-menu__hint--1.btn-reset(type='button' data-hint='1' data-img=PUBLIC + 'assets/img/special-menu/bubble.png') (Без цензуры)
+                button.special-menu__hint.special-menu__hint--2.btn-reset(type='button' data-hint='2' data-img=PUBLIC + 'assets/img/special-menu/bubble.png') (наслаждение)
+                button.special-menu__hint.special-menu__hint--3.btn-reset(type='button' data-hint='3' data-img=PUBLIC + 'assets/img/special-menu/bubble.png') (расслабление)
+                button.special-menu__hint.special-menu__hint--4.btn-reset(type='button' data-hint='4' data-img=PUBLIC + 'assets/img/special-menu/bubble.png') (Мечты)
+                button.special-menu__hint.special-menu__hint--5.btn-reset(type='button' data-hint='5' data-img=PUBLIC + 'assets/img/special-menu/bubble.png') (Желания)
+                button.special-menu__hint.special-menu__hint--6.btn-reset(type='button' data-hint='6' data-img=PUBLIC + 'assets/img/special-menu/bubble.png') (удовольствие)
+
+                .special-menu__bubble.is-hidden(aria-hidden='true')
+                    img.special-menu__bubble-img(src=PUBLIC + 'assets/img/special-menu/bubble.png' alt='' loading='lazy')
+                    button.special-menu__bubble-close.btn-reset(type='button' aria-label='Скрыть')
+
+            .special-menu__copy
+                p.special-menu__heading
+                    | Меню от&nbsp;девушек клуба,
+                    br
+                    | с&nbsp;которым ваши тайные желания
+                    br
+                    | станут явью
+                p.special-menu__lead
+                    | Полное погружение в&nbsp;атмосферу наслаждения,
+                    br
+                    | перед которым невозможно устоять!

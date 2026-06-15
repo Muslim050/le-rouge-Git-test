@@ -1,0 +1,185 @@
+//- Стрелка навигации как в Figma (709-11659): ornate-«перо», золотой градиент
+//- #E0B471 → #FFEDBF (остриё снизу). Inline (а не arrow-l/currentColor): нужен
+//- градиентный stroke. Поворот на лево/право — через CSS rotate.
+mixin eventsNavArrow(id)
+    svg.events-detail__mobile-arrow-svg(viewBox='0 0 25.1463 28.1962' fill='none' xmlns='http://www.w3.org/2000/svg' aria-hidden='true')
+        path(d='M25.0732 15.4474C18.6005 16.4048 13.5365 21.4256 12.6208 27.7934L12.5732 28.125L12.5255 27.7934C11.6098 21.4256 6.54579 16.4048 0.0731607 15.4474M12.5732 27.3326L12.5732 5.45178e-08' stroke=`url(#eventsArrow-${id})`)
+        defs
+            linearGradient(id=`eventsArrow-${id}` x1='12.5732' y1='0' x2='12.5732' y2='28.125' gradientUnits='userSpaceOnUse')
+                stop(stop-color='#E0B471' stop-opacity='0')
+                stop(offset='0.817308' stop-color='#E0B471')
+                stop(offset='1' stop-color='#FFEDBF')
+
+//- mobHeroVideo — mp4 для ПЕРВОГО ЭКРАНА НА МОБИЛЕ (≤768). Пусто → картинка (как сейчас).
+//- Картинка остаётся постером/фолбэком. На десктопе видео не используется.
+mixin events-detail(mobHeroVideo = '')
+    -
+        const events = [
+            {
+                id: 'malchishnik',
+                anchor: 'мальчишник',
+                title: 'Мальчишник<br>в le rouge',
+                photo: PUBLIC + 'assets/img/events/event-bg.png',
+                photos: [PUBLIC + 'assets/img/events/event-bg.png', PUBLIC + 'assets/img/halls/hall-1.png', PUBLIC + 'assets/img/halls/hall-2.png'],
+                subtitle: 'организация Мальчишника в&nbsp;le&nbsp;rouge',
+                params: [
+                    [
+                        { value: '3+', label: 'Девушек будут только вашими' },
+                        { value: '6', label: 'Залов на выбор: VIP и караоке' }
+                    ],
+                    [
+                        { value: '50', label: 'Любых шотов в подарок' },
+                        { value: '50 000 ₽', label: 'Минимальная стоимость' }
+                    ]
+                ],
+                cta: 'организовать мальчишник'
+            },
+            {
+                id: 'birthday',
+                anchor: 'день рождения',
+                title: 'День рождения<br>в le rouge',
+                photo: PUBLIC + 'assets/img/events/event-bg.png',
+                photos: [PUBLIC + 'assets/img/events/event-bg.png', PUBLIC + 'assets/img/halls/hall-3.png', PUBLIC + 'assets/img/halls/hall-4.png'],
+                subtitle: 'организация дня рождения в&nbsp;le&nbsp;rouge',
+                params: [
+                    [
+                        { value: '3+', label: 'Девушек будут только вашими' },
+                        { value: '6', label: 'Залов на выбор: VIP и караоке' }
+                    ],
+                    [
+                        { value: '50', label: 'Любых шотов в подарок' },
+                        { value: '50 000 ₽', label: 'Минимальная стоимость' }
+                    ]
+                ],
+                cta: 'организовать день рождения'
+            },
+            {
+                id: 'event-keys',
+                anchor: 'event под ключ',
+                title: 'Event под ключ<br>в le rouge',
+                photo: PUBLIC + 'assets/img/events/event-bg.png',
+                photos: [PUBLIC + 'assets/img/events/event-bg.png', PUBLIC + 'assets/img/halls/hall-2.png', PUBLIC + 'assets/img/halls/hall-4.png'],
+                subtitle: 'организация event под ключ в&nbsp;le&nbsp;rouge',
+                params: [
+                    [
+                        { value: '3+', label: 'Девушек будут только вашими' },
+                        { value: '6', label: 'Залов на выбор: VIP и караоке' }
+                    ],
+                    [
+                        { value: '50', label: 'Любых шотов в подарок' },
+                        { value: '50 000 ₽', label: 'Минимальная стоимость' }
+                    ]
+                ],
+                cta: 'организовать event'
+            }
+        ];
+        const pad = n => String(n).padStart(2, '0');
+        const total = events.length;
+    section.events-detail
+        // Левое фикс-меню «якоря»
+        nav.events-detail__anchors(aria-label='Мероприятия')
+            ul.events-detail__anchor-list(role='list')
+                each e, i in events
+                    li.events-detail__anchor-item(class=i === 0 ? 'is-active' : null)
+                        a.events-detail__anchor(href=`#${e.id}` data-index=i)= e.anchor
+
+        // Стек зон
+        .events-detail__zones
+            each e, i in events
+                .events-detail__zone(id=e.id data-index=i)
+                    .events-detail__photo
+                        //- BACKEND: на каждое фото мероприятия — свой <img.events-detail__photo-img>.
+                        //- Первому добавить класс is-active. Стрелки/счётчик считают фото автоматически.
+                        each src, pi in (e.photos && e.photos.length ? e.photos : [e.photo])
+                            img.events-detail__photo-img(class=pi === 0 ? 'is-active' : null src=src alt=e.anchor loading=(i === 0 && pi === 0) ? 'eager' : 'lazy' fetchpriority=(i === 0 && pi === 0) ? 'high' : 'auto')
+                        .events-detail__photo-gradient-top(aria-hidden='true')
+                        .events-detail__photo-gradient(aria-hidden='true')
+
+                        h2.events-detail__title!= e.title
+
+                    // Описание-карточка
+                    aside.events-detail__info
+                        article.events-detail__card
+                            h3.events-detail__card-title!= e.subtitle
+
+                            .events-detail__card-grid
+                                each row, ri in e.params
+                                    .events-detail__card-row
+                                        each p, pi in row
+                                            .events-detail__card-param
+                                                span.events-detail__card-param-value!= p.value
+                                                span.events-detail__card-param-label= p.label
+                                            if pi === 0
+                                                .events-detail__card-param-divider(aria-hidden='true')
+
+                            button.events-detail__card-btn.btn-reset(type='button' data-modal-load='modals/booking-table.html' data-object=e.anchor)
+                                span.events-detail__card-btn-text= e.cta
+
+        // Fixed nav (счётчик + стрелки)
+        nav.events-detail__nav(aria-label='Переключение мероприятия')
+            button.events-detail__nav-btn.events-detail__nav-btn--prev.btn-reset(type='button' aria-label='Предыдущее')
+                +svg('arrow-l')
+            .events-detail__counter
+                span.events-detail__counter-num.events-detail__counter-active.is-active 01
+                span.events-detail__counter-sep
+                span.events-detail__counter-num= pad(total)
+            button.events-detail__nav-btn.events-detail__nav-btn--next.btn-reset(type='button' aria-label='Следующее')
+                +svg('arrow-l')
+
+        // =========================================
+        // MOBILE-ONLY (≤768)
+        // =========================================
+        .events-detail__mobile
+            // Hero: фото + "Мероприятия в Le Rouge"
+            .events-detail__mobile-hero
+                img.events-detail__mobile-hero-img(src=events[0].photo alt='Мероприятия в Le Rouge')
+                if mobHeroVideo
+                    video.events-detail__mobile-hero-video(autoplay muted loop playsinline preload='metadata' poster=events[0].photo aria-hidden='true')
+                        source(src=mobHeroVideo type='video/mp4')
+                .events-detail__mobile-hero-gradient-top(aria-hidden='true')
+                .events-detail__mobile-hero-gradient-bottom(aria-hidden='true')
+                h1.events-detail__mobile-hero-title Мероприятия в&nbsp;Le&nbsp;Rouge
+
+            // Табы (3 — имена мероприятий)
+            .events-detail__mobile-tabs(role='tablist')
+                each e, i in events
+                    button.events-detail__mobile-tab.btn-reset(
+                        type='button'
+                        role='tab'
+                        data-mobile-tab=i
+                        aria-selected=i === 0 ? 'true' : 'false'
+                        class=i === 0 ? 'is-active' : null
+                    )= e.anchor
+
+            // Галерея 2 фото горизонтальная
+            .events-detail__mobile-gallery
+                each src, i in events[0].photos
+                    .events-detail__mobile-gallery-item
+                        img.events-detail__mobile-gallery-img(src=src alt=`Фото ${i+1}` data-gallery-i=i)
+
+            // Стрелки prev/next + линия
+            nav.events-detail__mobile-arrows(aria-label='Переключение фото мероприятия')
+                button.events-detail__mobile-arrow.events-detail__mobile-arrow--prev.btn-reset(type='button' aria-label='Назад')
+                    +eventsNavArrow('prev')
+                span.events-detail__mobile-arrow-line(aria-hidden='true')
+                button.events-detail__mobile-arrow.events-detail__mobile-arrow--next.btn-reset(type='button' aria-label='Вперёд')
+                    +eventsNavArrow('next')
+
+            // 4 параметра вертикально с линиями
+            .events-detail__mobile-params
+                .events-detail__mobile-param
+                    span.events-detail__mobile-param-value 3+
+                    span.events-detail__mobile-param-label Девушек будут только вашими
+                .events-detail__mobile-param
+                    span.events-detail__mobile-param-value 6
+                    span.events-detail__mobile-param-label Залов на выбор: VIP и караоке
+                .events-detail__mobile-param
+                    span.events-detail__mobile-param-value 50
+                    span.events-detail__mobile-param-label Любых шотов в подарок
+                .events-detail__mobile-param
+                    span.events-detail__mobile-param-value 50 000 ₽
+                    span.events-detail__mobile-param-label Минимальная стоимость
+
+            // CTA
+            button.events-detail__mobile-cta.btn-reset(type='button' data-modal-load='modals/booking-table.html' data-object=events[0].anchor)
+                span.events-detail__card-btn-text= events[0].cta

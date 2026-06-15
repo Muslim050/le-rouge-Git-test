@@ -1,0 +1,131 @@
+@use '@/app/styles/config/index.scss' as *;
+
+// ============================================
+// Custom select (визуально как input — текст + chevron + нижняя линия,
+// при открытии — выпадающий список под полем)
+// ============================================
+.custom-select {
+	position: relative;
+
+	&__wrapper {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: rem(10);
+		width: 100%;
+	}
+
+	&__input.input {
+		text-align: left;
+		cursor: pointer;
+		padding-right: rem(36);
+		user-select: none;
+
+		&:read-only {
+			cursor: pointer;
+		}
+	}
+
+	&__icon {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		width: rem(28);
+		height: rem(28);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		pointer-events: none;
+		transition: var(--trs-300);
+		color: var(--beige-color);
+
+		svg {
+			width: rem(16);
+			height: rem(16);
+
+			path {
+				stroke: currentColor;
+			}
+		}
+	}
+
+	&.is-open &__icon {
+		transform: translateY(-50%) rotate(180deg);
+	}
+
+	&__dropdown {
+		position: absolute;
+		top: calc(100% + #{rem(1)});
+		left: 0;
+		right: 0;
+		display: none;
+		flex-direction: column;
+		gap: rem(16);
+		padding: rem(20) rem(28);
+		background: var(--black-color);
+		border-radius: 0 0 rem(8) rem(8);
+		box-shadow: 0 rem(10) rem(14) rgba(224, 180, 113, 0.1);
+		max-height: rem(280);
+		overflow-y: auto;
+		z-index: 50;
+	}
+
+	&.is-open &__dropdown {
+		display: flex;
+	}
+
+	&.is-open-top &__dropdown {
+		top: auto;
+		bottom: calc(100% + #{rem(1)});
+		border-radius: rem(8) rem(8) 0 0;
+		box-shadow: 0 rem(-10) rem(14) rgba(224, 180, 113, 0.1);
+	}
+
+	&__option {
+		@include body-s;
+		color: var(--beige-color);
+		cursor: pointer;
+		transition: var(--trs-300);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: rem(12);
+
+		&-text {
+			flex: 1;
+		}
+
+		&-icon {
+			display: none;
+			width: rem(10);
+			height: rem(7);
+			flex-shrink: 0;
+			color: var(--gold-color);
+
+			svg {
+				width: 100%;
+				height: 100%;
+
+				path {
+					stroke: currentColor;
+				}
+			}
+		}
+
+		&.is-selected {
+			color: var(--gold-color);
+
+			.custom-select__option-icon {
+				display: inline-flex;
+			}
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				color: var(--gold-color);
+				opacity: 0.6;
+			}
+		}
+	}
+}

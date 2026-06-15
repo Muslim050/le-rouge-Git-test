@@ -1,0 +1,22 @@
+mixin head()
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover")
+    title Le Rouge
+
+    //- Meta
+    meta(name="description" content="template")
+    meta(name="keywords" content="template")
+    meta(name="robots" content="index, follow")
+    meta(name="format-detection" content="telephone=no")
+    link(rel="icon" href="./assets/static/favicon.ico")
+    link(rel="icon" type="image/png" sizes="96x96" href="./assets/static/favicon.png")
+    link(rel="icon" type="image/svg+xml" href="./assets/static/favicon.svg")
+    link(rel="apple-touch-icon" sizes="180x180" href="./assets/static/apple-touch-icon.png")
+    link(rel="manifest" href="./assets/static/site.webmanifest.json")
+
+    //- Анти-FOUC: тёмный фон сразу + скрытие unstyled контента до загрузки CSS
+    style.
+      html, body { margin: 0; padding: 0; background: #0B0B0B; color: #FFF5E5; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+      body { visibility: hidden; opacity: 0; transition: opacity .2s ease-out; }
+      body.is-ready { visibility: visible; opacity: 1; }

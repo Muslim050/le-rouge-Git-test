@@ -1,0 +1,17 @@
+extends @/app/templates/template.pug
+block head
+    +head()
+
+block header
+    +header()
+
+block content
+    main.show-page
+        +show-hero(PUBLIC + 'assets/files/show-reel-desk.mp4', PUBLIC + 'assets/files/show-reel-mob.mp4')
+        +show-stage()
+        +show-portrait()
+        +show-gallery()
+
+        +contacts()
+block footer
+    +footer()(class='footer--compact')

@@ -1,0 +1,5 @@
+mixin svg(name)
+    //- PUBLIC — глобальный префикс статики (см. webpack pug-loader data). Дефолт ''.
+    - var _pub = (typeof PUBLIC !== 'undefined' && PUBLIC) ? PUBLIC : '';
+    svg
+        use(xlink:href=`${_pub}assets/img/sprite.svg#${name}`)

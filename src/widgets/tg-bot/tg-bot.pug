@@ -1,0 +1,48 @@
+mixin tg-bot()
+    section.tg-bot
+        .tg-bot__bg(aria-hidden='true')
+            .tg-bot__bg-inner
+                img.tg-bot__bg-img(src=PUBLIC + 'assets/img/divider/wave.png' alt='' loading='lazy')
+
+        .tg-bot__container.container
+            h2.tg-bot__title
+                | хочешь
+                br
+                | ещё больше
+                br
+                | и&nbsp;откровенней?
+
+            .tg-bot__photos(aria-hidden='true' data-parallax)
+                .tg-bot__photo.tg-bot__photo--main(data-parallax-speed='0.45')
+                    img(src=PUBLIC + 'assets/img/tg-bot/main.png' alt='' loading='lazy')
+                .tg-bot__photo.tg-bot__photo--small-tl(data-parallax-speed='-0.7')
+                    img(src=PUBLIC + 'assets/img/tg-bot/small-tl.png' alt='' loading='lazy')
+                .tg-bot__photo.tg-bot__photo--big-bl(data-parallax-speed='0.85')
+                    img(src=PUBLIC + 'assets/img/tg-bot/big-bl.png' alt='' loading='lazy')
+                .tg-bot__photo.tg-bot__photo--big-br(data-parallax-speed='-0.6')
+                    img(src=PUBLIC + 'assets/img/tg-bot/big-br.png' alt='' loading='lazy')
+
+            ol.tg-bot__steps(role='list')
+                li.tg-bot__step
+                    span.tg-bot__step-num 1
+                    p.tg-bot__step-text
+                        | переходи
+                        br
+                        | в&nbsp;нашего&nbsp;
+                        br.tg-bot__br-mob
+                        | тг-бота
+                li.tg-bot__step
+                    span.tg-bot__step-num 2
+                    p.tg-bot__step-text
+                        | Напиши:&nbsp;
+                        br.tg-bot__br-mob
+                        | /start
+                li.tg-bot__step
+                    span.tg-bot__step-num 3
+                    p.tg-bot__step-text
+                        | Получай ссылку
+                        br
+                        | на&nbsp;тг-канал
+
+            a.tg-bot__btn(href='https://t.me/lerouge_bot' target='_blank' rel='noopener')
+                span.tg-bot__btn-text перейти в тг-бот

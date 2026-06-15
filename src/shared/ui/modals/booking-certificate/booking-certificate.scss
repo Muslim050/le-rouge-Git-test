@@ -1,0 +1,11 @@
+@use '@/app/styles/config/index.scss' as *;
+
+// Подзаголовок = выбранный номинал + вид сертификата (золотой, как в Figma)
+.modal--booking-certificate {
+	.booking-form__subtitle {
+		@include descr-s; // Vela Medium 14 / ls2 / uppercase
+		color: var(--gold-color);
+		opacity: 1;
+		text-transform: uppercase;
+	}
+}

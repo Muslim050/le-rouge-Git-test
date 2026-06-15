@@ -1,0 +1,61 @@
+mixin vacancy-calc()
+    section.vacancy-calc
+        .vacancy-calc__inner.vacancy-container
+            .vacancy-calc__bg 
+                +img({
+                    src: 'assets/img/calc/bg.png',
+                    src2x: 'assets/img/calc/bg@2x.png',
+                    alt: 'calc bg'
+                })
+            .vacancy-calc__lights 
+                .light 
+                .light 
+            .vacancy-calc__content    
+                .badge калькулятор
+                h2.vacancy-calc__title Сколько ты сможешь заработать <br> 
+                    span уже сегодня?
+                .calc-wrapper 
+                    .calc-main 
+                        .question
+                            p Сколько дней в неделю ты хочешь работать?
+                            .inputs 
+                                label.active
+                                    input(type="radio" name='day' value='3.7' checked)
+                                    span 4
+                                label
+                                    input(type="radio" name='day' value='4.7')
+                                    span 5
+                                label
+                                    input(type="radio" name='day' value='5.7')
+                                    span 6
+                        .question
+                            p оцени свой уровень знания английского языка
+                            .inputs 
+                                label.active
+                                    input(type="radio" name='lang' value='1.1' checked)
+                                    span 1
+                                label
+                                    input(type="radio" name='lang' value='1.2')
+                                    span 2
+                                label
+                                    input(type="radio" name='lang' value='1.3')
+                                    span 3
+                        .question
+                            p Имеешь ли ты опыт работы в аналогичных должностях или заведениях?
+                            .inputs 
+                                label.active
+                                    input(type="radio" name='exp' value='1.15' checked)
+                                    span Да
+                                label
+                                    input(type="radio" name='exp' value='1')
+                                    span Нет
+                    .calc-total
+                        .calc-total-item 
+                            h2.calc-week 73 350 ₽
+                            p в неделю
+                        .calc-total-item 
+                            h2.calc-month 257 200 ₽
+                            p в месяц
+                        .calc-total-item 
+                            h2.calc-year 3 155 600 ₽
+                            p в год

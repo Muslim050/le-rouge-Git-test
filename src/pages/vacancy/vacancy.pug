@@ -1,0 +1,20 @@
+extends @/app/templates/template.pug
+block head
+    +head()
+
+block header
+    +header()
+
+block content
+    main.vacancy-page
+        +vacancy-hero()
+        +vacancy-alert()
+        +vacancy-work()
+        +vacancy-features()
+        +vacancy-calc()
+        +vacancy-content()
+        +vacancy-about()
+        +vacancy-form()
+        +vacancy-faq()
+block footer
+    +footer()

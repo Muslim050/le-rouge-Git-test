@@ -1,0 +1,49 @@
+<div class="modal modal--booking-bachelor" data-modal="booking-bachelor">
+    <div class="modal-content">
+        <div class="modal-inner-wrapper"><button class="modal-close-btn close-modal" type="button" aria-label="Закрыть"><svg>
+                    <use xlink:href="assets/img/sprite.svg#close"></use>
+                </svg></button>
+            <div class="modal-inner">
+                <div class="booking-form">
+                    <h2 class="booking-form__title">заказать мальчишник</h2>
+                    <form class="booking-form__form js-booking-bachelor"><input type="hidden" name="form_type" value="booking_bachelor"><input type="hidden" name="page" value=""><input type="hidden" name="object" value="">
+                        <div class="form-block">
+                            <div class="form-row">
+                                <div class="form-group"><input class="input input__valid-name" type="text" placeholder="Ваше имя *" value="" name="name" id="name"></div>
+                            </div>
+                        </div>
+                        <div class="form-block">
+                            <div class="form-row">
+                                <div class="form-group"><input class="input input__valid-phone" type="tel" placeholder="+ 7 (___) ___-__-__ *" value="" name="phone" id="phone"></div>
+                            </div>
+                        </div>
+                        <div class="form-block">
+                            <div class="pill-group"><span class="pill-group__label">Количество гостей</span>
+                                <div class="pill-group__items" role="radiogroup" aria-label="Количество гостей"><label class="pill-group__item is-active"><input type="radio" name="guests" value="10-15" checked required><span class="pill-group__text">10 - 15</span></label><label class="pill-group__item"><input type="radio" name="guests" value="15-20" required><span class="pill-group__text">15 - 20</span></label><label class="pill-group__item"><input type="radio" name="guests" value="20+" required><span class="pill-group__text">20+</span></label><label class="pill-group__item"><input type="radio" name="guests" value="30+" required><span class="pill-group__text">30+</span></label></div>
+                            </div>
+                        </div>
+                        <div class="form-block">
+                            <div class="pill-group"><span class="pill-group__label">Бюджет на гостя</span>
+                                <div class="pill-group__items" role="radiogroup" aria-label="Бюджет на гостя"><label class="pill-group__item is-active"><input type="radio" name="budget" value="30000" checked required><span class="pill-group__text">30 000 ₽</span></label><label class="pill-group__item"><input type="radio" name="budget" value="50000" required><span class="pill-group__text">50 000 ₽</span></label><label class="pill-group__item"><input type="radio" name="budget" value="150000" required><span class="pill-group__text">150 000 ₽</span></label><label class="pill-group__item"><input type="radio" name="budget" value="unlimited" required><span class="pill-group__text">не считаем</span></label></div>
+                            </div>
+                        </div>
+                        <div class="form-block">
+                            <div class="form-row form-row--2col">
+                                <div class="form-group"><input class="input input__valid-date" type="date" placeholder="Дата *" value="" name="date" id="date"></div>
+                                <div class="form-group"><input class="input input__valid-time" type="time" placeholder="Время *" value="" name="time" id="time"></div>
+                            </div>
+                        </div>
+                        <div class="form-footer">
+                            <div class="form-footer__agreement">
+                                <div class="form-group"><input class="input" type="checkbox" id="agreement-bachelor" name="agreement" required><label for="agreement-bachelor">
+                                        <p>Нажимая «Отправить заявку» вы&nbsp;даёте свое согласие с&nbsp;<a href="/privacy" target="_blank">политикой конфиденциальности</a> и&nbsp;<a href="/personal-data" target="_blank">обработкой персональных данных</a></p>
+                                    </label></div>
+                            </div>
+                            <div class="form-footer__btn"><button class="btn gold l booking-form__submit" type="submit" disabled=""> <span class="btn__text">отправить заявку</span></button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

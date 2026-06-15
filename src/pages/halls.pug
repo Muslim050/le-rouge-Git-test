@@ -1,0 +1,14 @@
+extends @/app/templates/template.pug
+block head
+    +head()
+
+block header
+    +header()
+
+block content
+    main.halls-page
+        +halls-detail(PUBLIC + 'assets/files/show-reel-mob.mp4')
+
+        +contacts()
+block footer
+    +footer()(class='footer--compact')

@@ -1,0 +1,14 @@
+//- Инлайн-модалка меню (кухня/бар). Разметка лежит прямо в странице (block modals),
+//- открывается по id через data-modal-target — без загрузки отдельного html (удобно бэку/Bitrix).
+mixin menuModal(name, title, heroSrc, menuSrc)
+    +modal(name)
+        .modal-inner-wrapper
+            button.modal-close-btn.close-modal(type='button' aria-label='Закрыть')
+                +svg('close')
+            .modal-inner
+                .menu-modal
+                    .menu-modal__hero
+                        img.menu-modal__hero-img(src=heroSrc alt='' loading='lazy')
+                        span.menu-modal__hero-title= title
+                    //- БЭК: готовое изображение меню (можно несколько <img.menu-modal__sheet>)
+                    img.menu-modal__sheet(src=menuSrc alt='Меню — ' + title loading='lazy')

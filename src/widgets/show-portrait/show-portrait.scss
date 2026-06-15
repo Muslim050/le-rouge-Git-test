@@ -1,0 +1,43 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.show-portrait {
+	position: relative;
+	width: 100%;
+	background: var(--black-color);
+	overflow: hidden;
+
+	// Низ исходного кадра обрезан по яркому огню (жёсткий стык с чёрным) — растворяем
+	// нижнюю часть в #0b0b0b, как в макете 1026:3471 (огонь плавно тает книзу).
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			180deg,
+			rgba(11, 11, 11, 0) 58%,
+			rgba(11, 11, 11, 0.9) 88%,
+			#0b0b0b 100%
+		);
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	&__pic {
+		display: block;
+		width: 100%;
+	}
+
+	// Готовая картинка сцены (тореадор + огонь + фон). Каждый кадр под свою ширину
+	// (мобайл 360×400 / ПК широкий) — поэтому height:auto без искажений.
+	&__img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	// На мобайле кадр 707-8982 показывает огонь снизу (не тает в чёрный) —
+	// затухание ::after отключаем, иначе гасит огонь и расходится с макетом.
+	@media (max-width: $tab-sm) {
+		&::after { content: none; }
+	}
+}

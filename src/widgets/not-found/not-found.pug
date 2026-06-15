@@ -1,0 +1,22 @@
+mixin not-found()
+    section.not-found
+        // Свет
+        .not-found__lights(aria-hidden='true')
+            span.not-found__light.not-found__light--bl
+            span.not-found__light.not-found__light--br
+            span.not-found__light.not-found__light--mr
+
+        .not-found__container
+            // 404 с фото-маской в середине (вместо 0)
+            .not-found__code
+                span.not-found__digit 4
+                .not-found__keyhole(aria-hidden='true')
+                    .not-found__keyhole-img(style=`background-image: url('${PUBLIC}assets/img/not-found/girl.png')`)
+                span.not-found__digit 4
+
+            // Подзаголовок
+            h1.not-found__title что-то потерял?
+
+            // Кнопка на главную
+            a.not-found__btn(href=ROUTES.home)
+                span.not-found__btn-text на главную

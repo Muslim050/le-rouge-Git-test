@@ -1,0 +1,575 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.footer {
+	background: var(--black-color);
+	color: var(--beige-color);
+
+	// Компактный футер (страница «Контакты»): карта+контакты — это контент страницы,
+	// поэтому верхний блок футера скрываем, оставляем только нижнюю строку (©, ссылки, лого)
+	&--compact .footer__top {
+		display: none;
+	}
+
+	// ============================================
+	// __top — map section with overlaid contacts card (desktop)
+	// vertical stack (mobile)
+	// ============================================
+	&__top {
+		position: relative;
+		background: #6e6e6e;
+		min-height: rem(798); // не height — чтобы карточка контактов всегда вмещалась
+		overflow: hidden;
+	}
+
+	&__map {
+		position: absolute;
+		inset: 0;
+
+		&-bg {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			pointer-events: none;
+		}
+
+		// Контейнер интерактивной карты — поверх фолбэк-картинки
+		&-canvas {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	&__map.is-map-ready &__map-bg {
+		display: none;
+	}
+
+	// Тёмная стилизация тайлов под чёрный футер (маркер/контролы в других пейнах — не трогаем)
+	&__map [class*='ground-pane'] {
+		filter: grayscale(0.6) invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+	}
+
+	// Contacts card on desktop: floating bottom-left over map
+	&__contacts {
+		position: absolute;
+		left: rem(48);
+		bottom: rem(48);
+		width: rem(746);
+		padding: rem(64) rem(48);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(48);
+		border: 1px solid rgba(244, 185, 125, 0.1);
+		border-radius: rem(16);
+		background: linear-gradient(180deg, rgba(11, 11, 11, 0.9) 0%, rgba(11, 11, 11, 0.5) 100%);
+		backdrop-filter: blur(8px);
+
+		&-heading {
+			@include descr-md;
+			color: var(--gold-color);
+			padding: rem(6) rem(36);
+			height: rem(48);
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			border: 1px solid rgba(241, 185, 101, 0.12);
+			border-radius: rem(99);
+		}
+	}
+
+	&__phone {
+		@include h2;
+		color: var(--gold-color);
+		text-align: center;
+		text-decoration: none;
+		width: 100%;
+		display: block;
+		transition: var(--trs-300);
+	}
+
+	&__address {
+		display: flex;
+		flex-direction: column;
+		gap: rem(6);
+		width: 100%;
+		text-align: center;
+
+		&-line {
+			@include body-xl;
+			color: var(--beige-color);
+			margin: 0;
+		}
+
+		&-metro {
+			@include body-s;
+			color: var(--gold-color);
+			margin: 0;
+		}
+	}
+
+	&__hours {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: rem(28);
+		width: 100%;
+
+		&-item {
+			display: inline-flex;
+			align-items: baseline;
+			gap: rem(8);
+			@include body-s;
+			color: var(--beige-color);
+		}
+
+		&-label--short {
+			display: none;
+		}
+
+		&-divider {
+			width: 1px;
+			height: rem(28);
+			background: var(--beige-color);
+			opacity: 0.4;
+			flex-shrink: 0;
+		}
+	}
+
+	&__prices {
+		display: flex;
+		flex-direction: column;
+		gap: rem(24);
+		width: 100%;
+	}
+
+	&__divider {
+		width: 100%;
+		height: 0;
+		border: 0;
+		border-top: 1px solid var(--beige-color);
+		opacity: 0.2;
+		margin: 0;
+	}
+
+	&__price {
+		display: flex;
+		flex-direction: column;
+		gap: rem(6);
+		text-align: center;
+
+		&-amount {
+			@include h5;
+			color: var(--gold-color);
+			margin: 0;
+		}
+
+		&-label {
+			@include body-s;
+			color: var(--beige-color);
+			margin: 0;
+		}
+	}
+
+	// Photo — mobile-only
+	&__photo {
+		display: none;
+	}
+
+	// FC/DC ⋮ 18+ строка — только мобильная раскладка (на десктопе FC/DC в __brand)
+	&__fcdc {
+		display: none;
+	}
+
+	// ============================================
+	// __info — bottom section
+	// ============================================
+	&__info {
+		padding: rem(48);
+		display: flex;
+		flex-direction: column;
+		gap: rem(48);
+	}
+
+	&__copyright {
+		@include descr-xs;
+		color: var(--beige-color);
+		text-align: center;
+	}
+
+	&__links {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: rem(28);
+
+		&::after,
+		&::before {
+			content: '';
+		}
+	}
+
+	&__link {
+		@include descr-xs;
+		color: var(--beige-color);
+		text-decoration: none;
+		text-align: center;
+		transition: var(--trs-300);
+		position: relative;
+
+		&:not(:last-child)::after {
+			content: '';
+			position: absolute;
+			right: rem(-14);
+			top: 50%;
+			transform: translateY(-50%);
+			width: 1px;
+			height: rem(12);
+			background: var(--beige-color);
+			opacity: 0.4;
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				color: var(--gold-color);
+			}
+		}
+	}
+
+	&__brand {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: rem(24);
+
+		&-text {
+			@include h1;
+			color: var(--beige-color);
+			width: rem(284);
+
+			&:last-child {
+				text-align: right;
+			}
+		}
+	}
+
+	&__partners {
+		display: flex;
+		align-items: center;
+		gap: rem(24);
+	}
+
+	&__partner {
+		display: inline-block;
+		transition: var(--trs-300);
+
+		img {
+			display: block;
+			height: rem(96);
+			width: auto;
+			// SVG отдают width/height=100% (без своей пропорции) → задаём её явно,
+			// иначе width:auto даёт дефолтные 300px и лого растягивается
+			aspect-ratio: 172 / 96;
+			object-fit: contain;
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+
+	// ============================================
+	// 1440 — compact desktop
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		&__top {
+			min-height: rem(720); // +80 чтобы карточка контактов (~465 при 1024) гарантированно вмещалась
+		}
+
+		&__contacts {
+			width: rem(560);
+			padding: rem(48) rem(36);
+			gap: rem(36);
+		}
+
+		&__info {
+			padding: rem(36);
+			gap: rem(36);
+		}
+
+		&__partner img {
+			height: rem(72);
+		}
+
+		&__brand-text {
+			width: rem(180);
+		}
+	}
+
+	// ============================================
+	// 360 — mobile
+	// ============================================
+	@media (max-width: $tab-sm) {
+		&__top {
+			height: auto;
+			background: var(--black-color);
+			padding: rem(54) rem(16) rem(28);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: rem(28);
+		}
+
+		&__map {
+			position: relative;
+			inset: auto;
+			order: 8;
+			width: rem(328);
+			max-width: 100%;
+			margin: 0 auto;
+			height: rem(328);
+			background: #6e6e6e;
+			overflow: hidden;
+		}
+
+		// разворачиваем карточку в плоский поток, чтобы переставить фото/расписание
+		&__contacts {
+			display: contents;
+
+			&-heading {
+				@include descr-sd;
+				padding: rem(8) rem(16) rem(6);
+				height: auto;
+				position: static;
+				transform: none;
+				order: 1;
+			}
+		}
+
+		&__phone {
+			@include h4;
+			order: 2;
+		}
+
+		&__address {
+			gap: rem(16);
+			order: 3;
+
+			&-line {
+				@include h4;
+				color: var(--beige-color);
+				order: 2;
+			}
+
+			&-metro {
+				@include descr-xs;
+				color: var(--gold-color);
+				order: 1;
+			}
+		}
+
+		&__hours {
+			order: 6;
+			// по макету расписание заходит на затемнённый низ фото (а не стоит под ним),
+			// иначе карта уезжает ниже. Поднимаем расписание+FC/DC+карту на низ фото.
+			margin-top: rem(-240);
+			position: relative;
+			z-index: 2;
+
+			&-label:not(.footer__hours-label--short) {
+				display: none;
+			}
+
+			&-label--short {
+				display: inline;
+				@include descr-xs;
+				color: var(--beige-color);
+				opacity: 0.6;
+			}
+
+			&-item {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: rem(8);
+				@include descr-s;
+			}
+
+			&-item:last-child {
+				align-items: flex-end;
+			}
+
+			&-divider {
+				display: none;
+			}
+		}
+
+		&__prices {
+			gap: rem(16);
+			order: 4;
+		}
+
+		&__price-amount {
+			@include h4;
+		}
+
+		&__price-label {
+			@include descr-xs;
+			text-transform: uppercase;
+		}
+
+		// «только в сопровождении мужчин» — отдельной строкой золотом (по макету)
+		&__price-label-note {
+			display: block;
+			margin-top: rem(6);
+			color: var(--gold-color);
+		}
+
+		// FC/DC ⋮ 18+ — строка 40px между расписанием и картой
+		&__fcdc {
+			order: 7;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+			position: relative;
+			z-index: 2; // поверх затемнения фото (::after z-index 1), иначе текст скрыт
+
+			&-text {
+				@include h1; // 40px на <768
+				color: var(--beige-color);
+			}
+		}
+
+		&__photo {
+			display: block;
+			position: relative;
+			width: rem(360);
+			max-width: 100vw;
+			margin: 0 auto;
+			height: rem(640);
+			overflow: hidden;
+			order: 5;
+
+			&-img {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			// Низ фото сильно затемняем в чёрный: на него заходят расписание и FC/DC,
+			// иначе бежевый текст не читается на светлой части снимка (как в макете).
+			&::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					180deg,
+					var(--black-color) 0%,
+					rgba(11, 11, 11, 0) 28%,
+					rgba(11, 11, 11, 0) 40%,
+					rgba(11, 11, 11, 0.92) 60%,
+					var(--black-color) 100%
+				);
+				z-index: 1;
+			}
+		}
+
+		&__glow {
+			position: absolute;
+			pointer-events: none;
+			z-index: 0;
+			border-radius: 50%;
+			filter: blur(40px);
+			opacity: 0.6;
+
+			&--tl {
+				width: rem(170);
+				height: rem(166);
+				bottom: rem(160);
+				left: rem(-110);
+				background: radial-gradient(circle, rgba(241, 185, 101, 0.5) 0%, transparent 70%);
+			}
+
+			&--tr {
+				width: rem(207);
+				height: rem(242);
+				top: rem(80);
+				right: rem(-80);
+				background: radial-gradient(circle, rgba(241, 185, 101, 0.5) 0%, transparent 70%);
+			}
+
+			&--br {
+				width: rem(125);
+				height: rem(116);
+				top: rem(200);
+				right: rem(-50);
+				background: radial-gradient(circle, rgba(241, 185, 101, 0.4) 0%, transparent 70%);
+			}
+		}
+
+		&__info {
+			padding: rem(28) rem(16) rem(20);
+			gap: rem(28);
+		}
+
+		&__copyright {
+			order: 1;
+		}
+
+		&__links {
+			order: 2;
+			flex-direction: column;
+			gap: rem(10);
+			align-items: center;
+		}
+
+		&__link {
+			&:not(:last-child)::after {
+				display: none;
+			}
+
+			// в макете «соглашение об обработке…» — последнее (на десктопе — первое)
+			&:first-child {
+				order: 1;
+			}
+		}
+
+		// партнёры (внутри __brand; FC/DC/18+ скрыты) — в самый низ, после ссылок
+		&__brand {
+			order: 3;
+			flex-direction: column;
+			gap: rem(15);
+
+			&-text {
+				display: none;
+			}
+		}
+
+		&__partners {
+			gap: rem(15);
+			justify-content: space-between;
+			width: 100%;
+		}
+
+		// логотипы (SVG viewBox 172×96, width:100% → как <img> не дают intrinsic
+		// ширину и расплывались на 300px). Фиксируем равные слоты с object-fit.
+		&__partner {
+			flex: 1 1 0;
+			min-width: 0;
+
+			img {
+				width: 100%;
+				height: auto;
+				aspect-ratio: 172 / 96;
+				object-fit: contain;
+			}
+		}
+	}
+}

@@ -1,0 +1,80 @@
+mixin events-form()
+    section.events-form
+        // Свет из макета (827:8980): тёплый слева + тусклее справа (запечённый SVG)
+        .events-form__lights(aria-hidden='true')
+
+        .events-form__container
+            // Заголовок-блок — node 813:6723 (десктоп) / 709:11355 (моб)
+            header.events-form__head
+                +badge({text: 'выбирать себя'})
+                .events-form__intro
+                    h2.events-form__title Вся атмосфера кабаре Le&nbsp;Rouge создана для того, чтобы мужчина расслабился и&nbsp;получал удовольствие
+                    p.events-form__lead Выберите бюджет, укажите количество гостей и&nbsp;мы&nbsp;подберём для вас идеальную программу
+
+            form.events-form__form.js-events-form(action='#' method='post' novalidate)
+                //- Контекст для бэка: тип формы (статика) + страница (заполняет JS)
+                input(type='hidden' name='form_type' value='events_request')
+                input(type='hidden' name='page' value='')
+                //- Выбор табов бюджета/гостей пишется сюда (JS), уходит в FormData
+                input(type='hidden' name='budget' value='')
+                input(type='hidden' name='guests' value='')
+
+                // Мероприятие + дата (десктоп — 2 колонки, моб — стопкой)
+                .events-form__row
+                    .events-form__group
+                        span.events-form__label какое мероприятие планируете?
+                        +select({
+                            name: 'event_type',
+                            placeholder: 'Ваш вариант праздника',
+                            options: [
+                                { value: 'Мальчишник', label: 'Мальчишник' },
+                                { value: 'День рождения', label: 'День рождения' },
+                                { value: 'Event под ключ', label: 'Event под ключ' }
+                            ]
+                        }).events-form__select.js-event-select
+                    .events-form__group
+                        span.events-form__label планируемая дата
+                        +input({ name: 'event_date', placeholder: 'ДД.ММ.ГГГГ', type: 'text' }).input__valid-date(inputmode='numeric')
+
+                // Бюджет (табы в ряд + «своя сумма»)
+                .events-form__group.events-form__group--tight
+                    span.events-form__label выберите бюджет
+                    .events-form__tabs(data-pills='budget')
+                        button.events-form__tab.btn-reset(type='button' data-value='10000') 10 000 ₽
+                        button.events-form__tab.btn-reset(type='button' data-value='25000') 25 000 ₽
+                        button.events-form__tab.btn-reset(type='button' data-value='50000') 50 000 ₽
+                        button.events-form__tab.btn-reset(type='button' data-value='100000') 100 000 ₽
+                        button.events-form__tab.btn-reset(type='button' data-value='custom') Своя сумма
+                    +input({ name: 'budget_custom', placeholder: '0 ₽', type: 'text' }).events-form__custom(inputmode='numeric')
+
+                // Гости (табы в ряд)
+                .events-form__group.events-form__group--tight
+                    span.events-form__label количество гостей
+                    .events-form__tabs(data-pills='guests')
+                        button.events-form__tab.btn-reset(type='button' data-value='5-10') 5-10
+                        button.events-form__tab.btn-reset(type='button' data-value='11-15') 11-15
+                        button.events-form__tab.btn-reset(type='button' data-value='16-20') 16-20
+                        button.events-form__tab.btn-reset(type='button' data-value='21-25') 21-25
+
+                // Контакты (десктоп — имя+телефон в 2 колонки, моб — стопкой)
+                .events-form__group
+                    span.events-form__label контактные данные
+                    .events-form__row
+                        +input({ name: 'name', placeholder: 'Ваше имя', type: 'text' }).input__valid-name
+                        +input({ name: 'phone', placeholder: '+7 (XXX) XXX-XX-XX', type: 'tel' }).input__valid-phone
+
+                // Согласие + кнопка — node 813:7062 (w592 по центру)
+                .events-form__footer
+                    .events-form__agree
+                        .form-group
+                            input#ef-agree.input.input__valid-checkbox(type='checkbox' name='agree' required)
+                            label(for='ef-agree')
+                                p Нажимая кнопку «Отправить заявку» я&nbsp;соглашаюсь с&nbsp;
+                                    a(href='/personal-data' target='_blank') правилами обработки персональных данных
+                                    |  согласно&nbsp;
+                                    a(href='/privacy' target='_blank') политике конфиденциальности
+                                    |  и&nbsp;даю&nbsp;
+                                    a(href='/privacy' target='_blank') согласие на&nbsp;получение информационных и&nbsp;рекламных рассылок
+
+                    button.events-form__submit.btn-reset(type='submit')
+                        span.events-form__submit-text организовать праздник

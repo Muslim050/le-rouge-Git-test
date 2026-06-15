@@ -1,0 +1,60 @@
+mixin certificate()
+    section.certificate
+        .certificate__bg(aria-hidden='true')
+
+        .certificate__container
+            .certificate__hero
+                h1.certificate__title
+                    | Cертификат в&nbsp;мир
+                    br
+                    | мужских удовольствий
+
+                .certificate__card
+                    span.certificate__card-light(aria-hidden='true')
+                    .certificate__card-preview
+                        span.certificate__card-texture(aria-hidden='true')
+                        img.certificate__card-logo(src=PUBLIC + 'assets/img/logo.svg' alt='Le Rouge' width='176' height='50')
+                        p.certificate__card-label подарочный сертификат
+
+            form.certificate__form(novalidate)
+                //- Контекст для бэка: тип формы (статика) + страница (заполняет JS)
+                input(type='hidden' name='form_type' value='certificate_request')
+                input(type='hidden' name='page' value='')
+                .certificate__field
+                    p.certificate__field-label выберите номинал
+                    ul.certificate__pills(role='list')
+                        each value in ['10 000 ₽', '25 000 ₽', '50 000 ₽', '100 000 ₽']
+                            li.certificate__pills-item
+                                button.certificate__pill.btn-reset(type='button' data-value=value)= value
+                        li.certificate__pills-item
+                            button.certificate__pill.certificate__pill--custom.btn-reset(type='button') Своя сумма
+
+                    .certificate__amount
+                        input.certificate__amount-input(type='text' inputmode='numeric' placeholder='0 ₽' readonly)
+                        hr.certificate__amount-line
+
+                .certificate__field
+                    p.certificate__field-label вид сертификата
+                    .certificate__type
+                        span.certificate__type-label.certificate__type-label--left Электронный
+                        +switch({name: 'certificate-type', id: 'certificate-type'})
+                        span.certificate__type-label Напечатанный
+
+                button.certificate__submit(type='button' data-modal-load='modals/booking-certificate.html')
+                    span.certificate__submit-text заказать сертификат
+
+            .certificate__info
+                +badge({text: 'информация'})
+                ul.certificate__info-list(role='list')
+                    li.certificate__info-item
+                        p.certificate__info-label срок действия
+                        p.certificate__info-text Сертификат действителен 3&nbsp;месяца с&nbsp;момента выдачи
+                    li.certificate__info-item
+                        p.certificate__info-label после оплаты
+                        p.certificate__info-text Мы&nbsp;пришлем электронный сертификат на&nbsp;ваш email
+                    li.certificate__info-item
+                        p.certificate__info-label сертификат действует
+                        p.certificate__info-text Сертификат распространяется на&nbsp;оплату счета по&nbsp;кухне и&nbsp;бару, а&nbsp;так&nbsp;же даёт возможность оплатить входной билет
+                    li.certificate__info-item
+                        p.certificate__info-label получить печатный сертификат
+                        p.certificate__info-text В&nbsp;графе «Вид сертификата» выберите «Напечатанный». После оплаты наш менеджер свяжется с&nbsp;вами, чтобы обсудить возможность доставки печатного сертификата.

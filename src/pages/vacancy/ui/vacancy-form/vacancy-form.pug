@@ -1,0 +1,41 @@
+mixin vacancy-form()
+    section.vacancy-form
+        .vacancy-form__inner.vacancy-container 
+            .badge анкета
+            h2.form__title Заполни анкету <br>
+                span и получи 5 000₽ к первой зарплате
+            form.form
+                .inputs 
+                    .form-block
+                        .form-row
+                            +input({
+                                name: 'name',
+                                placeholder: 'Ваше имя',
+                                type: 'text'
+                            }).input__valid-name
+                    .form-block
+                        .form-row
+                            +input({
+                                name: 'phone',
+                                placeholder: '+ 7 (___) ___-__-__ *',
+                                type: 'tel'
+                            }).input__valid-phone
+                    .form-block
+                        .form-row
+                            +input({
+                                name: 'tg',
+                                placeholder: 'Ник в телеграм @',
+                                type: 'text'
+                            })
+                .form-footer
+                    .form-footer__agreement
+                        .form-group
+                            input(type="checkbox" id="agreement-table" name="agreement" required).input
+                            label(for="agreement-table")
+                                p Нажимая кнопку «Отправить заявку» я соглашаюсь <br> с 
+                                    a(href="#" target="_blank")  правилами обработки персональных данных 
+                                    | согласно 
+                                    a(href="#" target="_blank")  политике конфиденциальности
+
+                    .form-footer__btn
+                        +button({variant: 'primary', text: 'отправить заявку', size: 'l'})(type='submit' disabled='').vacancy-form__submit

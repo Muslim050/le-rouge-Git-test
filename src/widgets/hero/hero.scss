@@ -1,0 +1,209 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.hero {
+	position: relative;
+	isolation: isolate;
+	height: 100vh;
+	min-height: rem(720);
+	display: flex;
+	flex-direction: column;
+	margin-bottom: rem(64);
+	overflow: hidden;
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		border-radius: 50%;
+		pointer-events: none;
+		filter: blur(rem(120));
+		z-index: 1;
+	}
+
+	&::before {
+		top: 8%;
+		left: -8%;
+		width: rem(420);
+		height: rem(420);
+		background: radial-gradient(
+			circle,
+			rgba(148, 83, 46, 0.44) 0%,
+			rgba(148, 83, 46, 0.24) 36%,
+			rgba(11, 11, 11, 0) 72%
+		);
+	}
+
+	&::after {
+		right: -10%;
+		bottom: 6%;
+		width: rem(820);
+		height: rem(820);
+		background: radial-gradient(
+			circle,
+			rgba(198, 121, 86, 0.48) 0%,
+			rgba(151, 83, 63, 0.24) 40%,
+			rgba(11, 11, 11, 0) 72%
+		);
+	}
+
+	&__bg {
+		position: absolute;
+		inset: 0;
+
+		picture,
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
+	}
+
+	// Видео-фон поверх картинки (картинка = постер/фолбэк). Градиенты идут ПОСЛЕ
+	// видео в разметке → красятся выше него; z-index не нужен.
+	&__video {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		pointer-events: none;
+	}
+
+	&__gradient {
+		position: absolute;
+		left: 0;
+		right: 0;
+		pointer-events: none;
+
+		&--top {
+			top: 0;
+			height: rem(228);
+			background: linear-gradient(180deg, var(--black-color) 0%, rgba(11, 11, 11, 0) 100%);
+		}
+
+		&--bottom {
+			bottom: 0;
+			height: rem(500);
+			background: linear-gradient(0deg, var(--black-color) 0%, rgba(11, 11, 11, 0) 100%);
+		}
+	}
+
+	&__inner {
+		position: relative;
+		z-index: 2;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-end;
+		padding-bottom: rem(64);
+	}
+
+	&__title {
+		@include display-l;
+		color: var(--beige-color);
+		text-align: center;
+		margin: 0 0 rem(-32);
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+
+		&-line {
+			display: block;
+		}
+	}
+
+	.go-btn {
+		margin-top: rem(16);
+	}
+
+	// ============================================
+	// 1440
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		min-height: rem(640);
+
+		&::before {
+			left: -12%;
+			width: rem(360);
+			height: rem(360);
+		}
+
+		&::after {
+			right: -14%;
+			bottom: 10%;
+			width: rem(660);
+			height: rem(660);
+		}
+
+		&__gradient--top {
+			height: rem(180);
+		}
+
+		&__gradient--bottom {
+			height: rem(300);
+		}
+
+		&__inner {
+			padding-bottom: rem(48);
+		}
+
+		&__title {
+			@include display-m;
+			margin-bottom: rem(-32);
+		}
+	}
+
+	// ============================================
+	// 360
+	// ============================================
+	@media (max-width: $tab-sm) {
+		min-height: rem(560);
+		margin-bottom: rem(40);
+
+		&::before {
+			top: 10%;
+			left: -30%;
+			width: rem(240);
+			height: rem(240);
+			filter: blur(rem(72));
+		}
+
+		&::after {
+			right: -32%;
+			bottom: 12%;
+			width: rem(380);
+			height: rem(380);
+			filter: blur(rem(84));
+		}
+
+		&__gradient--top {
+			height: rem(164);
+		}
+
+		&__gradient--bottom {
+			height: rem(326);
+		}
+
+		&__inner {
+			padding-bottom: rem(28);
+			align-items: center;
+		}
+
+		&__title {
+			@include display-s;
+			margin-bottom: 0;
+			gap: 0;
+
+			&-line {
+				display: block;
+				// На моб. разбиваем «VIP mens club» на «VIP mens» + «club» через CSS-обёртку нельзя,
+				// поэтому через text-transform не получится; в моб. дизайне три строки, оставляем
+				// одну "VIP mens club" одной строкой — заголовок умещается за счёт перевода слова "club"
+				// на новую строку благодаря узкой ширине.
+			}
+		}
+	}
+}

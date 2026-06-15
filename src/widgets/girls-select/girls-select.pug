@@ -1,0 +1,146 @@
+//- Изящная «оперённая» стрелка навигации как в Figma (708-9612): золотой градиентный
+//- штрих E0B471 → FFEDBF, остриё слева. Для «next» зеркалится через CSS scaleX(-1).
+//- Inline-svg (а не спрайт) — из-за градиента-stroke с уникальным id.
+mixin girlsNavArrow(id)
+    svg.girls-select__nav-arrow(width='28' height='25' viewBox='0 0 28.2 25.15' fill='none' xmlns='http://www.w3.org/2000/svg' aria-hidden='true')
+        path(d='M12.7487 0.0732C11.7913 6.5458 6.7706 11.6098 0.4027 12.5255L0.0712 12.5732L0.4027 12.6208C6.7706 13.5365 11.7913 18.6005 12.7487 25.0732M0.8635 12.5732L28.1962 12.5732' stroke=`url(#girlsArrow-${id})`)
+        defs
+            linearGradient(id=`girlsArrow-${id}` x1='28.2' y1='12.57' x2='0' y2='12.57' gradientUnits='userSpaceOnUse')
+                stop(stop-color='#E0B471' stop-opacity='0')
+                stop(offset='0.82' stop-color='#E0B471')
+                stop(offset='1' stop-color='#FFEDBF')
+
+//- Знак зодиака как в Figma (568:1386): тонкое золотое кольцо + глиф, градиент
+//- #FFD698 → #F1B965 → #BA8D4A. Inline (а не спрайт): спрайт 24px тянулся в 28px
+//- (кольцо толстело) и ловил чужой градиент по коллизии id в бандле → выглядел оранжевым.
+mixin girlsZodiac()
+    svg(viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg' aria-hidden='true')
+        path(fill-rule='evenodd' clip-rule='evenodd' d='M12.7251 0.0590607C20.4261 -0.645056 27.2392 5.02799 27.9413 12.7289C28.6433 20.4298 22.9694 27.2414 15.2684 27.9416C7.56997 28.6416 0.760812 22.9695 0.0587419 15.2712C-0.643274 7.57313 5.02808 0.76301 12.7251 0.0590607ZM26.6691 12.806C26.0068 5.78775 19.7652 0.645254 12.7496 1.33821C5.7789 2.02695 0.674875 8.22119 1.33339 15.1956C1.99065 22.1701 8.16188 27.3008 15.1403 26.6739C22.161 26.0431 27.3302 19.8244 26.6691 12.806Z' fill='url(#girlsZodiacGrad)')
+        path(d='M5.08965 7.28953C6.62959 7.2935 7.32012 8.01568 8.35785 8.40118C8.48084 8.44666 10.0618 7.36909 10.6857 7.29017C12.3755 7.07673 12.6523 7.71718 13.8258 8.52392C14.5266 8.31663 15.6412 7.27979 16.1498 7.27197C22.79 7.16961 18.903 15.6256 20.5903 19.3089C20.7594 19.6772 21.2923 20.0842 21.6229 20.3547L21.227 19.1787C21.0515 18.647 21.0079 18.441 21.2437 17.9734C21.6588 17.7937 21.441 17.8375 21.9278 17.8873C22.5722 18.369 23.0719 20.7235 23.3153 21.601C22.3198 22.017 20.2482 22.9425 19.3002 22.42C19.1541 21.9616 19.1528 22.1815 19.272 21.7377C19.6563 21.3927 20.1688 21.3208 20.6877 21.1838C18.0036 18.9623 18.8902 14.6095 18.9004 11.2471C18.8594 8.32393 16.1357 7.57791 14.6035 10.0298C14.4343 12.8961 14.7008 15.8392 14.4856 18.7005C14.4587 19.0529 14.401 19.0866 14.1422 19.261C13.6452 19.3035 13.7105 19.3783 13.3633 19.1722C12.6766 17.4203 14.1999 10.1271 12.4242 9.07481C6.80767 5.7451 9.83117 17.7639 8.63073 19.2813C8.24639 19.3505 8.24767 19.3769 7.88255 19.2017C7.30731 18.4533 7.6955 17.8667 7.62247 17.0451C7.44951 15.1162 8.21565 10.5597 6.97678 9.17064C6.63087 8.78271 5.39327 8.71878 4.90387 8.18736C4.84494 7.6731 4.86673 7.82659 5.08965 7.28953Z' fill='url(#girlsZodiacGrad)')
+        defs
+            linearGradient#girlsZodiacGrad(x1='22.5' y1='2.5' x2='3.5' y2='24' gradientUnits='userSpaceOnUse')
+                stop(stop-color='#FFD698')
+                stop(offset='0.362284' stop-color='#F1B965')
+                stop(offset='1' stop-color='#BA8D4A')
+
+mixin girls-select()
+    //- ============================================================
+    //- ИСТОЧНИК ДАННЫХ — В РАЗМЕТКЕ (для бэкенда / Bitrix), по образцу girls-detail.
+    //- Каждый слайд .swiper-slide несёт поля девушки в data-* атрибутах
+    //- (data-name/age/params/zodiac/stats[JSON]). JS НИЧЕГО не хранит — только
+    //- читает их из DOM и обновляет ОДНУ инфо-карточку при смене слайда.
+    //- Бэкенд заменяет цикл `each girl in girls` своим выводом из Bitrix,
+    //- сохраняя те же классы и data-атрибуты — JS продолжит работать.
+    //- ============================================================
+    -
+        const girls = [
+            {
+                name: 'мерседес',
+                photo: PUBLIC + 'assets/img/girls/mercedes.png',
+                age: '22 года',
+                params: '90 / 57 / 82',
+                zodiac: 'скорпион',
+                stats: [
+                    { label: 'Скромность', value: 20 },
+                    { label: 'Обаяние', value: 80 },
+                    { label: 'Темперамент', value: 100 },
+                    { label: 'Напористость', value: 50 }
+                ]
+            },
+            {
+                name: 'анжелика',
+                photo: PUBLIC + 'assets/img/girls/angelika.png',
+                age: '24 года',
+                params: '88 / 60 / 90',
+                zodiac: 'скорпион',
+                stats: [
+                    { label: 'Скромность', value: 40 },
+                    { label: 'Обаяние', value: 90 },
+                    { label: 'Темперамент', value: 80 },
+                    { label: 'Напористость', value: 70 }
+                ]
+            },
+            {
+                name: 'виктория',
+                photo: PUBLIC + 'assets/img/girls/viktoriya.png',
+                age: '23 года',
+                params: '92 / 58 / 88',
+                zodiac: 'скорпион',
+                stats: [
+                    { label: 'Скромность', value: 30 },
+                    { label: 'Обаяние', value: 100 },
+                    { label: 'Темперамент', value: 90 },
+                    { label: 'Напористость', value: 60 }
+                ]
+            }
+        ];
+        //- Инфо-карточка рендерится для первой девушки; дальше её обновляет JS.
+        const first = girls[0];
+        //- Стат-блок раскладываем 2×2 (на мобиле CSS делает 1 колонку).
+        const firstRows = [first.stats.slice(0, 2), first.stats.slice(2, 4)];
+
+    section.girls-select
+        .girls-select__header.container
+            +badge({text: 'девушки'})
+            p.girls-select__lead Красивейшие артистки, каждая со своим уникальным характером, ролью и внешностью. <br> Настоящая магия приватного разговора
+
+        .girls-select__main
+            //- Сцена: свет + фото + стрелки. position:relative — точка отсчёта: стрелки
+            //- центрируются по фото (top:50%), свет — по фигуре. Имя инфо-карточки заходит
+            //- на низ фото (Figma) через отрицательный margin у .girls-select__info-stack.
+            .girls-select__stage
+                .girls-select__glow(aria-hidden='true')
+
+                //- Слайды — ЕДИНЫЙ источник данных: каждый несёт поля девушки в data-*.
+                .girls-select__swiper
+                    .swiper-wrapper
+                        each girl in girls
+                            .swiper-slide(
+                                data-name=girl.name
+                                data-age=girl.age
+                                data-params=girl.params
+                                data-zodiac=girl.zodiac
+                                data-stats=JSON.stringify(girl.stats)
+                            )
+                                .girls-select__photo
+                                    img(src=girl.photo alt=girl.name loading='lazy')
+
+                //- Соединительная линия — отдельным слоем ПОД фото (Figma: слой «стрелки»
+                //- ниже «фото»), чтобы уходить за фигуру девушки и быть видимой только по краям.
+                span.girls-select__nav-line(aria-hidden='true')
+
+                .girls-select__nav
+                    button.girls-select__nav-btn.girls-select__nav-btn--prev.btn-reset(type='button' aria-label='Предыдущая')
+                        span.girls-select__nav-ico.is-desktop
+                            +svg('arrow-l')
+                        +girlsNavArrow('prev')
+                    button.girls-select__nav-btn.girls-select__nav-btn--next.btn-reset(type='button' aria-label='Следующая')
+                        span.girls-select__nav-ico.is-desktop
+                            +svg('arrow-l')
+                        +girlsNavArrow('next')
+
+            //- ОДНА инфо-карточка — JS обновляет её поля из data-* активного слайда.
+            .girls-select__info-stack
+                .girls-select__info.is-active
+                    .girls-select__name-row
+                        h3.girls-select__name= first.name
+                        span.girls-select__zodiac-icon(aria-hidden='true')
+                            +girlsZodiac()
+
+                    .girls-select__meta
+                        span.girls-select__meta-item= first.age
+                        span.girls-select__meta-divider
+                        span.girls-select__meta-item= first.params
+                        span.girls-select__meta-divider
+                        span.girls-select__meta-item= first.zodiac
+
+                    .girls-select__stats
+                        each row in firstRows
+                            .girls-select__stats-row
+                                each stat in row
+                                    .girls-select__stat
+                                        .girls-select__stat-head
+                                            span.girls-select__stat-label= stat.label
+                                            span.girls-select__stat-value #{stat.value}%
+                                        .girls-select__stat-bar
+                                            span.girls-select__stat-fill(style=`width: ${stat.value}%`)

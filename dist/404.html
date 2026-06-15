@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Le Rouge</title>
+    <meta name="description" content="template">
+    <meta name="keywords" content="template">
+    <meta name="robots" content="index, follow">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="./assets/static/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="./assets/static/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/static/apple-touch-icon.png">
+    <link rel="manifest" href="./assets/static/site.webmanifest.json">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0B0B0B;
+            color: #FFF5E5;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity .2s ease-out;
+        }
+
+        body.is-ready {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <link href="./assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__container container">
+            <div class="header__top"><button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="header__city-name">москва</span><span class="header__city-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 4L8 9L13 4" stroke="url(#hdrChev-m)"></path>
+                            <defs>
+                                <linearGradient id="hdrChev-m" x1="8" y1="4" x2="8" y2="9" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#F6F2EC" stop-opacity="0"></stop>
+                                    <stop offset="1" stop-color="#F6F2EC"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg></span></button><span class="header__address">Б. Путинковский пер., 5</span></div>
+            <div class="header__main">
+                <div class="header__col header__col--left"><button class="btn ghost m header__menu-btn" type="button" aria-expanded="false" aria-controls="site-menu"><span class="btn__icon"><svg>
+                                <use xlink:href="assets/img/sprite.svg#menu"></use>
+                            </svg></span><span class="btn__text">меню</span></button>
+                    <ul class="header__lang" role="list">
+                        <li class="header__lang-item is-active"><button type="button" data-lang="ru">ru</button></li>
+                        <li class="header__lang-item"><button type="button" data-lang="en">en</button></li>
+                        <li class="header__lang-item"><button type="button" data-lang="cn">cn</button></li>
+                    </ul><button class="header__city header__city--desktop" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="header__city-name">москва</span><span class="header__city-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 4L8 9L13 4" stroke="url(#hdrChev-d)"></path>
+                                <defs>
+                                    <linearGradient id="hdrChev-d" x1="8" y1="4" x2="8" y2="9" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#F6F2EC" stop-opacity="0"></stop>
+                                        <stop offset="1" stop-color="#F6F2EC"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg></span></button>
+                </div><a class="header__logo" href="index.html" aria-label="Le Rouge — главная"><img src="assets/img/logo.svg" alt="Le Rouge" width="210" height="60"></a>
+                <div class="header__col header__col--right"><span class="header__address header__address--desktop">Б. Путинковский пер., 5</span><button class="btn gold m header__booking-btn" type="button" data-modal-load="modals/booking-table.html"><span class="btn__text">бронь</span><span class="btn__icon"> <svg>
+                                <use xlink:href="assets/img/sprite.svg#phone"></use>
+                            </svg></span></button></div>
+            </div>
+        </div>
+    </header>
+    <main class="not-found-page">
+        <section class="not-found">
+            <div class="not-found__lights" aria-hidden="true"><span class="not-found__light not-found__light--bl"></span><span class="not-found__light not-found__light--br"></span><span class="not-found__light not-found__light--mr"></span></div>
+            <div class="not-found__container">
+                <div class="not-found__code"><span class="not-found__digit">4</span>
+                    <div class="not-found__keyhole" aria-hidden="true">
+                        <div class="not-found__keyhole-img" style="background-image: url('assets/img/not-found/girl.png')"></div>
+                    </div><span class="not-found__digit">4</span>
+                </div>
+                <h1 class="not-found__title">что-то потерял?</h1><a class="not-found__btn" href="index.html"><span class="not-found__btn-text">на главную</span></a>
+            </div>
+        </section>
+    </main>
+    <footer class="footer" id="footer">
+        <div class="footer__top">
+            <div class="footer__map"><img class="footer__map-bg" src="assets/img/footer/map-bg.png" alt="" aria-hidden="true">
+                <div class="footer__map-canvas" data-yandex-map data-lat="55.767442" data-lng="37.607568" data-zoom="16" data-address="Большой Путинковский переулок, 5" aria-hidden="true"></div>
+            </div>
+            <div class="footer__contacts"><span class="footer__contacts-heading">контакты</span><a class="footer__phone" href="tel:+79857737731">+7 (985) 773-77-31</a>
+                <div class="footer__address">
+                    <p class="footer__address-line">Большой Путинковский переулок, 5</p>
+                    <p class="footer__address-metro">м. Пушкинская, Чеховская, Тверская</p>
+                </div>
+                <div class="footer__hours">
+                    <div class="footer__hours-item"><span class="footer__hours-label">Понедельник - четверг:</span><span class="footer__hours-label footer__hours-label--short">ПН - ЧТ</span><span class="footer__hours-value">16:00 — 04:00</span></div>
+                    <div class="footer__hours-divider"></div>
+                    <div class="footer__hours-item"><span class="footer__hours-label">Пятница - воскресенье:</span><span class="footer__hours-label footer__hours-label--short">ПТ - ВС</span><span class="footer__hours-value">14:00 — 04:00</span></div>
+                </div>
+                <div class="footer__prices">
+                    <hr class="footer__divider">
+                    <div class="footer__price">
+                        <p class="footer__price-amount">3 500 ₽</p>
+                        <p class="footer__price-label">Мужчины</p>
+                    </div>
+                    <hr class="footer__divider">
+                    <div class="footer__price">
+                        <p class="footer__price-amount">5 000 ₽</p>
+                        <p class="footer__price-label">Девушки&nbsp;<span class="footer__price-label-note">только в&nbsp;сопровождении мужчин</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__photo"><img class="footer__photo-img" src="assets/img/footer/girl-mask.jpg" alt="" aria-hidden="true" loading="lazy"><span class="footer__glow footer__glow--tl" aria-hidden="true"></span><span class="footer__glow footer__glow--tr" aria-hidden="true"></span><span class="footer__glow footer__glow--br" aria-hidden="true"></span></div>
+            <div class="footer__fcdc" aria-hidden="true"><span class="footer__fcdc-text">FC/DC</span><span class="footer__fcdc-text">18+</span></div>
+        </div>
+        <div class="footer__info">
+            <div class="footer__copyright">©2026 — Le Rouge</div>
+            <nav class="footer__links" aria-label="Документы"><a class="footer__link" href="#">соглашение об обработке персональных данных</a><a class="footer__link" href="#">Политика конфиденциальности</a><a class="footer__link" href="#">пользовательское соглашение</a><a class="footer__link" href="#">согласие на получение информационных и рекламных рассылок</a></nav>
+            <div class="footer__brand"><span class="footer__brand-text">FC/DC</span>
+                <div class="footer__partners"><a class="footer__partner" href="#" aria-label="Show Girls"><img src="assets/img/footer/partner-show-girls.svg" alt="Show Girls" loading="lazy"></a><a class="footer__partner" href="#" aria-label="Le Rouge"><img src="assets/img/footer/partner-le-rouge.svg" alt="Le Rouge" loading="lazy"></a><a class="footer__partner" href="#" aria-label="Show Girls Cabaret"><img src="assets/img/footer/partner-sg-cabaret.svg" alt="Show Girls Cabaret" loading="lazy"></a></div><span class="footer__brand-text">18+</span>
+            </div>
+        </div>
+    </footer>
+    <aside class="main-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Главное меню">
+        <div class="main-menu__backdrop" data-menu-close></div>
+        <div class="main-menu__panel"><button class="main-menu__close btn-reset" type="button" aria-label="Закрыть меню" data-menu-close><svg>
+                    <use xlink:href="assets/img/sprite.svg#close"></use>
+                </svg></button><a class="main-menu__logo" href="index.html" aria-label="Le Rouge — главная" data-menu-close><img src="assets/img/logo.svg" alt="Le Rouge" width="168" height="48"></a>
+            <nav class="main-menu__nav" aria-label="Основная навигация">
+                <ul class="main-menu__list">
+                    <li class="main-menu__item"><a class="main-menu__link" href="index.html" data-menu-close>главная</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="girls.html" data-menu-close>девушки</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="show.html" data-menu-close>шоу-перформанс</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="halls.html" data-menu-close>vip залы</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="events.html" data-menu-close>мероприятия в le rouge</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="certificate.html" data-menu-close>подарочные сертификаты</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="contacts.html" data-menu-close>контакты</a></li>
+                </ul>
+            </nav><a class="main-menu__vacancies" href="#footer" data-menu-close data-scroll-to="footer">вакансии le rouge</a>
+            <ul class="main-menu__lang" role="list">
+                <li class="main-menu__lang-item is-active"><button type="button" data-lang="ru">ru</button></li>
+                <li class="main-menu__lang-item"><button type="button" data-lang="en">en</button></li>
+                <li class="main-menu__lang-item"><button type="button" data-lang="cn">cn</button></li>
+            </ul>
+        </div>
+    </aside>
+    <aside class="city-switcher" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Выбор города">
+        <div class="city-switcher__backdrop" data-city-close></div>
+        <div class="city-switcher__panel"><button class="city-switcher__close btn-reset" type="button" aria-label="Закрыть" data-city-close><svg>
+                    <use xlink:href="assets/img/sprite.svg#close"></use>
+                </svg></button>
+            <ul class="city-switcher__list" role="list">
+                <li class="city-switcher__item is-active"><a class="city-switcher__card" href="index.html" aria-current="page"><img class="city-switcher__logo" src="assets/img/city/le-rouge.svg" alt="Le Rouge" width="128" height="40"><span class="city-switcher__city">москва</span><span class="city-switcher__address">Б. Путинковский пер., 5</span></a></li>
+                <li class="city-switcher__item"><a class="city-switcher__card" href="https://show-girls.ru/ekaterinburg" rel="noopener"><img class="city-switcher__logo" src="assets/img/city/show-girls.svg" alt="Show Girls" width="128" height="56" loading="lazy"><span class="city-switcher__city">екатеринбург</span><span class="city-switcher__address">ул. Малышева, 7а</span></a></li>
+                <li class="city-switcher__item"><a class="city-switcher__card" href="https://show-girls.ru/chelyabinsk" rel="noopener"><img class="city-switcher__logo" src="assets/img/city/show-girls-cabaret.svg" alt="Show Girls Cabaret" width="128" height="56" loading="lazy"><span class="city-switcher__city">челябинск</span><span class="city-switcher__address">проспект Ленина, 89</span></a></li>
+            </ul>
+        </div>
+    </aside>
+    <div class="cookies-notice" role="dialog" aria-label="Уведомление о cookies" data-cookies-notice hidden><button class="cookies-notice__close btn-reset" type="button" aria-label="Закрыть" data-cookies-close><svg>
+                <use xlink:href="assets/img/sprite.svg#close"></use>
+            </svg></button>
+        <p class="cookies-notice__text">наш сайт использует<br><a class="cookies-notice__link" href="/cookies" target="_blank" rel="noopener">cookie-файлы</a></p><button class="cookies-notice__accept" type="button" data-cookies-accept>принимаю</button>
+    </div>
+    <div class="modals"></div>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=a836c5ff-d201-4b8d-a539-25b87beb6450&amp;lang=ru_RU" defer="defer"></script>
+    <script defer="defer" src="./assets/js/main.js"></script>
+</body>
+
+</html>

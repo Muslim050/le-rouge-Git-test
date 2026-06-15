@@ -1,0 +1,11 @@
+extends @/app/templates/template-modal.pug
+
+block content
+    +modal('success-modal')
+        .modal-inner-wrapper
+            button.modal-close-btn.close-modal(type='button' aria-label='Закрыть')
+                +svg('close')
+            .modal-inner
+                .success-modal
+                    h2.success-modal__title Заявка успешно отправлена
+                    p.success-modal__subtitle Мы свяжемся с&nbsp;вами в&nbsp;течение получаса для подтверждения брони

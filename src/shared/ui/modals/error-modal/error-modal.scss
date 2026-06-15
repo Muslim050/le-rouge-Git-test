@@ -1,0 +1,23 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.error-modal {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	gap: rem(24);
+	text-align: center;
+	max-width: rem(440);
+
+	&__title {
+		@include h2;
+		color: var(--gold-color);
+		margin: 0;
+	}
+
+	&__subtitle {
+		@include body-l;
+		color: var(--beige-color);
+		opacity: 0.8;
+		margin: 0;
+	}
+}

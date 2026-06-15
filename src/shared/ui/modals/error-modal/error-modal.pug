@@ -1,0 +1,11 @@
+extends @/app/templates/template-modal.pug
+
+block content
+    +modal('error-modal')
+        .modal-inner-wrapper
+            button.modal-close-btn.close-modal(type='button' aria-label='Закрыть')
+                +svg('close')
+            .modal-inner
+                .error-modal
+                    h2.error-modal__title Не&nbsp;удалось отправить заявку
+                    p.error-modal__subtitle Что-то пошло не&nbsp;так. Попробуйте ещё&nbsp;раз или позвоните нам по&nbsp;телефону.

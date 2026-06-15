@@ -1,0 +1,202 @@
+@use './functions' as *;
+@use './variables' as *;
+
+
+@mixin display-l {
+    font-family: 'TT Ricordi Allegria Trl', sans-serif;
+    font-size: rem(148);
+    font-weight: 400;
+    line-height: 80%;
+    letter-spacing: rem(-6);
+    text-transform: uppercase;
+}
+@mixin display-m {
+    font-family: 'TT Ricordi Allegria Trl', sans-serif;
+    font-size: rem(116);
+    font-weight: 400;
+    line-height: 80%;
+    letter-spacing: rem(-6);
+    text-transform: uppercase;
+}
+@mixin display-s {
+    font-family: 'TT Ricordi Allegria Trl', sans-serif;
+    font-size: rem(56);
+    font-weight: 400;
+    line-height: 80%;
+    letter-spacing: rem(-2);
+    text-transform: uppercase;
+}
+@mixin h1 {
+    font-family: 'TT Ricordi Allegria Trl', sans-serif;
+    text-transform: uppercase;
+    font-size: rem(40);
+    line-height: 106%;
+    font-weight: 400;
+    @media(min-width: $tab-sm) {
+        font-size: rem(64);
+        letter-spacing: rem(-2);
+    }
+    @media(min-width: 1441px) {
+        font-size: rem(80);
+    }
+}
+@mixin h2 {
+    font-family: 'TT Ricordi Allegria Trl', sans-serif;
+    font-size: rem(36);
+    font-weight: 400;
+    line-height: 106%;
+    text-transform: uppercase;
+    @media(min-width: $tab-sm) {
+        font-size: rem(48);
+        letter-spacing: rem(-2);
+    }
+    @media(min-width: 1441px) {
+        font-size: rem(64);
+    }
+}
+@mixin h3 {
+    font-family: 'TT Ricordi Allegria Trl', sans-serif;
+    font-size: rem(32);
+    font-weight: 400;
+    line-height: 116%;
+    text-transform: uppercase;
+    @media(min-width: $tab-sm) {
+        line-height: 106%;
+        letter-spacing: rem(-2);
+        font-size: rem(40);
+    }
+    @media(min-width: 1441px) {
+        font-size: rem(48);
+    }
+}
+@mixin h4 {
+    font-family: 'TT Ricordi Allegria Trl', sans-serif;
+    font-size: rem(28);
+    font-weight: 400;
+    line-height: 116%;
+    text-transform: uppercase;
+    @media(min-width: $tab-sm) {
+        line-height: 116%;
+        letter-spacing: rem(-2);
+        font-size: rem(32);
+    }
+    @media(min-width: 1441px) {
+        font-size: rem(40);
+        line-height: 106%;
+    }
+}
+@mixin h5 {
+    font-family: 'TT Ricordi Allegria Trl', sans-serif;
+    font-size: rem(24);
+    font-weight: 400;
+    line-height: 116%;
+    text-transform: uppercase;
+    @media(min-width: $tab-sm) {
+        letter-spacing: rem(-1);
+        font-size: rem(28);
+    }
+    @media(min-width: 1441px) {
+        font-size: rem(36);
+        line-height: 106%;
+    }
+}
+@mixin h6 {
+    font-family: 'TT Ricordi Allegria Trl', sans-serif;
+    font-size: rem(20);
+    font-weight: 400;
+    line-height: 116%;
+    text-transform: uppercase;
+    @media(min-width: $tab-sm) {
+        letter-spacing: rem(-1);
+        font-size: rem(24);
+        line-height: 128%;
+
+    }
+    @media(min-width: 1441px) {
+        font-size: rem(28);
+        line-height: 128%;
+    }
+}
+@mixin body-xl {
+    font-family: 'VelaSans',sans-serif;
+    font-size: rem(24);
+    font-weight: 300;
+    line-height: 164%;
+}
+@mixin body-l {
+    font-family: 'VelaSans',sans-serif;
+    font-size: rem(18);
+    font-weight: 300;
+    line-height: 164%;
+}
+@mixin body-m {
+    font-family: 'VelaSans',sans-serif;
+    font-size: rem(16);
+    font-weight: 300;
+    line-height: 164%;
+}
+@mixin body-s {
+    font-family: 'VelaSans',sans-serif;
+    font-size: rem(14);
+    font-weight: 400;
+    line-height: 164%;
+}
+@mixin body-xs {
+    font-family: 'VelaSans',sans-serif;
+    font-size: rem(12);
+    font-weight: 400;
+    line-height: 148%;
+}
+@mixin descr-md {
+    font-family: 'TT Ricordi Allegria Trl',sans-serif;
+    font-size: rem(16);
+    font-weight: 400;
+    line-height: 116%;
+    text-transform: uppercase;
+}
+@mixin descr-sd {
+    font-family: 'TT Ricordi Allegria Trl',sans-serif;
+    font-size: rem(12);
+    font-weight: 400;
+    line-height: 96%;
+    text-transform: uppercase;
+}
+@mixin descr-s {
+    font-family: 'VelaSans',sans-serif;
+    font-size: rem(14);
+    font-weight: 500;
+    line-height: 128%;
+    text-transform: uppercase;
+    letter-spacing: rem(2);
+}
+@mixin descr-xs {
+    font-family: 'VelaSans',sans-serif;
+    font-size: rem(10);
+    font-weight: 500;
+    line-height: 116%;
+    text-transform: uppercase;
+    letter-spacing: rem(1);
+}
+
+// Свечение-бордер как у бронь/GO: ярко-кремовый верх-право → золото → тёмный низ-лево.
+// Для элементов с полупрозрачной заливкой (нельзя border-box-слоем — фон просветит).
+// Использовать вместо `border: 1px solid #f4b97d`. Заменяет border на прозрачный + ::before-кольцо.
+@mixin glow-border($width: 1px) {
+    position: relative;
+    border: $width solid transparent;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: $width;
+        background: linear-gradient(214deg, #fbe2b3 0%, #f1b965 35%, #9a6c38 65%, #2e2216 100%);
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+}

@@ -1,0 +1,308 @@
+@use '@/app/styles/config/index.scss' as *;
+
+// Форма «организовать мероприятие» — адаптив по макетам:
+// 1920 (813:7063) · 1440 (1074:5284) · 360 (709:11769). Desktop-first.
+.events-form {
+	position: relative;
+	background: var(--black-color);
+	color: var(--beige-color);
+	padding: rem(160) 0;
+	overflow: hidden;
+
+	// ====== Свет из макета (827:8980) — запечённый SVG (тёплый слева + тусклее справа) ======
+	&__lights {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: 0;
+		background: url('@/shared/img/events/svet-events.svg') no-repeat center / 100% 100%;
+	}
+
+	&__container {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		max-width: rem(1208);
+		margin: 0 auto;
+		padding: 0 rem(40);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(80);
+	}
+
+	// ====== Заголовок (бейдж + заголовок + лид) ======
+	&__head {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(36);
+		text-align: center;
+	}
+
+	&__intro {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(36);
+	}
+
+	// Заголовок: десктоп — TT Ricordi 64; моб — превращается в обычный 14px текст (см. медиа)
+	&__title {
+		margin: 0;
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(64);
+		line-height: 1.06;
+		letter-spacing: rem(-2);
+		text-transform: uppercase;
+		color: var(--beige-color);
+	}
+
+	&__lead {
+		margin: 0;
+		font-family: 'Vela Sans', sans-serif;
+		font-weight: 300;
+		font-size: rem(24);
+		line-height: 1.64;
+		color: var(--beige-color);
+	}
+
+	// ====== Форма ======
+	&__form {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: rem(64);
+	}
+
+	// Ряд из 2 колонок (мероприятие+дата, имя+телефон)
+	&__row {
+		display: flex;
+		gap: rem(64);
+		width: 100%;
+	}
+
+	&__group {
+		flex: 1 1 0;
+		min-width: 0;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(28);
+
+		&--tight { gap: rem(20); }
+	}
+
+	&__label {
+		@include descr-s; // десктоп: Vela Medium 14 / ls 2 / uppercase
+		color: var(--gold-color);
+		text-align: center;
+	}
+
+	// Поля (input/select) — на десктопе 18px
+	.input {
+		font-size: rem(18);
+	}
+
+	// ====== Дропдаун (UI-kit custom-select) — золотой шеврон-градиент ======
+	&__select {
+		.custom-select__input {
+			text-align: left;
+			padding-right: rem(36);
+		}
+
+		.custom-select__icon {
+			width: rem(28);
+			height: rem(28);
+			background: url('@/shared/img/icons/chevron-gold.svg') no-repeat center / contain;
+
+			svg { display: none; }
+		}
+	}
+
+	// «Своя сумма» — поле 592 по центру, скрыто пока не выбран таб custom
+	&__group--tight > .form-group {
+		display: none;
+		width: 100%;
+		max-width: rem(592);
+
+		&.is-visible { display: block; }
+	}
+
+	// ====== Табы (бюджет / гости) — десктоп: в ряд, flex-1, h56 ======
+	&__tabs {
+		display: flex;
+		gap: rem(16);
+		width: 100%;
+	}
+
+	&__tab {
+		flex: 1 1 0;
+		min-width: 0;
+		height: rem(56);
+		padding: rem(6) rem(48);
+		border-radius: rem(96);
+		border: 1px solid rgba(255, 245, 229, 0.2);
+		background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.5) 100%);
+		color: var(--beige-color);
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(16);
+		line-height: 1.16;
+		text-transform: uppercase;
+		text-align: center;
+		white-space: nowrap;
+		cursor: pointer;
+		transition: var(--trs-300);
+
+		&.is-active {
+			color: var(--gold-color);
+			border-color: rgba(244, 185, 125, 0.2);
+			background: linear-gradient(90deg, rgba(244, 185, 125, 0.02) 0%, rgba(244, 185, 125, 0.2) 100%);
+		}
+
+		@media (hover: hover) {
+			&:hover:not(.is-active) {
+				color: var(--gold-color);
+				border-color: rgba(244, 185, 125, 0.2);
+			}
+		}
+	}
+
+	// ====== Футер (согласие + кнопка) — w592 по центру ======
+	&__footer {
+		width: 100%;
+		max-width: rem(592);
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(36);
+	}
+
+	// Согласие: UI-kit чекбокс по центру СВЕРХУ, текст под ним; ссылки тем же цветом.
+	// :has() обязателен — дефолт `.form-group:has(input[type=checkbox])` специфичнее.
+	&__agree {
+		width: 100%;
+
+		.form-group:has(input[type='checkbox']) {
+			flex-direction: column;
+			align-items: center;
+			gap: rem(8);
+
+			label {
+				flex: none;
+				text-align: center;
+
+				p {
+					@include body-xs; // Vela Regular 12 / 1.48
+					color: var(--beige-color);
+					opacity: 0.4;
+					margin: 0;
+				}
+
+				a {
+					color: inherit;
+					text-decoration: underline;
+					text-underline-offset: rem(2);
+				}
+			}
+		}
+	}
+
+	// ====== Кнопка — градиентный бордер из макета (значения как у hall) ======
+	&__submit {
+		width: 100%;
+		height: rem(64);
+		padding: rem(8) rem(16) rem(6);
+		border-radius: rem(99);
+		border: 1px solid transparent;
+		background:
+			linear-gradient(180deg, #9c6836 0%, #432c19 45%, #472d1a 100%) padding-box,
+			linear-gradient(180deg, #fff1d6 0%, #fbe2b3 14%, #f1b965 40%, #9a6c38 70%, #65360a 100%) border-box;
+		backdrop-filter: blur(2px);
+		-webkit-backdrop-filter: blur(2px);
+		cursor: pointer;
+		transition: var(--trs-300);
+
+		@media (hover: hover) {
+			&:hover { filter: brightness(1.06); }
+		}
+	}
+
+	&__submit-text {
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(20);
+		line-height: 1.16;
+		color: #f6f2ec;
+		text-transform: uppercase;
+	}
+
+	// ============================================
+	// 1440 (1074:5284)
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		padding: rem(140) 0;
+
+		&__container { max-width: 100%; padding: 0 rem(32); }
+		&__head { gap: rem(28); }
+		&__intro { gap: rem(28); }
+		&__title { font-size: rem(48); }
+		&__lead { font-size: rem(18); }
+
+		// бейдж на 1440 мелкий (12px), как в макете
+		.badge { font-size: rem(12); padding: rem(8) rem(16) rem(6); }
+
+		&__label { @include descr-xs; } // 10px / ls 1
+		&__row { gap: rem(48); }
+		&__footer { gap: rem(28); }
+	}
+
+	// ============================================
+	// 360 (709:11769) — одна колонка
+	// ============================================
+	@media (max-width: $tab-sm) {
+		padding: rem(80) 0 rem(96);
+
+		&__container { max-width: rem(360); padding: 0 rem(16); gap: rem(48); }
+		&__head { gap: rem(28); }
+		&__intro { gap: 0; } // заголовок+лид сливаются в один абзац
+
+		// на мобиле «заголовок» — это обычный body-текст 14px (не дисплейный 64)
+		&__title {
+			font-family: 'Vela Sans', sans-serif;
+			font-weight: 400;
+			font-size: rem(14);
+			line-height: 1.64;
+			letter-spacing: 0;
+			text-transform: none;
+		}
+		&__lead { font-size: rem(14); }
+
+		&__form { gap: rem(48); }
+		&__row { flex-direction: column; gap: rem(28); }
+		&__group--tight { gap: rem(16); }
+
+		.input { font-size: rem(14); }
+
+		// табы — 2 колонки grid, h36, текст 20px
+		&__tabs {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: rem(16);
+		}
+		&__tab {
+			height: rem(36);
+			padding: rem(6) rem(16);
+			font-size: rem(20);
+		}
+
+		&__group--tight > .form-group { max-width: none; }
+
+		&__footer { max-width: none; gap: rem(48); }
+		&__submit { height: rem(48); }
+		&__submit-text { font-size: rem(16); }
+	}
+}

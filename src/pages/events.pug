@@ -1,0 +1,15 @@
+extends @/app/templates/template.pug
+block head
+    +head()
+
+block header
+    +header()
+
+block content
+    main.events-page
+        +events-detail(PUBLIC + 'assets/files/show-reel-mob.mp4')
+        +events-form()
+
+        +contacts()
+block footer
+    +footer()(class='footer--compact')

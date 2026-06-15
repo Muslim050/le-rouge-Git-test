@@ -1,0 +1,37 @@
+mixin main-menu()
+    aside.main-menu(role='dialog' aria-modal='true' aria-hidden='true' aria-label='Главное меню')
+        .main-menu__backdrop(data-menu-close)
+
+        .main-menu__panel
+            button.main-menu__close.btn-reset(type='button' aria-label='Закрыть меню' data-menu-close)
+                +svg('close')
+
+            a.main-menu__logo(href=ROUTES.home aria-label='Le Rouge — главная' data-menu-close)
+                img(src=PUBLIC + 'assets/img/logo.svg' alt='Le Rouge' width='168' height='48')
+
+            nav.main-menu__nav(aria-label='Основная навигация')
+                ul.main-menu__list
+                    li.main-menu__item
+                        a.main-menu__link(href=ROUTES.home data-menu-close) главная
+                    li.main-menu__item
+                        a.main-menu__link(href=ROUTES.girls data-menu-close) девушки
+                    li.main-menu__item
+                        a.main-menu__link(href=ROUTES.show data-menu-close) шоу-перформанс
+                    li.main-menu__item
+                        a.main-menu__link(href=ROUTES.halls data-menu-close) vip залы
+                    li.main-menu__item
+                        a.main-menu__link(href=ROUTES.events data-menu-close) мероприятия в le rouge
+                    li.main-menu__item
+                        a.main-menu__link(href=ROUTES.certificate data-menu-close) подарочные сертификаты
+                    li.main-menu__item
+                        a.main-menu__link(href=ROUTES.contacts data-menu-close) контакты
+
+            a.main-menu__vacancies(href='#footer' data-menu-close data-scroll-to='footer') вакансии le rouge
+
+            ul.main-menu__lang(role='list')
+                li.main-menu__lang-item.is-active
+                    button(type='button' data-lang='ru') ru
+                li.main-menu__lang-item
+                    button(type='button' data-lang='en') en
+                li.main-menu__lang-item
+                    button(type='button' data-lang='cn') cn

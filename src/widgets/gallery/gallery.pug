@@ -1,0 +1,32 @@
+mixin gallery()
+    -
+        const photos = [
+            { image: PUBLIC + 'assets/img/gallery/1.png', alt: 'Le Rouge' },
+            { image: PUBLIC + 'assets/img/gallery/2.png', alt: 'Le Rouge' },
+            { image: PUBLIC + 'assets/img/gallery/3.png', alt: 'Le Rouge' },
+            { image: PUBLIC + 'assets/img/gallery/4.png', alt: 'Le Rouge' },
+            { image: PUBLIC + 'assets/img/gallery/5.png', alt: 'Le Rouge' },
+            { image: PUBLIC + 'assets/img/gallery/1.png', alt: 'Le Rouge' }
+        ];
+
+    section.gallery
+        .gallery__container.container
+            +badge({text: 'галерея'})
+
+            .gallery__main
+                .gallery__glow(aria-hidden='true')
+                .gallery__line(aria-hidden='true')
+
+                .gallery__swiper
+                    .swiper-wrapper
+                        each item in photos
+                            .swiper-slide
+                                figure.gallery__card
+                                    a.gallery__card-link(href=item.image aria-label='Открыть фото')
+                                        img.gallery__card-img(src=item.image alt=item.alt loading='lazy')
+
+                .gallery__nav
+                    button.gallery__nav-btn.gallery__nav-btn--prev.btn-reset(type='button' aria-label='Назад')
+                        +svg('arrow-l')
+                    button.gallery__nav-btn.gallery__nav-btn--next.btn-reset(type='button' aria-label='Вперёд')
+                        +svg('arrow-l')

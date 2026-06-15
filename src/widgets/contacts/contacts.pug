@@ -1,0 +1,67 @@
+mixin contacts()
+    section.contacts
+        // Карта (фон, full-bleed — десктоп; на мобиле — блок-квадрат снизу)
+        .contacts__map(aria-hidden='true')
+            //- Статичная картинка — фолбэк под картой (виден пока грузится API / если JS выключен)
+            img.contacts__map-bg(src=PUBLIC + 'assets/img/footer/map-bg.png' alt='')
+            //- Контейнер интерактивной Яндекс-карты. Данные — в разметке, JS только читает (shared/lib/yandex-map)
+            .contacts__map-canvas(
+                data-yandex-map
+                data-lat=CONTACTS.coords[0]
+                data-lng=CONTACTS.coords[1]
+                data-zoom=CONTACTS.mapZoom
+                data-address=CONTACTS.addressLine
+            )
+            .contacts__map-gradient
+
+        // Карточка контактов
+        .contacts__card
+            // pill «контакты» — только мобайл (макет 360-подвал)
+            span.contacts__heading контакты
+
+            // бейдж FC/DC | 18+ — десктоп (на мобиле его роль у крупной строки .contacts__fcdc)
+            .contacts__badge
+                span.contacts__badge-text FC/DC
+                span.contacts__badge-divider(aria-hidden='true')
+                span.contacts__badge-text 18+
+
+            .contacts__main
+                a.contacts__phone(href=CONTACTS.phoneHref)= CONTACTS.phone
+                .contacts__address
+                    p.contacts__address-line= CONTACTS.addressLine
+                    p.contacts__address-metro= CONTACTS.metro
+
+            .contacts__hours
+                each h, i in CONTACTS.hours
+                    if i > 0
+                        .contacts__hours-divider(aria-hidden='true')
+                    .contacts__hours-item
+                        span.contacts__hours-label!= h.full + '&nbsp;'
+                        span.contacts__hours-label.contacts__hours-label--short= h.short
+                        span.contacts__hours-value= h.value
+
+            .contacts__prices
+                each p in CONTACTS.prices
+                    hr.contacts__divider
+                    .contacts__price
+                        p.contacts__price-amount= p.amount
+                        p.contacts__price-label
+                            if p.note
+                                != p.label + '&nbsp;'
+                                span.contacts__price-label-note!= p.note
+                            else
+                                = p.label
+                //- нижняя линия блока цен — есть в макете 360-подвал, на десктопе скрыта
+                hr.contacts__divider.contacts__divider--mobile
+
+            // Фото девушки + свечения — только мобайл (макет 360-подвал)
+            .contacts__photo(aria-hidden='true')
+                img.contacts__photo-img(src=PUBLIC + 'assets/img/footer/girl-mask.jpg' alt='' loading='lazy')
+                span.contacts__glow.contacts__glow--tl
+                span.contacts__glow.contacts__glow--tr
+                span.contacts__glow.contacts__glow--br
+
+            // FC/DC ⋮ 18+ крупной строкой (между расписанием и картой) — только мобайл
+            .contacts__fcdc(aria-hidden='true')
+                span.contacts__fcdc-text FC/DC
+                span.contacts__fcdc-text 18+

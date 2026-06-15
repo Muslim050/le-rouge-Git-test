@@ -1,0 +1,24 @@
+mixin show-performance()
+    section.show-performance
+        .show-performance__container.container
+            +badge({text: 'Шоу перформанс'})
+
+            //- На мобиле (≤768) — портретная композиция из Figma (1074-5585, 720×800,
+            //- aspect 0.9): landscape-картинку резало height:400/cover в узкую полосу.
+            .show-performance__visual(aria-hidden='true')
+                picture
+                    source(media='(max-width: 768px)' srcset=PUBLIC + 'assets/img/show/performers-m.webp')
+                    img.show-performance__visual-img(src=PUBLIC + 'assets/img/show/performers.png' alt='' loading='lazy')
+
+            h2.show-performance__title
+                | Искушения и&nbsp;провокации&nbsp;–
+                br
+                | всё это вы&nbsp;увидите своими глазами и&nbsp;сможете управлять моментом
+
+            p.show-performance__lead
+                | Невероятный коктейль, где страсть, эротика
+                br
+                | и&nbsp;безупречная хореография слились воедино. Шоу, которое держит вас в&nbsp;плену с&nbsp;первой и&nbsp;до&nbsp;последней минуты
+
+            a.show-performance__btn(href='/show')
+                span.show-performance__btn-text подробнее о&nbsp;шоу

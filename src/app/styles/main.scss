@@ -1,0 +1,65 @@
+@use './libs/bootstrap-grid.scss';
+@use './libs/swiper-bundle.min.scss';
+
+@use './common/index.scss';
+
+@use '@/pages/vacancy/ui/vacancy-hero/vacancy-hero.scss';
+@use '@/pages/vacancy/ui/vacancy-alert/vacancy-alert.scss';
+@use '@/pages/vacancy/ui/vacancy-features/vacancy-features.scss';
+@use '@/pages/vacancy/ui/vacancy-work/vacancy-work.scss';
+@use '@/pages/vacancy/ui/vacancy-content/vacancy-content.scss';
+@use '@/pages/vacancy/ui/vacancy-about/vacancy-about.scss';
+@use '@/pages/vacancy/ui/vacancy-form/vacancy-form.scss';
+@use '@/pages/vacancy/ui/vacancy-faq/vacancy-faq.scss';
+@use '@/pages/vacancy/ui/vacancy-calc/vacancy-calc.scss';
+
+@use '@/entities/sections/sections.scss';
+@use '@/entities/girl-card/girl-card.scss';
+
+@use '@/features/form/form.scss';
+@use '@/features/go-btn/go-btn.scss';
+
+@use '@/widgets/header/header.scss';
+@use '@/widgets/footer/footer.scss';
+@use '@/widgets/hero/hero.scss';
+@use '@/widgets/girls-select/girls-select.scss';
+@use '@/widgets/main-menu/main-menu.scss';
+@use '@/widgets/city-switcher/city-switcher.scss';
+@use '@/widgets/tg-bot/tg-bot.scss';
+@use '@/widgets/divider/divider.scss';
+@use '@/widgets/show-performance/show-performance.scss';
+@use '@/widgets/poster/poster.scss';
+@use '@/widgets/special-menu/special-menu.scss';
+@use '@/widgets/gallery/gallery.scss';
+@use '@/widgets/food-bar/food-bar.scss';
+@use '@/widgets/loyalty/loyalty.scss';
+@use '@/widgets/hall/hall.scss';
+@use '@/widgets/show-video/show-video.scss';
+@use '@/widgets/vip-karaoke/vip-karaoke.scss';
+@use '@/widgets/photo-stack/photo-stack.scss';
+@use '@/widgets/certificate/certificate.scss';
+@use '@/widgets/show-hero/show-hero.scss';
+@use '@/widgets/show-stage/show-stage.scss';
+@use '@/widgets/show-portrait/show-portrait.scss';
+@use '@/widgets/show-gallery/show-gallery.scss';
+@use '@/widgets/girls-detail/girls-detail.scss';
+@use '@/widgets/halls-detail/halls-detail.scss';
+@use '@/widgets/events-detail/events-detail.scss';
+@use '@/widgets/events-form/events-form.scss';
+@use '@/widgets/not-found/not-found.scss';
+@use '@/widgets/contacts/contacts.scss';
+
+@use '@/shared/ui/modal/modal.scss';
+@use '@/shared/ui/modals/success-modal/success-modal.scss';
+@use '@/shared/ui/modals/error-modal/error-modal.scss';
+@use '@/shared/ui/modals/menu-kitchen/menu-kitchen.scss';
+@use '@/shared/ui/modals/cookies-modal/cookies-modal.scss';
+@use '@/shared/ui/modals/booking-table/booking-table.scss';
+@use '@/shared/ui/modals/booking-certificate/booking-certificate.scss';
+@use '@/shared/ui/modals/booking-bachelor/booking-bachelor.scss';
+@use '@/shared/ui/input/input.scss';
+@use '@/shared/ui/select/select.scss';
+@use '@/shared/ui/switch/switch.scss';
+@use '@/shared/ui/tabs/tabs.scss';
+@use '@/shared/ui/badge/badge.scss';
+@use '@/shared/ui/button/button.scss';

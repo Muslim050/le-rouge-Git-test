@@ -1,0 +1,83 @@
+extends @/app/templates/template-modal.pug
+
+mixin pill-group(name, label, options)
+    .pill-group
+        span.pill-group__label= label
+        .pill-group__items(role='radiogroup' aria-label=label)
+            each option, i in options
+                label.pill-group__item(class=i === 0 ? 'is-active' : null)
+                    input(type='radio' name=name value=option.value checked=i === 0 required)
+                    span.pill-group__text= option.label
+
+block content
+    +modal('booking-bachelor')
+        .modal-inner-wrapper
+            button.modal-close-btn.close-modal(type='button' aria-label='Закрыть')
+                +svg('close')
+
+            .modal-inner
+                .booking-form
+                    h2.booking-form__title заказать мальчишник
+
+                    form.booking-form__form.js-booking-bachelor
+                        //- Контекст для бэка: тип формы (статика) + страница и объект (заполняет JS)
+                        input(type='hidden' name='form_type' value='booking_bachelor')
+                        input(type='hidden' name='page' value='')
+                        input(type='hidden' name='object' value='')
+                        .form-block
+                            .form-row
+                                +input({
+                                    name: 'name',
+                                    placeholder: 'Ваше имя *',
+                                    type: 'text'
+                                }).input__valid-name
+
+                        .form-block
+                            .form-row
+                                +input({
+                                    name: 'phone',
+                                    placeholder: '+ 7 (___) ___-__-__ *',
+                                    type: 'tel'
+                                }).input__valid-phone
+
+                        .form-block
+                            +pill-group('guests', 'Количество гостей', [
+                                { label: '10 - 15', value: '10-15' },
+                                { label: '15 - 20', value: '15-20' },
+                                { label: '20+', value: '20+' },
+                                { label: '30+', value: '30+' }
+                            ])
+
+                        .form-block
+                            +pill-group('budget', 'Бюджет на гостя', [
+                                { label: '30 000 ₽', value: '30000' },
+                                { label: '50 000 ₽', value: '50000' },
+                                { label: '150 000 ₽', value: '150000' },
+                                { label: 'не считаем', value: 'unlimited' }
+                            ])
+
+                        .form-block
+                            .form-row.form-row--2col
+                                +input({
+                                    name: 'date',
+                                    placeholder: 'Дата *',
+                                    type: 'date'
+                                }).input__valid-date
+                                +input({
+                                    name: 'time',
+                                    placeholder: 'Время *',
+                                    type: 'time'
+                                }).input__valid-time
+
+                        .form-footer
+                            .form-footer__agreement
+                                .form-group
+                                    input(type="checkbox" id="agreement-bachelor" name="agreement" required).input
+                                    label(for="agreement-bachelor")
+                                        p Нажимая «Отправить заявку» вы&nbsp;даёте свое согласие с&nbsp;
+                                            a(href='/privacy' target='_blank') политикой конфиденциальности
+                                            |  и&nbsp;
+                                            a(href='/personal-data' target='_blank') обработкой персональных данных
+
+                            .form-footer__btn
+                                +button({variant: 'gold', text: 'отправить заявку', size: 'l'})(type='submit' disabled='').booking-form__submit

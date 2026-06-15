@@ -1,0 +1,932 @@
+@use '@/app/styles/config/index.scss' as *;
+
+// Скролл-снап страницы залов: доводит до старта зала (фото) / появившейся плашки
+html:has(.halls-detail) {
+	scroll-snap-type: y proximity;
+}
+
+.halls-detail {
+	position: relative;
+	background: var(--black-color);
+	color: var(--beige-color);
+
+	// ============================================
+	// Левое фикс-меню «якоря»
+	// ============================================
+	&__anchors {
+		position: fixed;
+		left: rem(50);
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 20;
+		pointer-events: none;
+		opacity: 1;
+		transition: opacity var(--trs-300);
+
+		&.is-hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+
+	&__anchor-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: rem(14);
+		pointer-events: auto;
+		width: rem(284);
+	}
+
+	&__anchor {
+		@include descr-s;
+		color: var(--beige-color);
+		opacity: 0.42;
+		text-decoration: none;
+		text-transform: uppercase;
+		transition: var(--trs-300);
+		display: block;
+		line-height: 1.6;
+
+		&:hover {
+			opacity: 0.7;
+		}
+	}
+
+	&__anchor-item.is-active &__anchor {
+		opacity: 1;
+		color: var(--gold-color);
+	}
+
+	// ============================================
+	// Стек зон — каждая 200vh
+	// ============================================
+	&__zones {
+		position: relative;
+	}
+
+	&__zone {
+		position: relative;
+		height: 200vh;
+		scroll-snap-align: start; // снап на старт зала (фото)
+	}
+
+	// ============================================
+	// Фото (sticky, 100vh)
+	// ============================================
+	&__photo {
+		position: sticky;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		overflow: hidden;
+		// БЕЗ z-index — иначе sticky photo создаёт stacking-context и __nav (child) запирается под __info
+	}
+
+	&__photo-img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		// crossfade между фото галереи зоны (видимо активное)
+		opacity: 0;
+		transition: opacity 0.5s ease;
+
+		&.is-active {
+			opacity: 1;
+		}
+	}
+
+	&__photo-gradient {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: rem(300);
+		background: linear-gradient(
+			0deg,
+			rgba(11, 11, 11, 0.8) 0%,
+			rgba(11, 11, 11, 0) 100%
+		);
+		pointer-events: none;
+		z-index: 2;
+	}
+
+	&__title-block {
+		position: absolute;
+		left: rem(48);
+		bottom: rem(64);
+		z-index: 3;
+		display: flex;
+		flex-direction: column;
+		gap: rem(20);
+		max-width: rem(902);
+	}
+
+	&__title {
+		@include h1;
+		color: var(--beige-color);
+		margin: 0;
+	}
+
+	// ============================================
+	// Бейдж «с функцией караоке»
+	// ============================================
+	&__badge {
+		display: inline-flex;
+		align-items: center;
+		gap: rem(16);
+		padding: rem(6) rem(24) rem(6) rem(6);
+		border-radius: 96px;
+		border: 1px solid rgba(244, 185, 125, 0.2);
+		background: linear-gradient(
+			90deg,
+			rgba(11, 11, 11, 0.2) 0%,
+			rgba(11, 11, 11, 0.6) 100%
+		);
+		width: fit-content;
+	}
+
+	&__badge-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: rem(40);
+		height: rem(40);
+		flex-shrink: 0;
+
+		svg {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	&__badge-text {
+		@include descr-s;
+		color: var(--beige-color);
+		white-space: nowrap;
+	}
+
+	// ============================================
+	// Стрелки + счётчик
+	// ============================================
+	&__nav {
+		// Fixed: одна навигация для всей секции, всегда поверх контента
+		position: fixed;
+		right: rem(48);
+		bottom: rem(64);
+		z-index: 30;
+		display: flex;
+		align-items: center;
+		gap: rem(48);
+		pointer-events: auto;
+		opacity: 1;
+		transition: opacity var(--trs-300);
+
+		&.is-hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+
+	&__nav-btn {
+		width: rem(64);
+		height: rem(64);
+		border-radius: 50%;
+		border: 1px solid var(--gold-color);
+		background: rgba(11, 11, 11, 0.3);
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: var(--trs-300);
+		color: var(--beige-color);
+		flex-shrink: 0;
+
+		svg {
+			width: rem(20);
+			height: rem(22);
+		}
+
+		&:hover {
+			background: rgba(241, 185, 101, 0.15);
+		}
+
+		&--prev svg { transform: rotate(90deg); }
+		&--next svg { transform: rotate(-90deg); }
+	}
+
+	&__counter {
+		display: inline-flex;
+		align-items: center;
+		gap: rem(16);
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(48);
+		line-height: 1.06;
+		letter-spacing: rem(-2);
+		color: var(--beige-color);
+		text-transform: uppercase;
+	}
+
+	&__counter-num {
+		opacity: 0.6;
+
+		&.is-active {
+			opacity: 1;
+		}
+	}
+
+	&__counter-sep {
+		width: rem(28);
+		height: 1px;
+		background: var(--beige-color);
+		opacity: 0.6;
+	}
+
+	// ============================================
+	// Карточка «описание» — absolute, выезжает справа
+	// ============================================
+	&__info {
+		position: absolute;
+		top: 100vh;
+		right: 0;
+		width: rem(948);
+		height: 100vh;
+		z-index: 4;
+		scroll-snap-align: start; // снап на появившуюся плашку-карточку
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__card {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background: rgba(11, 11, 11, 0.9);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: rem(48);
+		padding: rem(96);
+	}
+
+	&__card-head {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(28);
+		width: 100%;
+		max-width: rem(756);
+		text-align: center;
+	}
+
+	&__card-title {
+		@include h3;
+		color: var(--beige-color);
+		margin: 0;
+	}
+
+	&__card-text {
+		@include body-l;
+		color: var(--beige-color);
+		margin: 0;
+		text-align: center;
+	}
+
+	// ===== 3 параметра =====
+	&__card-params {
+		display: flex;
+		align-items: stretch;
+		justify-content: center;
+		gap: rem(24);
+		width: 100%;
+		max-width: rem(756);
+	}
+
+	&__card-param {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(8);
+		text-align: center;
+		text-transform: uppercase;
+
+		&-value {
+			@include h6;
+			color: var(--gold-color);
+		}
+
+		&-label {
+			@include descr-s;
+			color: var(--beige-color);
+		}
+	}
+
+	&__card-param-divider {
+		width: 1px;
+		align-self: stretch; // во всю высоту блока параметров (Figma)
+		background: linear-gradient(
+			180deg,
+			rgba(255, 245, 229, 0) 0%,
+			rgba(255, 245, 229, 0.25) 50%,
+			rgba(255, 245, 229, 0) 100%
+		);
+	}
+
+	// ===== Кнопка =====
+	&__card-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: rem(10);
+	}
+
+	&__card-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: rem(64);
+		padding: rem(8) rem(48) rem(6);
+		border-radius: 99px;
+		@include glow-border; // золотой градиент-бордер светлый→тёмный (Figma 709-11592)
+		background: linear-gradient(
+			194deg,
+			rgba(242, 182, 79, 0.9) 2%,
+			rgba(221, 148, 71, 0.6) 33%,
+			rgba(121, 64, 34, 0.2) 93%
+		);
+		background-clip: padding-box;
+		backdrop-filter: blur(2px);
+		-webkit-backdrop-filter: blur(2px);
+		cursor: pointer;
+		transition: var(--trs-300);
+
+		&:hover {
+			filter: brightness(1.1);
+		}
+	}
+
+	&__card-btn-text {
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(20);
+		line-height: 0.96;
+		color: var(--beige-color);
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	&__card-btn-icon {
+		width: rem(64);
+		height: rem(64);
+		border-radius: 50%;
+		// градиент-бордер светлый→тёмный (Figma 709-11592), как у booking-кнопки
+		@include glow-border;
+		background: linear-gradient(
+			90deg,
+			rgba(244, 185, 125, 0.02) 0%,
+			rgba(244, 185, 125, 0.2) 100%
+		);
+		background-clip: padding-box;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: var(--trs-300);
+		color: var(--beige-color);
+
+		svg {
+			width: rem(18);
+			height: rem(15); // самолётик 17×14 — без поворота (Figma)
+		}
+
+		&:hover {
+			background: linear-gradient(
+				90deg,
+				rgba(244, 185, 125, 0.1) 0%,
+				rgba(244, 185, 125, 0.4) 100%
+			);
+			backdrop-filter: blur(6px);
+			-webkit-backdrop-filter: blur(6px);
+		}
+	}
+
+	// ============================================
+	// 1440 — точные значения дизайна (Figma 1022:1831)
+	// При viewport=1440 базовый rem = 16px → rem() значения 1:1 в px
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		// Анкоры: left:48, top:116
+		&__anchors {
+			left: rem(48);
+			top: rem(116);
+			transform: none;
+		}
+		&__anchor-list {
+			width: rem(203);
+			gap: rem(6); // 32 - 26 (line-height) = 6
+		}
+
+		// Заголовок: width 660, left:48, bottom:48, gap:20
+		&__title-block {
+			left: rem(48);
+			bottom: rem(48);
+			max-width: rem(660);
+			gap: rem(20);
+		}
+
+		// h1 «Diamond Lounge» — 64px (h1 mixin адаптируется автоматически)
+
+		// Nav: right:48, bottom:40, gap:48 (3 элемента по 48px)
+		&__nav {
+			right: rem(48);
+			bottom: rem(40);
+			gap: rem(48);
+		}
+		&__nav-btn {
+			width: rem(48);
+			height: rem(48);
+			svg {
+				width: rem(14);
+				height: rem(16);
+			}
+		}
+		&__counter {
+			font-size: rem(42);
+			gap: rem(16);
+		}
+		&__counter-sep {
+			width: rem(28);
+		}
+
+		// Карточка-описание: width 708 (x=732, 1440-732=708)
+		&__info {
+			width: rem(708);
+		}
+		&__card {
+			padding: rem(48);
+			gap: rem(40);
+		}
+		&__card-head {
+			max-width: rem(610);
+			gap: rem(28);
+		}
+		// h3 42 — берётся из h3 mixin (на 1440 → 40), близко
+		&__card-text {
+			font-size: rem(16);
+		}
+
+		// 3 параметра: 610w, col 171, gap 24, divider 51h
+		&__card-params {
+			max-width: rem(610);
+			gap: rem(24);
+		}
+		&__card-param-value {
+			font-size: rem(28); // дизайн 31, использую h5
+		}
+		// разделитель — высота наследуется (align-self: stretch)
+
+		// Кнопка + arrow icon
+		&__card-btn,
+		&__card-btn-icon {
+			height: rem(64);
+		}
+		&__card-btn-icon {
+			width: rem(64);
+		}
+	}
+
+	// ============================================
+	// Mobile-only блок — скрыт на десктопе
+	// ============================================
+	&__mobile {
+		display: none;
+	}
+
+	// ============================================
+	// 1200 — промежуточный (узкие экраны до планшетов)
+	// Title + nav становится тесно, ужимаем
+	// ============================================
+	@media (max-width: 1200px) and (min-width: ($tab-sm + 1)) {
+		&__title-block {
+			max-width: rem(420);
+			gap: rem(16);
+		}
+		&__title {
+			font-size: rem(48);
+			line-height: 1.06;
+		}
+		&__nav {
+			gap: rem(24);
+			right: rem(32);
+		}
+		&__nav-btn {
+			width: rem(44);
+			height: rem(44);
+			svg {
+				width: rem(14);
+				height: rem(16);
+			}
+		}
+		&__counter {
+			font-size: rem(32);
+			gap: rem(12);
+		}
+		&__counter-sep {
+			width: rem(20);
+		}
+	}
+
+	// ============================================
+	// 992 — промежуточный (планшеты ≥768)
+	// Оставляем overlay-поведение (sticky photo + наезд карточки),
+	// карточка на всю ширину чтобы целиком накрывала фото
+	// ============================================
+	@media (max-width: $tab) and (min-width: ($tab-sm + 1)) {
+		&__anchors { display: none; }
+
+		&__title-block {
+			max-width: rem(360);
+		}
+		&__title {
+			font-size: rem(40);
+		}
+		&__nav {
+			gap: rem(20);
+			right: rem(24);
+			bottom: rem(28);
+		}
+		&__nav-btn {
+			width: rem(40);
+			height: rem(40);
+		}
+		&__counter {
+			font-size: rem(28);
+		}
+
+		// Карточка во весь viewport (поверх фото при скролле)
+		&__info {
+			width: 100%;
+		}
+		&__card {
+			padding: rem(48) rem(40);
+			gap: rem(32);
+		}
+		&__card-head {
+			max-width: rem(560);
+			gap: rem(20);
+		}
+		&__card-params {
+			max-width: rem(560);
+		}
+	}
+
+	// ============================================
+	// 768 — mobile (полностью другой layout)
+	// ============================================
+	@media (max-width: $tab-sm) {
+		// Скрываем desktop-структуру
+		&__zones,
+		&__anchors,
+		& > &__nav {
+			display: none !important;
+		}
+
+		// Mobile-блок видим
+		&__mobile {
+			display: block;
+		}
+
+		// ====== Hero ======
+		&__mobile-hero {
+			position: relative;
+			width: 100%;
+			height: rem(640);
+			overflow: hidden;
+		}
+		&__mobile-hero-img {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		// видео первого экрана (мобайл) поверх картинки-постера, под градиентами
+		&__mobile-hero-video {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			pointer-events: none;
+			display: block;
+		}
+		&__mobile-hero-gradient-top {
+			position: absolute;
+			top: 0; left: 0; right: 0;
+			height: rem(164);
+			background: linear-gradient(180deg, rgba(11,11,11,0.8) 0%, rgba(11,11,11,0) 100%);
+			z-index: 1;
+		}
+		&__mobile-hero-gradient-bottom {
+			position: absolute;
+			bottom: 0; left: 0; right: 0;
+			height: rem(326);
+			background: linear-gradient(0deg, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0) 100%);
+			z-index: 1;
+		}
+		&__mobile-hero-title {
+			position: absolute;
+			left: rem(16);
+			right: rem(16);
+			bottom: rem(28);
+			margin: 0;
+			z-index: 2;
+			font-family: 'TT Ricordi Allegria Trl', sans-serif;
+			font-size: rem(40);
+			line-height: 1.06;
+			letter-spacing: rem(-1);
+			text-transform: uppercase;
+			text-align: center;
+			color: var(--beige-color);
+		}
+
+		// ====== Tabs ======
+		&__mobile-tabs {
+			display: flex;
+			align-items: center;
+			gap: rem(6); // Figma: 6px между табами
+			padding: 0 rem(16);
+			margin-top: rem(28);
+			overflow-x: auto;
+			scroll-padding-inline: rem(16);
+			scrollbar-width: none;
+			&::-webkit-scrollbar { display: none; }
+		}
+		&__mobile-tab {
+			flex-shrink: 0;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: rem(10);
+			height: rem(36);
+			padding: rem(6) rem(16);
+			border-radius: 96px;
+			// Figma таб/3 (обычный): тонкий бежевый бордер + тёмный градиент-фон
+			border: 1px solid rgba(255, 245, 229, 0.2);
+			background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.5) 100%);
+			color: var(--beige-color);
+			@include descr-s;
+			font-size: rem(10);
+			line-height: 1.16;
+			letter-spacing: rem(1);
+			cursor: pointer;
+			transition: var(--trs-300);
+			white-space: nowrap;
+
+			// Figma таб/2 (активный): тонкий золотой бордер + лёгкий золотой градиент-фон (без свечения)
+			&.is-active,
+			&[aria-selected='true'] {
+				color: var(--gold-color);
+				border-color: rgba(244, 185, 125, 0.2);
+				background: linear-gradient(90deg, rgba(244, 185, 125, 0.02) 0%, rgba(244, 185, 125, 0.2) 100%);
+			}
+
+			// Таб караоке с иконкой-кружком — отступ слева 6px (Figma pl-6)
+			&.is-karaoke {
+				padding-left: rem(6);
+			}
+
+			&:focus-visible {
+				color: var(--gold-color);
+				outline: none;
+			}
+		}
+		&__mobile-tab-icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+
+			svg {
+				width: rem(28);
+				height: rem(28);
+			}
+		}
+		&__mobile-tab-text {
+			display: block;
+		}
+
+		// ====== Галерея фото зала (горизонтальный скролл, листается стрелками) ======
+		// Как в events: несколько фото с peek'ом, scroll-snap, стрелки = scrollGalleryTo
+		&__mobile-gallery {
+			display: flex;
+			padding-top: rem(28);
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+			scrollbar-width: none;
+
+			&::-webkit-scrollbar { display: none; }
+		}
+		&__mobile-gallery-item {
+			// Figma: одно фото на экран, без peek соседнего кадра.
+			// Слайд = полная ширина вьюпорта; боковые отступы 16px внутри → фото 328 при 360.
+			position: relative;
+			flex: 0 0 100%;
+			box-sizing: border-box;
+			padding: 0 rem(16);
+			scroll-snap-align: start;
+		}
+		// Тёплое свечение из самого фото (Figma: мягкий свет за галереей, бьёт в стороны к краям)
+		&__mobile-gallery-glow {
+			position: absolute;
+			z-index: 0;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transform: scale(1.25);
+			filter: blur(26px) saturate(1.7) brightness(1.3);
+			opacity: 0.85;
+			pointer-events: none;
+		}
+		&__mobile-gallery-img {
+			position: relative;
+			z-index: 1;
+			width: 100%;
+			aspect-ratio: 328 / 246;
+			object-fit: cover;
+			display: block;
+			border-radius: rem(8);
+		}
+
+		// ====== Стрелки + линия ======
+		&__mobile-arrows {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: rem(28) rem(44) 0;
+			gap: rem(16);
+		}
+		&__mobile-arrow {
+			width: rem(28);
+			height: rem(25);
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--beige-color);
+			cursor: pointer;
+			transition: var(--trs-300);
+			background: none;
+			border: 0;
+
+			svg {
+				width: rem(25);  // Figma 709-11574: стрелка 25×28
+				height: rem(28);
+			}
+			&--prev svg { transform: rotate(90deg); }
+			&--next svg { transform: rotate(-90deg); }
+		}
+		&__mobile-arrow-line {
+			flex: 1;
+			height: 1px;
+			// Figma Line 18: золотой градиент (прозрачный → #F9C479 → прозрачный) @ 0.4
+			background: linear-gradient(
+				90deg,
+				rgba(249, 196, 121, 0) 0%,
+				rgba(249, 196, 121, 0.4) 50%,
+				rgba(249, 196, 121, 0) 100%
+			);
+		}
+
+		// ====== Бейдж-метка ======
+		&__mobile-label-row {
+			display: flex;
+			justify-content: center;
+			padding: rem(28) rem(16) 0;
+			min-height: rem(40);
+		}
+		&__mobile-label {
+			@include descr-xs; // Figma: Vela Sans Medium 10px, tracking 1px, uppercase
+			color: var(--beige-color);
+			text-align: center;
+			display: none;
+
+			&.is-visible {
+				display: block;
+			}
+		}
+
+		// ====== 3 параметра в столбик ======
+		&__mobile-params {
+			margin-top: rem(16);
+			position: relative;
+
+			// верхний разделитель (под лейблом) — золотой градиент во всю ширину (Figma Line 51: #F9C479, прозрачный→0.4→прозрачный)
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 1px;
+				background: linear-gradient(
+					90deg,
+					rgba(249, 196, 121, 0) 0%,
+					rgba(249, 196, 121, 0.4) 50%,
+					rgba(249, 196, 121, 0) 100%
+				);
+			}
+		}
+		&__mobile-param {
+			padding: rem(16);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: rem(8);
+			text-align: center;
+			text-transform: uppercase;
+			position: relative;
+
+			// разделитель снизу — золотой градиент во всю ширину (Figma Line 51: #F9C479, прозрачный→0.4→прозрачный)
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 1px;
+				background: linear-gradient(
+					90deg,
+					rgba(249, 196, 121, 0) 0%,
+					rgba(249, 196, 121, 0.4) 50%,
+					rgba(249, 196, 121, 0) 100%
+				);
+			}
+		}
+		&__mobile-param-value {
+			font-family: 'TT Ricordi Allegria Trl', sans-serif;
+			font-size: rem(28);
+			line-height: 1.16;
+			color: var(--gold-color);
+		}
+		&__mobile-param-label {
+			@include descr-xs; // Figma: Vela Sans Medium 10px, tracking 1px, uppercase
+			color: var(--beige-color);
+		}
+
+		// ====== Описание ======
+		&__mobile-text {
+			padding: rem(40) rem(16) 0;
+			text-align: center;
+		}
+		&__mobile-text-title {
+			@include h3;
+			color: var(--beige-color);
+			margin: 0 0 rem(12);
+		}
+		&__mobile-text-body {
+			@include body-m;
+			color: var(--beige-color);
+			margin: 0;
+				
+			@media (max-width: 768px) {
+				font-size: 14px;
+			}
+			@media (max-width: 360px) {
+				font-size: rem(14);
+			}
+		}
+
+		// ====== CTA ======
+		&__mobile-cta {
+			display: flex;
+			align-items: center;
+			gap: rem(10);
+			padding: rem(40) rem(16) rem(40);
+		}
+		&__mobile-cta &__card-btn {
+			flex: 1;
+			height: rem(48);
+			padding: rem(8) rem(20);
+		}
+		&__mobile-cta &__card-btn-text {
+			font-size: rem(16);
+		}
+		&__mobile-cta &__card-btn-icon {
+			width: rem(48);
+			height: rem(48);
+			flex-shrink: 0;
+		}
+	}
+}

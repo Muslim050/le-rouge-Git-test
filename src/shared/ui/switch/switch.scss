@@ -1,0 +1,62 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.switch {
+	display: inline-flex;
+	align-items: center;
+	gap: rem(12);
+	cursor: pointer;
+	user-select: none;
+
+	&__input {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+		width: 0;
+		height: 0;
+	}
+
+	&__track {
+		position: relative;
+		display: inline-block;
+		width: rem(64);
+		height: rem(36);
+		padding: rem(4);
+		border-radius: rem(96);
+		// thumb слева (left) → яркий бордер, как в Figma
+		border: 1px solid #f4b97d;
+		background: linear-gradient(90deg, rgba(244, 185, 125, 0.2) 0%, rgba(244, 185, 125, 0.02) 100%);
+		transition: var(--trs-300);
+		flex-shrink: 0;
+	}
+
+	&__thumb {
+		position: absolute;
+		top: rem(4);
+		left: rem(4);
+		width: rem(28);
+		height: rem(28);
+		border-radius: 50%;
+		background: linear-gradient(
+			230deg,
+			rgba(242, 182, 79, 0.9) 2%,
+			rgba(221, 148, 71, 0.6) 33%,
+			rgba(121, 64, 34, 0.2) 93%
+		);
+		box-shadow: 0 rem(2) rem(4) rgba(0, 0, 0, 0.4);
+		transition: var(--trs-300);
+	}
+
+	// thumb справа (right) → тусклый бордер, как в Figma
+	&__input:checked + &__track {
+		border-color: rgba(244, 185, 125, 0.2);
+
+		.switch__thumb {
+			left: calc(100% - #{rem(32)});
+		}
+	}
+
+	&__label {
+		@include body-s;
+		color: var(--beige-color);
+	}
+}

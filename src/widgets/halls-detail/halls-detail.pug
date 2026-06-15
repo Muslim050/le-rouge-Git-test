@@ -1,0 +1,216 @@
+//- Стрелка навигации как в Figma (709-11574): ornate-«перо», золотой градиент
+//- #E0B471 → #FFEDBF (остриё снизу). Inline (а не arrow-l/currentColor): нужен
+//- градиентный stroke. Поворот на лево/право — через CSS rotate.
+mixin hallsNavArrow(id)
+    svg.halls-detail__mobile-arrow-svg(viewBox='0 0 25.1463 28.1962' fill='none' xmlns='http://www.w3.org/2000/svg' aria-hidden='true')
+        path(d='M25.0732 15.4474C18.6005 16.4048 13.5365 21.4256 12.6208 27.7934L12.5732 28.125L12.5255 27.7934C11.6098 21.4256 6.54579 16.4048 0.0731607 15.4474M12.5732 27.3326L12.5732 5.45178e-08' stroke=`url(#hallsArrow-${id})`)
+        defs
+            linearGradient(id=`hallsArrow-${id}` x1='12.5732' y1='0' x2='12.5732' y2='28.125' gradientUnits='userSpaceOnUse')
+                stop(stop-color='#E0B471' stop-opacity='0')
+                stop(offset='0.817308' stop-color='#E0B471')
+                stop(offset='1' stop-color='#FFEDBF')
+
+//- mobHeroVideo — mp4 для ПЕРВОГО ЭКРАНА НА МОБИЛЕ (≤768). Пусто → картинка (как сейчас).
+//- Картинка остаётся постером/фолбэком. На десктопе видео не используется.
+mixin halls-detail(mobHeroVideo = '')
+    -
+        const halls = [
+            {
+                id: 'diamond-1',
+                anchor: 'Diamond Lounge',
+                title: 'Diamond Lounge',
+                photo: PUBLIC + 'assets/img/halls/hall-1.png',
+                photos: [PUBLIC + 'assets/img/halls/hall-1.png', PUBLIC + 'assets/img/halls/hall-2.png', PUBLIC + 'assets/img/halls/hall-3.png'],
+                karaoke: true,
+                subtitle: 'Для самых дорогих гостей',
+                description: 'Элегантный и&nbsp;уютный зал, оснащенный современной караоке машиной, где небольшая компания может комфортно разместиться и&nbsp;насладиться вечерним отдыхом. Оформлен в&nbsp;стильном декоре, создающем атмосферу уюта и&nbsp;интимности, идеально подходящую для тех, кто ценит приватность и&nbsp;хочет провести время в&nbsp;компании близких друзей.',
+                depo: '50 000 ₽',
+                time: '3 часа',
+                hour: '10 000 ₽/час'
+            },
+            {
+                id: 'blue-velvet-1',
+                anchor: 'blue velvet',
+                title: 'Diamond Lounge',
+                photo: PUBLIC + 'assets/img/halls/hall-2.png',
+                photos: [PUBLIC + 'assets/img/halls/hall-2.png', PUBLIC + 'assets/img/halls/hall-4.png', PUBLIC + 'assets/img/halls/hall-1.png'],
+                karaoke: false,
+                subtitle: 'Для самых дорогих гостей',
+                description: 'Элегантный и&nbsp;уютный зал, оснащенный современной караоке машиной, где небольшая компания может комфортно разместиться и&nbsp;насладиться вечерним отдыхом. Оформлен в&nbsp;стильном декоре, создающем атмосферу уюта и&nbsp;интимности, идеально подходящую для тех, кто ценит приватность и&nbsp;хочет провести время в&nbsp;компании близких друзей.',
+                depo: '50 000 ₽',
+                time: '3 часа',
+                hour: '10 000 ₽/час'
+            },
+            {
+                id: 'diamond-2',
+                anchor: 'Diamond Lounge',
+                title: 'Diamond Lounge',
+                photo: PUBLIC + 'assets/img/halls/hall-3.png',
+                photos: [PUBLIC + 'assets/img/halls/hall-3.png', PUBLIC + 'assets/img/halls/hall-1.png', PUBLIC + 'assets/img/halls/hall-4.png'],
+                karaoke: false,
+                subtitle: 'Для самых дорогих гостей',
+                description: 'Элегантный и&nbsp;уютный зал, оснащенный современной караоке машиной, где небольшая компания может комфортно разместиться и&nbsp;насладиться вечерним отдыхом. Оформлен в&nbsp;стильном декоре, создающем атмосферу уюта и&nbsp;интимности, идеально подходящую для тех, кто ценит приватность и&nbsp;хочет провести время в&nbsp;компании близких друзей.',
+                depo: '50 000 ₽',
+                time: '3 часа',
+                hour: '10 000 ₽/час'
+            },
+            {
+                id: 'blue-velvet-2',
+                anchor: 'blue velvet',
+                title: 'Diamond Lounge',
+                photo: PUBLIC + 'assets/img/halls/hall-4.png',
+                photos: [PUBLIC + 'assets/img/halls/hall-4.png', PUBLIC + 'assets/img/halls/hall-2.png', PUBLIC + 'assets/img/halls/hall-3.png'],
+                karaoke: false,
+                subtitle: 'Для самых дорогих гостей',
+                description: 'Элегантный и&nbsp;уютный зал, оснащенный современной караоке машиной, где небольшая компания может комфортно разместиться и&nbsp;насладиться вечерним отдыхом. Оформлен в&nbsp;стильном декоре, создающем атмосферу уюта и&nbsp;интимности, идеально подходящую для тех, кто ценит приватность и&nbsp;хочет провести время в&nbsp;компании близких друзей.',
+                depo: '50 000 ₽',
+                time: '3 часа',
+                hour: '10 000 ₽/час'
+            }
+        ];
+        const pad = n => String(n).padStart(2, '0');
+        const total = halls.length;
+    section.halls-detail
+        // Левое фикс-меню «якоря»
+        nav.halls-detail__anchors(aria-label='Залы')
+            ul.halls-detail__anchor-list(role='list')
+                each h, i in halls
+                    li.halls-detail__anchor-item(class=i === 0 ? 'is-active' : null)
+                        a.halls-detail__anchor(href=`#${h.id}` data-index=i)= h.anchor
+
+        // Стек зон: фото-sticky + карточка-описание
+        .halls-detail__zones
+            each h, i in halls
+                .halls-detail__zone(id=h.id data-index=i)
+                    // Фото (sticky, 100vh)
+                    .halls-detail__photo
+                        //- БЭК: на каждое фото зала — свой <img.halls-detail__photo-img>, первому класс is-active.
+                        //- Стрелки/счётчик считают фото автоматически (без JSON в data-атрибуте).
+                        each src, pi in (h.photos && h.photos.length ? h.photos : [h.photo])
+                            img.halls-detail__photo-img(class=pi === 0 ? 'is-active' : null src=src alt=h.title loading=(i === 0 && pi === 0) ? 'eager' : 'lazy' fetchpriority=(i === 0 && pi === 0) ? 'high' : 'auto')
+                        .halls-detail__photo-gradient(aria-hidden='true')
+
+                        .halls-detail__title-block
+                            if h.karaoke
+                                .halls-detail__badge
+                                    span.halls-detail__badge-icon(aria-hidden='true')
+                                        +svg('mic')
+                                    span.halls-detail__badge-text с функцией караоке
+                            h2.halls-detail__title= h.title
+
+                    // Описание-карточка (справа, поверх фото при скролле)
+                    aside.halls-detail__info
+                        article.halls-detail__card
+                            .halls-detail__card-head
+                                if h.karaoke
+                                    .halls-detail__badge
+                                        span.halls-detail__badge-icon(aria-hidden='true')
+                                            +svg('mic')
+                                        span.halls-detail__badge-text с функцией караоке
+                                h3.halls-detail__card-title= h.subtitle
+                                p.halls-detail__card-text!= h.description
+
+                            .halls-detail__card-params
+                                .halls-detail__card-param
+                                    span.halls-detail__card-param-value= h.depo
+                                    span.halls-detail__card-param-label депозит
+                                .halls-detail__card-param-divider(aria-hidden='true')
+                                .halls-detail__card-param
+                                    span.halls-detail__card-param-value= h.time
+                                    span.halls-detail__card-param-label время бронирования
+                                .halls-detail__card-param-divider(aria-hidden='true')
+                                .halls-detail__card-param
+                                    span.halls-detail__card-param-value= h.hour
+                                    span.halls-detail__card-param-label продление
+
+                            .halls-detail__card-cta
+                                button.halls-detail__card-btn.btn-reset(type='button' data-modal-load='modals/booking-table.html' data-object=h.title)
+                                    span.halls-detail__card-btn-text забронировать зал
+                                button.halls-detail__card-btn-icon.btn-reset(type='button' aria-label='Бронь' data-modal-load='modals/booking-table.html' data-object=h.title)
+                                    +svg('telegram')
+
+        // ОДНА fixed-nav для всей секции (показывается пока секция в скролле, счётчик обновляется JS)
+        nav.halls-detail__nav(aria-label='Переключение зала')
+            button.halls-detail__nav-btn.halls-detail__nav-btn--prev.btn-reset(type='button' aria-label='Предыдущий зал')
+                +svg('arrow-l')
+            .halls-detail__counter
+                span.halls-detail__counter-num.halls-detail__counter-active.is-active 01
+                span.halls-detail__counter-sep
+                span.halls-detail__counter-num= pad(total)
+            button.halls-detail__nav-btn.halls-detail__nav-btn--next.btn-reset(type='button' aria-label='Следующий зал')
+                +svg('arrow-l')
+
+        // =========================================
+        // MOBILE-ONLY (≤768)
+        // =========================================
+        .halls-detail__mobile
+            // Hero: фото + «VIP-залы»
+            .halls-detail__mobile-hero
+                img.halls-detail__mobile-hero-img(src=halls[0].photo alt='VIP-залы')
+                if mobHeroVideo
+                    video.halls-detail__mobile-hero-video(autoplay muted loop playsinline preload='metadata' poster=halls[0].photo aria-hidden='true')
+                        source(src=mobHeroVideo type='video/mp4')
+                .halls-detail__mobile-hero-gradient-top(aria-hidden='true')
+                .halls-detail__mobile-hero-gradient-bottom(aria-hidden='true')
+                h1.halls-detail__mobile-hero-title VIP-залы
+
+            // Tabs (имена залов)
+            .halls-detail__mobile-tabs(role='tablist' aria-label='VIP-залы')
+                each h, i in halls
+                    button.halls-detail__mobile-tab.btn-reset(
+                        type='button'
+                        role='tab'
+                        id=`halls-mobile-tab-${i}`
+                        data-mobile-tab=i
+                        aria-controls='halls-mobile-panel'
+                        aria-selected=i === 0 ? 'true' : 'false'
+                        tabindex=i === 0 ? '0' : '-1'
+                        class=[i === 0 ? 'is-active' : null, h.karaoke ? 'is-karaoke' : null]
+                    )
+                        if h.karaoke
+                            span.halls-detail__mobile-tab-icon(aria-hidden='true')
+                                +svg('mic')
+                        span.halls-detail__mobile-tab-text= h.anchor
+
+            .halls-detail__mobile-panel#halls-mobile-panel(role='tabpanel' aria-labelledby='halls-mobile-tab-0')
+                // Галерея фото текущего зала — горизонтальный скролл, листается стрелками
+                .halls-detail__mobile-gallery
+                    each src, i in halls[0].photos
+                        .halls-detail__mobile-gallery-item
+                            img.halls-detail__mobile-gallery-glow(src=src alt='' aria-hidden='true')
+                            img.halls-detail__mobile-gallery-img(src=src alt=`${halls[0].title} — фото ${i + 1}` data-gallery-i=i)
+
+                nav.halls-detail__mobile-arrows(aria-label='Переключение фото зала')
+                    button.halls-detail__mobile-arrow.halls-detail__mobile-arrow--prev.btn-reset(type='button' aria-label='Назад')
+                        +hallsNavArrow('prev')
+                    span.halls-detail__mobile-arrow-line(aria-hidden='true')
+                    button.halls-detail__mobile-arrow.halls-detail__mobile-arrow--next.btn-reset(type='button' aria-label='Вперёд')
+                        +hallsNavArrow('next')
+
+                // Бейдж «ЗАЛ С ФУНКЦИЕЙ КАРАОКЕ» (показ если karaoke)
+                .halls-detail__mobile-label-row
+                    span.halls-detail__mobile-label.is-visible зал с функцией караоке
+
+                // 3 параметра в столбик
+                .halls-detail__mobile-params
+                    .halls-detail__mobile-param
+                        span.halls-detail__mobile-param-value 50 000 ₽
+                        span.halls-detail__mobile-param-label депозит
+                    .halls-detail__mobile-param
+                        span.halls-detail__mobile-param-value 3 часа
+                        span.halls-detail__mobile-param-label минимальное бронирование
+                    .halls-detail__mobile-param
+                        span.halls-detail__mobile-param-value 10 000 ₽/час
+                        span.halls-detail__mobile-param-label продление
+
+                // Описание
+                .halls-detail__mobile-text
+                    h3.halls-detail__mobile-text-title!= halls[0].subtitle
+                    p.halls-detail__mobile-text-body!= halls[0].description
+
+                // CTA
+                .halls-detail__mobile-cta
+                    button.halls-detail__card-btn.btn-reset(type='button' data-modal-load='modals/booking-table.html' data-object=halls[0].title)
+                        span.halls-detail__card-btn-text забронировать зал
+                    button.halls-detail__card-btn-icon.btn-reset(type='button' aria-label='Бронь' data-modal-load='modals/booking-table.html' data-object=halls[0].title)
+                        +svg('telegram')

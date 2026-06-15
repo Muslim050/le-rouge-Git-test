@@ -1,0 +1,30 @@
+extends @/app/templates/template.pug
+block head
+    +head()
+
+block header
+    +header()
+
+block content
+    main.home-page
+        +hero('', PUBLIC + 'assets/files/show-reel-mob.mp4')
+        +girls-select()
+        +tg-bot()
+        +show-performance()
+        +poster()
+        +special-menu()
+        +gallery()
+        +food-bar()
+        +loyalty()
+        +hall()
+        +show-video(PUBLIC + 'assets/files/video.mp4')
+        +vip-karaoke()
+        +photo-stack()
+
+        +contacts()
+block footer
+    +footer()(class='footer--compact')
+
+block modals
+    +menuModal('menu-kitchen', 'кухня', PUBLIC + 'assets/img/menu/hero-bar.png', PUBLIC + 'assets/img/menu/menu.png')
+    +menuModal('menu-bar', 'бар', PUBLIC + 'assets/img/menu/hero-bar.png', PUBLIC + 'assets/img/menu/menu.png')

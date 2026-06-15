@@ -1,0 +1,45 @@
+mixin vip-karaoke-block(data)
+    article.vip-karaoke__block
+        .vip-karaoke__photo
+            if data.photo
+                img(src=data.photo alt=data.title loading='lazy')
+            else
+                .vip-karaoke__photo-placeholder
+
+        .vip-karaoke__info
+            h2.vip-karaoke__title= data.title
+
+            .vip-karaoke__params
+                each param in data.params
+                    hr.vip-karaoke__divider
+                    .vip-karaoke__param
+                        span.vip-karaoke__param-label= param.label
+                        span.vip-karaoke__param-value= param.value
+                hr.vip-karaoke__divider
+
+            p.vip-karaoke__lead!= data.lead
+
+mixin vip-karaoke()
+    section.vip-karaoke
+        .vip-karaoke__container
+            +vip-karaoke-block({
+                photo: PUBLIC + 'assets/img/vip/vip-zal.png',
+                title: 'vip-залы',
+                params: [
+                    { label: 'Депозит', value: '50 000 ₽' },
+                    { label: 'Время брони', value: '3 часа' },
+                    { label: 'Продление', value: '10 000 ₽/час' }
+                ],
+                lead: 'Личное пространство для тех, кто не&nbsp;привык к&nbsp;публичности. Отдельные локации повышенного комфорта для небольших компаний. Здесь вы&nbsp;можете позволить себе быть собой, не&nbsp;опасаясь посторонних глаз.'
+            })
+
+            +vip-karaoke-block({
+                photo: PUBLIC + 'assets/img/vip/karaoke.png',
+                title: 'караоке',
+                params: [
+                    { label: 'Депозит', value: '50 000 ₽' },
+                    { label: 'Время брони', value: '3 часа' },
+                    { label: 'Продление', value: '10 000 ₽/час' }
+                ],
+                lead: 'Отдельные залы с&nbsp;караоке-оборудованием. Приглушённый свет создаёт идеальный полумрак, в&nbsp;котором проще быть собой, а&nbsp;премиальная акустика бережно подхватывает каждую ноту, каждое дыхание.<br>Это не&nbsp;просто караоке. Это пространство полной свободы.'
+            })

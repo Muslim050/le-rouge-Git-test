@@ -1,0 +1,47 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.badge {
+    position: relative;
+    border-radius: rem(99);
+    border: 1px solid transparent;
+    padding: rem(6) rem(36);
+
+    // Светящаяся золотая обводка (ярче сверху → слабее книзу), как в Figma
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(
+            180deg,
+            rgba(241, 185, 101, 0.6) 0%,
+            rgba(241, 185, 101, 0.18) 45%,
+            rgba(241, 185, 101, 0.03) 100%
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+    // Figma: TT Ricordi Allegria 20px, lh 1.16, uppercase, gold
+    font-family: 'TT Ricordi Allegria Trl', sans-serif;
+    font-size: rem(20);
+    line-height: 1.16;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--gold-color);
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+
+    // Figma (моб.): TT Ricordi 12px, паддинги 8/6 × 16
+    @media (max-width: $tab-sm) {
+        font-size: rem(12);
+        padding: rem(8) rem(16) rem(6);
+    }
+}

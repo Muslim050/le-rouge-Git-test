@@ -1,0 +1,189 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.vacancy-alert {
+	position: relative;
+	overflow: hidden;
+	.vacancy-alert__lights {
+		display: none;
+		@media (max-width: $tab-sm) {
+			display: block;
+		}
+		.light {
+			position: absolute;
+			border-radius: 50%;
+
+			&:nth-child(1) {
+				width: rem(150);
+				height: rem(150);
+				background: linear-gradient(
+					337.01deg,
+					rgba(211, 137, 91, 0) 8.4%,
+					#ba6a6c 34.59%,
+					#fcd883 60.78%
+				);
+				filter: blur(100px);
+				top: rem(105);
+				left: rem(-80);
+				@media (max-width: $tab-sm) {
+					top: rem(160);
+				}
+			}
+			&:nth-child(2) {
+				width: rem(250);
+				height: rem(250);
+				background: linear-gradient(
+					238.44deg,
+					rgba(11, 11, 11, 0.6) 1.42%,
+					rgba(210, 137, 91, 0.6) 19.65%,
+					rgba(166, 91, 68, 0.6) 37.88%
+				);
+				filter: blur(80px);
+				top: 0;
+				right: rem(-162);
+				@media (max-width: $tab-sm) {
+					top: rem(160);
+				}
+			}
+		}
+	}
+	.vacancy-alert__inner {
+		.vacancy-alert__content {
+			border-radius: rem(16);
+			position: relative;
+			overflow: hidden;
+			border: 1px solid rgba(251, 182, 83, 0.2);
+			@media (max-width: $tab-sm) {
+				border-radius: rem(8);
+				background: linear-gradient(
+					180deg,
+					rgba(176, 101, 24, 0.16) 0%,
+					rgba(176, 101, 24, 0) 66.49%
+				);
+			}
+
+			.vacancy-alert__bg {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				@media (max-width: $tab-sm) {
+					height: rem(348);
+					bottom: 0;
+					left: 0;
+					right: 0;
+					&::before {
+						content: '';
+						position: absolute;
+						top: 0;
+						left: 0;
+						right: 0;
+						background: linear-gradient(180deg, #0b0b0b 0%, rgba(20, 0, 0, 0) 100%);
+						height: rem(188);
+					}
+				}
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+			.vacancy-alert__content-text {
+				padding: rem(107) 0;
+				max-width: rem(1208);
+				position: relative;
+				z-index: 2;
+				margin: auto;
+				@media (max-width: $desktop-xxl) {
+					padding: rem(96) 0;
+					max-width: rem(888);
+				}
+				@media (max-width: $tab-sm) {
+					max-width: 100%;
+					padding: rem(36) rem(20) rem(376);
+				}
+				.vacancy-alert__title {
+					text-align: center;
+					@include h2;
+					margin-bottom: rem(24);
+					@media (max-width: $desktop-xxl) {
+						margin-bottom: rem(16);
+					}
+					@media (max-width: $tab-sm) {
+						@include h4;
+						margin-bottom: rem(12);
+					}
+					span {
+						color: var(--gold-color);
+					}
+				}
+				.vacancy-alert__hint {
+					text-align: center;
+					color: #fff4e3;
+					font-family: 'Vela Sans', sans-serif;
+					font-size: rem(16);
+					font-style: normal;
+					font-weight: 500;
+					line-height: 164%; /* 26.24px */
+					letter-spacing: rem(2);
+					text-transform: uppercase;
+					margin-bottom: rem(80);
+					@media (max-width: $desktop-xxl) {
+						margin-bottom: rem(48);
+					}
+					@media (max-width: $tab-sm) {
+						margin-bottom: rem(28);
+						font-size: rem(10);
+						line-height: 116%;
+						letter-spacing: rem(1);
+					}
+				}
+				.vacancy-alert__features {
+					display: grid;
+					grid-template-columns: repeat(3, 1fr);
+					gap: rem(80);
+					margin-bottom: rem(80);
+					@media (max-width: $desktop-xxl) {
+						gap: rem(56);
+						margin-bottom: rem(48);
+					}
+					@media (max-width: $tab-sm) {
+						grid-template-columns: 1fr;
+						gap: rem(20);
+						margin-bottom: rem(28);
+					}
+					.feature__item {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						svg {
+							width: rem(15);
+							height: rem(15);
+							margin-bottom: rem(19);
+						}
+						.feature__title {
+							margin-bottom: rem(8);
+							@include h5;
+							color: var(--gold-color);
+							text-align: center;
+						}
+						.feature__descr {
+							@include body-l;
+							text-align: center;
+							@media (max-width: $desktop-xxl) {
+								@include body-m;
+								br {
+									display: none;
+								}
+							}
+							@media (max-width: $tab-sm) {
+								@include body-s;
+							}
+						}
+					}
+				}
+				.btn {
+					margin: auto;
+				}
+			}
+		}
+	}
+}

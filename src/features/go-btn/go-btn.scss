@@ -1,0 +1,78 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.go-btn {
+	width: rem(144);
+	height: rem(144);
+	display: inline-flex;
+	flex-direction: column;
+	gap: rem(13);
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	border: 1.5px solid transparent;
+	// 3 слоя: заливка (fill Figma) → непрозрачная тёмная база (чтобы золото
+	// читалось сочно, как в кадре Figma, и сквозь верх не просвечивал hero) →
+	// золотистый градиентный бордер (яркий → приглушённый)
+	background:
+		linear-gradient(
+				214deg,
+				rgba(220, 143, 60, 0.9) 7.67%,
+				rgba(121, 64, 34, 0.2) 85.79%
+			)
+			padding-box,
+		linear-gradient(#2b2b2b, #2b2b2b) padding-box,
+		// бордер как у «бронь»: ярко-кремовый верх-право → золото → тёмный низ-лево
+		linear-gradient(214deg, #fbe2b3 0%, #f1b965 35%, #9a6c38 65%, #2e2216 100%) border-box;
+	box-shadow: 0 rem(8) rem(36) rgba(0, 0, 0, 0.4); // мягкая тень как в Figma
+	text-decoration: none;
+	color: #f6f2ec;
+	cursor: pointer;
+	transition: var(--trs-300);
+	overflow: hidden;
+	position: relative;
+
+	svg {
+		width: rem(27);
+		height: rem(22);
+		color: currentColor; // иконка наследует цвет кнопки (fill="currentColor")
+	}
+
+	&__title {
+		@include descr-s;
+		color: inherit;
+		text-align: center;
+		max-width: rem(101); // как в Figma — текст переносится в 2 строки «вызвать / такси»
+	}
+
+	// Ховер — состояние «ховер» из Figma: яркий золотой фон, чёрные текст и иконка
+	@media (hover: hover) {
+		&:hover {
+			background:
+				linear-gradient(
+						230deg,
+						rgba(242, 182, 79, 0.9) 2.33%,
+						rgba(221, 148, 71, 0.6) 92.82%
+					)
+					padding-box,
+				linear-gradient(#2b2b2b, #2b2b2b) padding-box,
+				linear-gradient(214deg, #fbe2b3 0%, #e0a951 40%, #9a6c38 65%, #2e2216 100%)
+						border-box;
+			color: var(--black-color);
+		}
+	}
+
+	@media (max-width: $tab-sm) {
+		width: rem(106);
+		height: rem(106);
+		gap: rem(10);
+
+		svg {
+			width: rem(20);
+			height: rem(16);
+		}
+
+		.go-btn__title {
+			@include descr-xs;
+		}
+	}
+}

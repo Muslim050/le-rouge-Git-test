@@ -1,0 +1,221 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.not-found {
+	position: relative;
+	background: var(--black-color);
+	color: var(--beige-color);
+	padding: rem(196) 0 rem(96);
+	overflow: hidden;
+	min-height: calc(100vh - #{rem(1082)}); // вьюпорт минус подвал
+
+	// ====== Свет ======
+	&__lights {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	&__light {
+		position: absolute;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(241, 185, 101, 0.5) 0%, rgba(241, 185, 101, 0) 70%);
+		filter: blur(60px);
+
+		&--bl {
+			width: rem(573);
+			height: rem(559);
+			left: rem(-320);
+			top: 25%;
+		}
+		&--br {
+			width: rem(533);
+			height: rem(623);
+			right: rem(-200);
+			top: 25%;
+		}
+		&--mr {
+			width: rem(322);
+			height: rem(300);
+			right: rem(-60);
+			top: 5%;
+			opacity: 0.6;
+		}
+	}
+
+	&__container {
+		position: relative;
+		z-index: 1;
+		max-width: rem(1514);
+		margin: 0 auto;
+		padding: 0 rem(48);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(48);
+	}
+
+	// ====== 404 ======
+	&__code {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: rem(76);
+		height: rem(386);
+	}
+
+	&__digit {
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(198);
+		line-height: 1;
+		letter-spacing: rem(-4);
+		color: var(--beige-color);
+		display: inline-flex;
+		align-items: center;
+		height: rem(198);
+		margin-top: rem(67); // визуальное выравнивание с центром keyhole
+	}
+
+	// ====== Keyhole shape (фото внутри буквы 0) ======
+	&__keyhole {
+		position: relative;
+		width: rem(280);
+		height: rem(529);
+		flex-shrink: 0;
+		margin-top: rem(-67); // приподнимаем чтобы выровнять
+	}
+
+	&__keyhole-img {
+		position: absolute;
+		inset: 0;
+		background-size: cover;
+		background-position: center top;
+		background-repeat: no-repeat;
+		-webkit-mask-image: url('../../shared/img/not-found/keyhole-mask.svg');
+		mask-image: url('../../shared/img/not-found/keyhole-mask.svg');
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		mask-position: center;
+	}
+
+	// ====== Title ======
+	&__title {
+		@include h2;
+		color: var(--beige-color);
+		margin: 0;
+		text-align: center;
+	}
+
+	// ====== Кнопка ======
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: rem(592);
+		height: rem(64);
+		padding: rem(8) rem(16) rem(6);
+		border-radius: rem(96);
+		// Вторичная CTA как в Figma (1046-2666): полупрозрачный gold-tint, не сплошное золото
+		@include glow-border; // свечение-обводка как в Figma
+		background: linear-gradient(90deg, rgba(244, 185, 125, 0.02) 0%, rgba(244, 185, 125, 0.2) 100%);
+		background-clip: padding-box;
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+		text-decoration: none;
+		transition: var(--trs-300);
+
+		// Ховер — осветление фона + золотой текст (как у остальных вторичных CTA)
+		@media (hover: hover) {
+			&:hover {
+				background: linear-gradient(90deg, rgba(244, 185, 125, 0.1) 0%, rgba(244, 185, 125, 0.4) 100%);
+
+				.not-found__btn-text {
+					color: var(--gold-color);
+				}
+			}
+		}
+	}
+
+	&__btn-text {
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(20);
+		line-height: 0.96;
+		color: var(--beige-color);
+		text-transform: uppercase;
+	}
+
+	// ============================================
+	// 1440
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		padding: rem(184) 0 rem(64);
+
+		&__container { padding: 0 rem(32); gap: rem(40); max-width: rem(1116); }
+
+		&__code {
+			gap: rem(56);
+			height: rem(386);
+		}
+		&__digit {
+			font-size: rem(118);
+			height: rem(118);
+			margin-top: rem(48);
+		}
+		&__keyhole {
+			width: rem(204);
+			height: rem(386);
+			margin-top: rem(-48);
+		}
+		&__title { font-size: rem(32); }
+		&__btn { min-width: rem(432); }
+	}
+
+	// ============================================
+	// 992
+	// ============================================
+	@media (max-width: $tab) {
+		padding: rem(120) 0 rem(48);
+
+		&__container { padding: 0 rem(24); gap: rem(32); }
+		&__code { gap: rem(40); height: rem(280); }
+		&__digit { font-size: rem(96); height: rem(96); margin-top: rem(40); }
+		&__keyhole { width: rem(160); height: rem(302); margin-top: rem(-40); }
+		&__title { font-size: rem(28); }
+	}
+
+	// ============================================
+	// 768 — mobile
+	// ============================================
+	@media (max-width: $tab-sm) {
+		padding: rem(91) 0 rem(40);
+
+		&__container { padding: 0 rem(16); gap: rem(28); }
+
+		&__code {
+			gap: rem(22);
+			height: rem(242);
+		}
+		&__digit {
+			font-size: rem(118);
+			height: rem(118);
+			margin-top: rem(62);
+		}
+		&__keyhole {
+			width: rem(128);
+			height: rem(242);
+			margin-top: rem(-62);
+		}
+		&__title {
+			font-size: rem(24);
+		}
+		&__btn {
+			min-width: 0;
+			width: 100%;
+			height: rem(48);
+		}
+		&__btn-text { font-size: rem(15); }
+	}
+}

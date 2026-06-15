@@ -1,0 +1,420 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.special-menu {
+	position: relative;
+	isolation: isolate;
+	min-height: 100vh;
+	padding: rem(56) 0;
+	background: var(--black-color);
+	color: var(--beige-color);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	&::before {
+		top: rem(88);
+		right: -10%;
+		width: rem(680);
+		height: rem(680);
+		background: radial-gradient(
+			circle,
+			rgba(183, 98, 65, 0.32) 0%,
+			rgba(183, 98, 65, 0.14) 38%,
+			rgba(11, 11, 11, 0) 74%
+		);
+		filter: blur(rem(126));
+	}
+
+	&::after {
+		left: 50%;
+		bottom: rem(40);
+		transform: translateX(-50%);
+		width: rem(900);
+		height: rem(320);
+		background: radial-gradient(
+			ellipse 50% 50% at center,
+			rgba(241, 185, 101, 0.18) 0%,
+			rgba(241, 185, 101, 0.07) 34%,
+			rgba(11, 11, 11, 0) 72%
+		);
+		filter: blur(rem(86));
+	}
+
+	// Фон с девушкой — sticky как в Figma
+	&__bg {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: 0;
+
+		&-img {
+			position: sticky;
+			top: 0;
+			width: 100%;
+			height: 100vh;
+			// если контент секции выше 100vh (узкие десктопы/планшет) — тянем фон
+			// на всю высоту секции, иначе снизу появлялась чёрная полоса (фото «обрезалось»)
+			min-height: 100%;
+			object-fit: cover;
+			object-position: center;
+			display: block;
+		}
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background:
+				linear-gradient(180deg, var(--black-color) 0%, rgba(11, 11, 11, 0) 25%, rgba(11, 11, 11, 0) 55%, var(--black-color) 100%),
+				linear-gradient(90deg, rgba(11, 11, 11, 0.4) 0%, rgba(11, 11, 11, 0.1) 50%, rgba(11, 11, 11, 0.4) 100%);
+			z-index: 1;
+		}
+	}
+
+	&__container {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(24);
+	}
+
+	&__title {
+		@include display-l;
+		font-size: clamp(#{rem(56)}, 10vw, #{rem(148)});
+		color: var(--beige-color);
+		text-align: center;
+		margin: 0;
+	}
+
+	&__cloud {
+		position: relative;
+		width: 100%;
+		max-width: rem(1824);
+		height: min(45vh, rem(420));
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 14% 8% 10%;
+			background: radial-gradient(
+				ellipse 42% 34% at 50% 48%,
+				rgba(241, 185, 101, 0.18) 0%,
+				rgba(241, 185, 101, 0.06) 36%,
+				rgba(11, 11, 11, 0) 74%
+			);
+			filter: blur(rem(78));
+			pointer-events: none;
+			z-index: 0;
+		}
+	}
+
+	&__hint {
+		position: absolute;
+		font-family: 'VelaSans', sans-serif;
+		font-size: rem(14);
+		font-weight: 600;
+		line-height: 1.48;
+		letter-spacing: rem(1);
+		color: var(--gold-color);
+		text-transform: uppercase;
+		white-space: nowrap;
+		cursor: pointer;
+		background: none;
+		border: 0;
+		padding: rem(6) rem(8);
+		transition: var(--trs-300);
+
+		@media (hover: hover) {
+			&:hover { color: var(--beige-color); }
+		}
+
+		&--1 { top: 60%; left: 4%; }
+		&--2 { top: 5%; right: 12%; }
+		&--3 { top: 15%; left: 22%; }
+		&--4 { top: 60%; left: 50%; transform: translateX(-50%); }
+		&--5 { top: 85%; left: 24%; }
+		&--6 { top: 78%; left: 32%; }
+	}
+
+	&__bubble {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: clamp(#{rem(160)}, 22vh, #{rem(248)});
+		height: clamp(#{rem(160)}, 22vh, #{rem(248)});
+		// overflow убран — крестик может вылезать за круг
+		filter: drop-shadow(0 rem(23) rem(80) rgba(241, 185, 101, 0.5));
+		opacity: 1;
+		transform: scale(1) translate(-50%, -50%);
+		transform-origin: 0 0;
+		transition: opacity .25s ease, transform .25s ease;
+		pointer-events: auto;
+
+		&.is-hidden {
+			opacity: 0;
+			pointer-events: none;
+			transform: scale(0.6) translate(-50%, -50%);
+		}
+
+		&-img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			border-radius: 50%;
+			// тонкий приглушённый золотой рим, как в макете (1px, не 1.5)
+			border: 1px solid rgba(241, 185, 101, 0.5);
+		}
+
+		// Кнопка-крестик (компонент «close S»): тёмная заливка-градиент +
+		// ГРАДИЕНТНЫЙ бордер (ярко-кремовый сверху-справа → тёмный снизу-слева),
+		// маленький тонкий × — точно как в Figma
+		&-close {
+			position: absolute;
+			top: rem(4);
+			right: rem(4);
+			width: rem(32);
+			height: rem(32);
+			border-radius: 50%;
+			border: 1px solid transparent;
+			// ТЁМНАЯ заливка (padding-box) должна быть почти непрозрачной, иначе
+			// золотой градиент из border-box просвечивает и кнопка становится золотой.
+			background:
+				linear-gradient(160deg, rgba(15, 12, 9, 0.92) 0%, rgba(8, 6, 4, 0.96) 100%) padding-box,
+				linear-gradient(214deg, #fbe2b3 0%, #f1b965 35%, #9a6c38 65%, #2e2216 100%) border-box;
+			cursor: pointer;
+			padding: 0;
+			transition: var(--trs-300);
+			z-index: 5;
+
+			// Крестик через pseudo-elements — маленький и тонкий
+			&::before,
+			&::after {
+				content: '';
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: rem(9);
+				height: rem(1);
+				background: var(--beige-color);
+				border-radius: rem(2);
+				transition: var(--trs-300);
+			}
+			&::before { transform: translate(-50%, -50%) rotate(45deg); }
+			&::after  { transform: translate(-50%, -50%) rotate(-45deg); }
+
+			@media (hover: hover) {
+				&:hover {
+					&::before,
+					&::after { background: var(--gold-color); }
+				}
+			}
+		}
+	}
+
+	&__copy {
+		display: flex;
+		flex-direction: column;
+		gap: rem(20);
+		align-items: center;
+		text-align: center;
+		max-width: rem(1208);
+	}
+
+	&__heading {
+		@include h2;
+		font-size: clamp(#{rem(24)}, 3.2vw, #{rem(64)});
+		color: var(--gold-color);
+		margin: 0;
+	}
+
+	&__lead {
+		@include body-xl;
+		color: var(--beige-color);
+		margin: 0;
+		max-width: rem(640);
+	}
+
+	@media (max-width: $desktop-xl) {
+		padding: rem(40) 0;
+
+		&::before {
+			right: -18%;
+			width: rem(560);
+			height: rem(560);
+		}
+
+		&::after {
+			width: rem(720);
+			height: rem(260);
+		}
+
+		&__title { font-size: rem(116); }
+
+		&__cloud {
+			max-width: rem(1344);
+			height: rem(451);
+		}
+
+		&__hint {
+			&--1 { top: 62%; left: 0; right: auto; }
+			&--2 { top: 0; left: 75%; right: auto; }
+			&--3 { top: 13%; left: 24%; }
+			&--4 { top: 59%; left: 60%; right: auto; transform: none; }
+			&--5 { top: 95%; left: 28%; }
+			&--6 { top: 82%; left: 40%; }
+		}
+
+		&__bubble {
+			width: rem(248);
+			height: rem(248);
+			top: 0;
+			left: 28%;
+			transform: none;
+		}
+
+		&__copy { gap: rem(28); }
+		&__heading { font-size: rem(48); }
+		&__lead {
+			font-size: rem(18);
+			max-width: rem(432);
+		}
+	}
+
+	// ── Мобайл (≤768): точная раскладка кадра Figma 360×640 (node 500:919) ──
+	// Координаты подписей/кружка/заголовка — в rem() от пиксельной сетки 360
+	// (на 360 rem() ≈ px), позиционирование абсолютное как во фрейме.
+	@media (max-width: $tab-sm) {
+		min-height: auto;
+		padding: rem(40) 0; // 2.5rem сверху/снизу
+
+		&::before {
+			top: rem(60);
+			right: -32%;
+			width: rem(300);
+			height: rem(300);
+			filter: blur(rem(76));
+		}
+
+		&::after {
+			bottom: rem(8);
+			width: rem(360);
+			height: rem(180);
+			filter: blur(rem(56));
+		}
+
+		// Фон-фото — верхняя область кадра (0..542), низ растворяется в чёрный
+		&__bg {
+			inset: 0 0 auto 0;
+			height: rem(542);
+
+			&-img {
+				position: absolute;
+				top: 0;
+				height: 100%;
+				min-height: 0;
+				object-position: center top;
+			}
+
+			&::before {
+				background: linear-gradient(
+					180deg,
+					var(--black-color) 0%,
+					rgba(11, 11, 11, 0) 30%,
+					rgba(11, 11, 11, 0) 56%,
+					var(--black-color) 100%
+				);
+			}
+		}
+
+		&__cloud::before {
+			inset: 20% 2% 22%;
+			filter: blur(rem(52));
+		}
+
+		// Контейнер — абсолютная раскладка вместо flex-колонки
+		&__container {
+			display: block;
+			gap: 0;
+			padding: 0;
+		}
+
+		&__title {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: rem(328);
+			font-size: rem(56);      // Display/S
+			letter-spacing: rem(-2);
+			z-index: 3;
+			// заголовок лежит поверх верхних слов — без этого он перехватывал
+			// клики (напр. «наслаждение» под ним не нажималось)
+			pointer-events: none;
+		}
+
+		// Сцена со словами и кружком (высота до начала копи-блока)
+		&__cloud {
+			position: relative;
+			width: 100%;
+			max-width: none;
+			height: rem(450);
+			margin: 0;
+		}
+
+		&__hint {
+			font-size: rem(10);
+			font-weight: 500;
+			line-height: 0.96;
+			letter-spacing: rem(1);
+			padding: 0;
+
+			&--1 { top: rem(103); left: rem(24);  right: auto; transform: none; } // (Без цензуры)
+			&--2 { top: rem(74);  left: rem(246); right: auto; transform: none; } // (наслаждение)
+			&--3 { top: rem(377); left: rem(238); right: auto; transform: none; } // (расслабление)
+			&--4 { top: rem(359); left: rem(130); right: auto; transform: none; } // (Мечты)
+			&--5 { top: rem(129); left: rem(191); right: auto; transform: none; } // (Желания)
+			&--6 { top: rem(411); left: rem(24);  right: auto; transform: none; } // (удовольствие)
+		}
+
+		// Кружок: размер из кадра; JS ставит left/top = центр слова, а translate
+		// центрирует круг на этой точке (и клампит в пределах сцены — не уезжает за край).
+		&__bubble {
+			width: rem(170);
+			height: rem(170);
+			filter: drop-shadow(0 rem(16) rem(56) rgba(241, 185, 101, 0.5));
+			transform: translate(-50%, -50%);
+			z-index: 4; // выше заголовка (3) — иначе кружок уходил под «Special menu»
+
+			&.is-hidden { transform: translate(-50%, -50%) scale(0.6); }
+		}
+
+		&__copy {
+			position: relative;
+			z-index: 2;
+			margin-top: rem(40); // копи-блок стартует на ~490 как в кадре
+			padding: 0 rem(16);
+			gap: rem(20);
+		}
+
+		&__heading {
+			font-size: rem(24);
+			letter-spacing: rem(1);
+			line-height: 1.16;
+		}
+
+		&__lead { @include body-s; } // Vela Regular 14
+	}
+}

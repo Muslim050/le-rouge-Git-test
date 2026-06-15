@@ -1,0 +1,271 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.vacancy-calc {
+	overflow: hidden;
+	.vacancy-calc__inner {
+		padding-top: rem(128);
+		padding-bottom: rem(128);
+		margin-bottom: rem(128);
+		position: relative;
+		@media (max-width: $desktop-xxl) {
+			padding-top: rem(96);
+			padding-bottom: rem(96);
+			margin-bottom: rem(96);
+		}
+		@media (max-width: $tab-sm) {
+			padding-top: rem(64);
+			padding-bottom: rem(64);
+			margin-bottom: rem(64);
+		}
+		.vacancy-calc__bg {
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+			left: 0;
+
+			right: 0;
+			height: rem(840);
+			@media (max-width: $desktop-xxl) {
+				height: rem(630);
+			}
+			@media (max-width: $tab-sm) {
+				display: none;
+			}
+			img {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+		}
+		.vacancy-calc__lights {
+			.light {
+				position: absolute;
+				border-radius: 50%;
+				background: radial-gradient(
+					circle,
+					rgba(241, 185, 101, 0.4) 0%,
+					rgba(241, 185, 101, 0) 70%
+				);
+				&:first-child {
+					background: linear-gradient(
+						337.01deg,
+						rgba(211, 137, 91, 0) 8.4%,
+						#ba6a6c 34.59%,
+						#fcd883 60.78%
+					);
+
+					width: rem(300);
+					height: rem(300);
+					top: rem(128);
+					left: rem(-154);
+					border-radius: 999px;
+					opacity: 0.8;
+					filter: blur(100px);
+					@media (max-width: $desktop-xxl) {
+						width: rem(250);
+						height: rem(250);
+						left: rem(-116);
+					}
+					@media (max-width: $tab-sm) {
+						left: rem(-162);
+						top: rem(175);
+						filter: blur(80px);
+						width: rem(210);
+						height: rem(210);
+					}
+				}
+				&:last-child {
+					width: rem(580);
+					height: rem(580);
+					background: linear-gradient(
+						238.44deg,
+						rgba(11, 11, 11, 0.6) 1.42%,
+						rgba(210, 137, 91, 0.6) 19.65%,
+						rgba(166, 91, 68, 0.6) 37.88%
+					);
+					top: rem(111);
+					right: rem(-320);
+					filter: blur(300px);
+					@media (max-width: $desktop-xxl) {
+						width: rem(420);
+						height: rem(420);
+						right: rem(-240);
+						top: rem(168);
+					}
+					@media (max-width: $tab-sm) {
+						width: rem(280);
+						height: rem(280);
+						right: rem(-112);
+						top: rem(155);
+						filter: blur(100px);
+					}
+				}
+			}
+		}
+		.vacancy-calc__content {
+			position: relative;
+			z-index: 2;
+			max-width: rem(1515);
+			margin: auto;
+			.badge {
+				display: flex;
+				margin: 0 auto rem(64);
+				@media (max-width: $desktop-xxl) {
+					margin: 0 auto rem(28);
+				}
+			}
+			.vacancy-calc__title {
+				@include h2;
+				text-align: center;
+				margin-bottom: rem(64);
+				max-width: rem(1515);
+				@media (max-width: $desktop-xxl) {
+					margin-bottom: rem(48);
+					max-width: rem(1344);
+				}
+				@media (max-width: $tab-sm) {
+					margin-bottom: rem(28);
+				}
+				@media (max-width: $tab-sm) {
+					@include h4;
+				}
+				span {
+					color: var(--gold-color);
+				}
+			}
+			.calc-wrapper {
+				display: grid;
+				grid-template-columns: 1fr rem(438);
+				gap: rem(24);
+				@media (max-width: $desktop-xxl) {
+					grid-template-columns: 1fr rem(318);
+				}
+				@media (max-width: $tab-sm) {
+					grid-template-columns: 1fr;
+					gap: rem(28);
+				}
+				.calc-main {
+					padding: rem(48);
+					border-radius: rem(16);
+					display: flex;
+					flex-direction: column;
+					gap: rem(48);
+					background: linear-gradient(
+						180deg,
+						rgba(255, 182, 114, 0.1) 0%,
+						rgba(255, 182, 114, 0) 100%
+					);
+					@include glow-border;
+					@media (max-width: $tab-sm) {
+						padding: rem(36) rem(20);
+						gap: rem(28);
+					}
+					.question {
+						p {
+							margin-bottom: rem(24);
+							@include descr-s;
+							@media (max-width: $tab-sm) {
+								@include descr-xs;
+								text-align: center;
+								margin-bottom: rem(12);
+							}
+						}
+						.inputs {
+							display: flex;
+							align-items: center;
+							gap: rem(6);
+							label {
+								flex: 1;
+								cursor: pointer;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								height: rem(64);
+								border-radius: 999px;
+								@include glow-border;
+								background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.5) 100%);
+								@media (max-width: $tab-sm) {
+									height: rem(56);
+								}
+								&.active {
+									&:after {
+										opacity: 1;
+									}
+								}
+								&:after {
+									content: '';
+									background: linear-gradient(
+										90deg,
+										rgba(255, 182, 114, 0.02) 0%,
+										rgba(255, 182, 114, 0.2) 100%
+									);
+									position: absolute;
+									inset: 0;
+									border-radius: 999px;
+									transition: var(--trs-300);
+									opacity: 0;
+								}
+								input {
+									display: none;
+								}
+								span {
+									font-family: 'TT Ricordi Allegria Trl', sans-serif;
+									font-weight: 400;
+									font-size: rem(16);
+									line-height: 116%;
+									text-align: center;
+									vertical-align: bottom;
+									text-transform: uppercase;
+									@media (max-width: $tab-sm) {
+										font-size: rem(20);
+									}
+								}
+							}
+						}
+					}
+				}
+				.calc-total {
+					.calc-total-item {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						gap: rem(8);
+						padding: rem(48) 0;
+						border-bottom: 1px solid rgba(255, 193, 107, 0.4);
+						@media (max-width: $tab-sm) {
+							padding: rem(24) 0;
+
+							border-bottom: 1px solid
+								linear-gradient(
+									90deg,
+									rgba(255, 182, 114, 0) 0%,
+									rgba(255, 193, 107, 0.4) 50%,
+									rgba(255, 182, 114, 0) 100%
+								);
+						}
+						&:first-child {
+							padding-top: 0;
+						}
+						&:last-child {
+							padding-bottom: 0;
+							border-bottom: none;
+						}
+
+						h2 {
+							color: var(--gold-color);
+							@include h2;
+						}
+						p {
+							@include descr-s;
+							text-align: center;
+							@media (max-width: $tab-sm) {
+								@include descr-xs;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

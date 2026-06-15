@@ -1,0 +1,273 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.vip-karaoke {
+	position: relative;
+	isolation: isolate;
+	background: linear-gradient(180deg, #9b663a 0%, #8a1b1b 100%);
+	padding: rem(148) 0;
+	color: var(--beige-color);
+	overflow: hidden;
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	&::before {
+		left: -8%;
+		top: rem(120);
+		width: rem(520);
+		height: rem(520);
+		background: radial-gradient(
+			circle,
+			rgba(255, 227, 188, 0.18) 0%,
+			rgba(233, 164, 97, 0.16) 30%,
+			rgba(155, 102, 58, 0) 74%
+		);
+		filter: blur(rem(96));
+	}
+
+	&::after {
+		right: -12%;
+		bottom: rem(120);
+		width: rem(600);
+		height: rem(600);
+		background: radial-gradient(
+			circle,
+			rgba(183, 78, 60, 0.24) 0%,
+			rgba(183, 78, 60, 0.1) 38%,
+			rgba(138, 27, 27, 0) 74%
+		);
+		filter: blur(rem(116));
+	}
+
+	&__container {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		gap: rem(148);
+		align-items: center;
+		padding: 0 rem(16);
+	}
+
+	&__block {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: rem(900);
+		max-width: 100%;
+
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			pointer-events: none;
+			z-index: 0;
+		}
+
+		&::before {
+			top: rem(84);
+			width: min(48vw, rem(620));
+			height: rem(320);
+			background: radial-gradient(
+				ellipse 50% 50% at center,
+				rgba(255, 229, 192, 0.14) 0%,
+				rgba(255, 184, 105, 0.12) 30%,
+				rgba(155, 102, 58, 0) 74%
+			);
+			filter: blur(rem(68));
+		}
+
+		&::after {
+			bottom: rem(8);
+			width: min(60vw, rem(780));
+			height: rem(220);
+			background: radial-gradient(
+				ellipse 50% 50% at center,
+				rgba(255, 223, 178, 0.1) 0%,
+				rgba(188, 92, 67, 0.08) 40%,
+				rgba(138, 27, 27, 0) 74%
+			);
+			filter: blur(rem(74));
+		}
+	}
+
+	// Фото с наездом на заголовок (PNG уже с наклоном и прозрачными углами)
+	&__photo {
+		position: relative;
+		width: rem(540);
+		max-width: 90vw;
+		margin-bottom: rem(-48);
+		z-index: 1;
+
+		img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+
+		&-placeholder {
+			width: 100%;
+			aspect-ratio: 1 / 1;
+			border-radius: rem(8);
+			background: linear-gradient(135deg, rgba(80, 30, 30, 0.6), rgba(11, 11, 11, 0.7));
+		}
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		gap: rem(24);
+		align-items: stretch;
+		width: 100%;
+		position: relative;
+		z-index: 2; // текст поверх фото (фото наезжает снизу)
+	}
+
+	&__title {
+		@include h1;
+		color: var(--beige-color);
+		text-align: center;
+		margin: 0;
+	}
+
+	&__params {
+		display: flex;
+		flex-direction: column;
+		gap: rem(16);
+		width: 100%;
+	}
+
+	// Линия из макета (Line 36): золотой градиент, ярче в центре, тает по краям (opacity 0.4)
+	&__divider {
+		width: 100%;
+		height: 1px;
+		border: 0;
+		margin: 0;
+		background: linear-gradient(
+			90deg,
+			rgba(249, 196, 121, 0) 0%,
+			rgba(249, 196, 121, 0.4) 50%,
+			rgba(249, 196, 121, 0) 100%
+		);
+	}
+
+	&__param {
+		display: flex;
+		flex-direction: column;
+		gap: rem(8);
+		align-items: center;
+		text-align: center;
+
+		&-label {
+			@include descr-xs; // 10px как в макете (Vela Medium)
+			color: var(--beige-color);
+		}
+
+		&-value {
+			@include h5;
+			color: var(--beige-color);
+		}
+	}
+
+	&__lead {
+		@include body-xl;
+		color: var(--beige-color);
+		text-align: center;
+		margin: 0;
+	}
+
+	// ============================================
+	// 1440
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		padding: rem(128) 0;
+
+		&::before {
+			left: -14%;
+			width: rem(420);
+			height: rem(420);
+		}
+
+		&::after {
+			right: -18%;
+			width: rem(500);
+			height: rem(500);
+		}
+
+		&__container { gap: rem(128); }
+
+		&__block { width: rem(660); }
+
+		&__photo {
+			width: rem(432);
+			margin-bottom: rem(-48);
+		}
+
+		// title: h1-миксин = 64 на 1440
+		// param-value: h5-миксин = 28 на 1440 (убран ошибочный override 32)
+
+		&__lead { font-size: rem(18); } // body-l
+	}
+
+	// ============================================
+	// 360
+	// ============================================
+	@media (max-width: $tab-sm) {
+		padding: rem(96) 0;
+
+		&::before {
+			left: -34%;
+			top: rem(60);
+			width: rem(280);
+			height: rem(280);
+			filter: blur(rem(64));
+		}
+
+		&::after {
+			right: -34%;
+			bottom: rem(120);
+			width: rem(320);
+			height: rem(320);
+			filter: blur(rem(72));
+		}
+
+		&__container {
+			gap: rem(96);
+		}
+
+		&__block { width: 100%; }
+
+		&__photo {
+			width: rem(300);
+			margin-bottom: rem(-48);
+		}
+
+		&__block::before {
+			top: rem(52);
+			width: rem(280);
+			height: rem(200);
+			filter: blur(rem(34));
+		}
+
+		&__block::after {
+			width: rem(320);
+			height: rem(140);
+			filter: blur(rem(42));
+		}
+
+		&__title { font-size: rem(56); } // Display/S
+
+		// param-value: h5-миксин = 24 на мобиле; param-label = descr-xs 10
+
+		&__lead { @include body-s; } // Vela Regular 14
+	}
+}

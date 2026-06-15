@@ -1,0 +1,34 @@
+mixin vacancy-alert()
+    section.vacancy-alert
+        .vacancy-alert__lights 
+            .light 
+            .light 
+        .vacancy-alert__inner.vacancy-container     
+            .vacancy-alert__content 
+                .vacancy-alert__bg 
+                    +img({
+                        src: "assets/img/vacancy-alert/bg.png",
+                        src2x: "assets/img/vacancy-alert/bg@2x.png",
+                        mobSrc: "assets/img/vacancy-alert/bg-mob.png",
+                        mobSrc2x: "assets/img/vacancy-alert/bg-mob@2x.png",
+                        alt: 'alert bg'
+                    })
+                .vacancy-alert__content-text 
+                    h1.vacancy-alert__title ЗАРАБАТЫВАЙ <br>
+                        span ОТ 3 000 000 ₽ В ГОД
+                    p.vacancy-alert__hint Работа в le rouge
+                    .vacancy-alert__features 
+                        .feature__item 
+                            +svg('rhomb')
+                            h5.feature__title Обучение
+                            p.feature__descr Бесплатное обучение и оплачиваемая стажировка, которые помогут тебе быстро выйти на новый профессиональный уровень
+                        .feature__item 
+                            +svg('rhomb')
+                            h5.feature__title Высокая зарплата
+                            p.feature__descr Наши девушки получают&nbsp;<br> от 250 000 рублей в месяц, то есть&nbsp;<br>же за пол года ты получишь свой первый миллион!
+                        .feature__item 
+                            +svg('rhomb')
+                            h5.feature__title Super friendly!
+                            p.feature__descr Поддержка на всех этапах работы, бесплатные беседы со специалистом, душевные разговоры в кругу коллектива!
+                    button.btn.primary 
+                        span.primary-text написать в телеграм

@@ -1,0 +1,153 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.show-performance {
+	position: relative;
+	isolation: isolate;
+	padding: rem(56) 0 rem(64);
+	// Дизайн (шоу 750-2700): фон — просто чёрный. Всё свечение уже запечено в самом
+	// кадре «картинка» (эллипсы внутри Group 72), отдельных свечений в макете нет.
+	background: var(--black-color);
+	color: var(--beige-color);
+	overflow: hidden;
+
+	&__container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(48);
+		position: relative;
+	}
+
+	// Figma: «картинка» (image 58) — full-bleed на всю ширину макета (1920/1440/360),
+	// а не контейнер max-width:1320 (он давал видимые границы кадра на десктопе).
+	// 100vw в центрированном .container даёт край-в-край; чёрные поля кадра сливаются с фоном.
+	&__visual {
+		position: relative;
+		width: 100vw;
+		max-width: 100vw;
+		display: flex;
+		justify-content: center;
+		margin: rem(8) 0 rem(-32);
+		pointer-events: none;
+
+		&-img {
+			position: relative;
+			z-index: 1;
+			width: 100%;
+			height: auto; // натуральная пропорция кадра, без letterbox-полей
+			display: block;
+			// У кадра по верхней кромке тонкий полупрозрачный серый ряд (артефакт
+			// экспорта) → на чёрном фоне читается горизонтальной полоской. Тело кадра
+			// = #0B0B0B (= фон секции), поэтому верх можно растворить маской без потерь
+			// (контент начинается ниже ~y320). Низ не трогаем — там фигура у самой кромки.
+			-webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 rem(56));
+			mask-image: linear-gradient(to bottom, transparent 0, #000 rem(56));
+		}
+	}
+
+	&__title {
+		@include h2;
+		color: var(--gold-color);
+		text-align: center;
+		margin: 0;
+		max-width: rem(1516);
+	}
+
+	&__lead {
+		@include body-xl;
+		color: var(--beige-color);
+		text-align: center;
+		margin: 0;
+		max-width: rem(900);
+	}
+
+	&__btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		max-width: rem(592);
+		height: rem(64);
+		padding: rem(8) rem(16) rem(6);
+		border-radius: rem(96);
+		@include glow-border; // свечение-обводка как в Figma
+		background: linear-gradient(90deg, rgba(244, 185, 125, 0.02) 0%, rgba(244, 185, 125, 0.2) 100%);
+		background-clip: padding-box;
+		backdrop-filter: blur(6px);
+		text-decoration: none;
+		transition: var(--trs-300);
+
+		&-text {
+			font-family: 'TT Ricordi Allegria Trl', sans-serif;
+			font-size: rem(20);
+			line-height: 0.96;
+			color: var(--beige-color);
+			text-transform: uppercase;
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				border-color: rgba(244, 185, 125, 0.5);
+
+				.show-performance__btn-text {
+					color: var(--gold-color);
+				}
+			}
+		}
+	}
+
+	@media (max-width: $desktop-xl) {
+		padding: rem(40) 0 rem(48);
+
+		&__container { gap: rem(36); }
+
+		// картинка остаётся full-bleed (100vw из базового правила), без max-width
+		// типографику отдаём миксинам (h2=48, body-l=18 на 1440)
+	}
+
+	@media (max-width: $tab-sm) {
+		padding: rem(40) 0;
+
+		&__container {
+			gap: rem(28);
+			padding: 0 rem(16);
+		}
+
+		// Figma 360: фото на всю ширину (360) и высотой 400, чтобы перформеры
+		// были в нужном масштабе, а не мелким landscape-кропом
+		&__visual {
+			width: 100vw;
+			max-width: 100vw;
+			margin: 0 0 rem(-4);
+
+			&-img {
+				width: 100%;
+				height: rem(400);
+				max-height: rem(400);
+				object-fit: cover;
+				object-position: center;
+			}
+		}
+
+		&__title {
+			font-size: rem(24);
+			letter-spacing: rem(1);
+			line-height: 1.16;
+		}
+
+		&__lead { @include body-s; } // Vela Regular 14 как в макете
+
+		// Figma 503-1454 (мобайл): outline — СЛАБЫЙ сплошной бордер (не яркое glow-кольцо),
+		// градиент 0.02→0.2, rounded 96, TT Ricordi 16px, высота 48.
+		&__btn {
+			max-width: 100%;
+			height: rem(48);
+			border: 1px solid rgba(244, 185, 125, 0.2);
+			background-clip: border-box;
+
+			&::before { display: none; } // убрать glow-обводку (::before от glow-border)
+
+			.show-performance__btn-text { font-size: rem(16); }
+		}
+	}
+}

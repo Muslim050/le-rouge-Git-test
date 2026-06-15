@@ -1,0 +1,13 @@
+mixin tabs({items = [], size = 'm', activeIndex = 0, name = 'tabs'} = {})
+    .tabs(role='tablist' data-tabs=name class=`tabs--${size}`)&attributes(attributes)
+        each item, i in items
+            - const isActive = i === activeIndex
+            button.tabs__item(
+                type='button'
+                role='tab'
+                aria-selected=isActive ? 'true' : 'false'
+                aria-controls=`${name}-panel-${i}`
+                id=`${name}-tab-${i}`
+                class=isActive ? 'is-active' : null
+                data-tab-target=`${name}-panel-${i}`
+            ) #{item.label || item}

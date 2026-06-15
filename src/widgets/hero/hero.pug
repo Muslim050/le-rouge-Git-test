@@ -1,0 +1,33 @@
+//- Параметры видео-фона (оба необязательны):
+//-   videoSrc    — десктопный mp4 (≥769)
+//-   mobVideoSrc — мобильный mp4 (≤768); если не задан — на мобиле возьмётся десктопный
+//- Если videoSrc пустой — показывается ТОЛЬКО картинка (текущее поведение).
+//- Картинка bg.jpg/bg-mob.jpg остаётся всегда: это постер/фолбэк (медленная сеть,
+//- выключенный автоплей, экономия трафика). Видео ложится поверх неё.
+mixin hero(videoSrc = '', mobVideoSrc = '')
+    section.hero
+        .hero__bg
+            +img({
+                src: PUBLIC + 'assets/img/hero/bg.jpg',
+                src2x: PUBLIC + 'assets/img/hero/bg@2x.jpg',
+                mobSrc: PUBLIC + 'assets/img/hero/bg-mob.jpg',
+                mobSrc2x: PUBLIC + 'assets/img/hero/bg-mob@2x.jpg',
+                alt: 'Le Rouge',
+                fetchpriority: 'high'
+            })
+
+            if videoSrc || mobVideoSrc
+                video.hero__video(autoplay muted loop playsinline preload='metadata' poster=PUBLIC + 'assets/img/hero/bg.jpg' aria-hidden='true')
+                    if mobVideoSrc
+                        source(media='(max-width: 768px)' src=mobVideoSrc type='video/mp4')
+                    if videoSrc
+                        source(src=videoSrc type='video/mp4')
+
+            .hero__gradient.hero__gradient--top(aria-hidden='true')
+            .hero__gradient.hero__gradient--bottom(aria-hidden='true')
+
+        .hero__inner.container
+            h1.hero__title
+                span.hero__title-line VIP mens club
+                span.hero__title-line & cabaret
+            +go-btn()

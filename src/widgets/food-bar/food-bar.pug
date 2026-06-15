@@ -1,0 +1,38 @@
+mixin food-bar-block(data)
+    article.food-bar__block
+        +badge({text: data.badge}).food-bar__badge
+        .food-bar__photo
+            .food-bar__photo-frame
+                if data.photo
+                    img(src=data.photo alt=data.alt loading='lazy')
+                else
+                    .food-bar__photo-placeholder
+        .food-bar__text
+            p.food-bar__lead!= data.lead
+            button.food-bar__card.btn-reset(type='button' data-modal-target=data.modal)
+                span.food-bar__card-icon(aria-hidden='true')
+                    +svg(data.icon)
+                span.food-bar__card-title= data.title
+
+mixin food-bar()
+    section.food-bar
+        .food-bar__container.container
+            +food-bar-block({
+                badge: 'кухня',
+                photo: PUBLIC + 'assets/img/food/kitchen.png',
+                alt: 'Меню кухни',
+                lead: 'Откройте новые грани вкуса и&nbsp;эстетического наслаждения. Безукоризненное качество блюд, созданных бренд-шефом кабаре Le&nbsp;Rouge.',
+                title: 'меню кухни',
+                icon: 'cutlery',
+                modal: 'menu-kitchen'
+            })
+
+            +food-bar-block({
+                badge: 'бар',
+                photo: PUBLIC + 'assets/img/bar/bartender.png',
+                alt: 'Меню бара',
+                lead: 'Настоящий разговор начинается не&nbsp;со&nbsp;слов, а&nbsp;с&nbsp;глотка любимого напитка.<br>Барная карта клуба&nbsp;— ваша ода мужественности и&nbsp;эстетике.',
+                title: 'меню бара',
+                icon: 'cocktail',
+                modal: 'menu-bar'
+            })

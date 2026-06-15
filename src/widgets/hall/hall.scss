@@ -1,0 +1,447 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.hall {
+	position: relative;
+	isolation: isolate;
+	background: var(--black-color);
+	color: var(--beige-color);
+	padding-top: rem(80);
+	// clip (НЕ hidden): обрезает декор/растущее фото, но НЕ создаёт scroll-контейнер,
+	// иначе ломается sticky-раскрытие (фото дёргается при скролле) — у show-video
+	// overflow на секции вообще нет, поэтому раскрытие плавное.
+	overflow: clip;
+
+	// Свечения за фото больше нет на уровне секции — за фото теперь ореол .hall__glow
+	// (1:1 с show-video). Оставлено только нижнее свечение под зоной плана.
+	&::after {
+		content: '';
+		position: absolute;
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 0;
+		right: -12%;
+		bottom: rem(120);
+		width: rem(520);
+		height: rem(520);
+		background: radial-gradient(
+			circle,
+			rgba(190, 118, 77, 0.18) 0%,
+			rgba(190, 118, 77, 0.08) 36%,
+			rgba(11, 11, 11, 0) 74%
+		);
+		filter: blur(rem(118));
+	}
+
+	&__badge-wrap {
+		display: flex;
+		justify-content: center;
+		padding: rem(20) rem(16);
+	}
+
+	// Расширяющееся фото
+	&__expand {
+		position: relative;
+		height: 200vh; // длина прокрутки эффекта
+
+		&-inner {
+			position: sticky;
+			top: 0;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+		}
+
+		// 1:1 с show-video__expand-media: над ореолом (z-index 1), width/height
+		// гонит JS по скроллу 1:1 (БЕЗ transition), анимируется только border-radius.
+		&-photo {
+			position: relative;
+			z-index: 1;
+			width: rem(820);
+			max-width: 92vw;
+			height: rem(440);
+			border-radius: rem(16);
+			overflow: hidden;
+			transition: border-radius 0.3s ease;
+		}
+
+		&-img {
+			position: relative;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
+
+		&.is-expanded &-photo {
+			width: 100vw;
+			height: 100vh;
+			border-radius: 0;
+		}
+
+		// при раскрытии ореол гаснет — как в show-video
+		&.is-expanded .hall__glow {
+			opacity: 0;
+		}
+	}
+
+	// Тёплое свечение за фото (1:1 с show-video__glow / Group71)
+	&__glow {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: rem(980);
+		height: rem(680);
+		max-width: 96vw;
+		pointer-events: none;
+		z-index: 0;
+		background: radial-gradient(
+			ellipse 50% 55% at 55% 52%,
+			rgba(241, 185, 101, 0.35) 0%,
+			rgba(220, 143, 60, 0.18) 35%,
+			rgba(11, 11, 11, 0) 70%
+		);
+		filter: blur(40px);
+		transition: opacity 0.4s ease;
+	}
+
+	// План зала + текст + селектор + кнопка
+	&__plan-block {
+		padding: rem(96) rem(48) rem(96);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(48);
+		margin: 0 auto;
+	}
+
+	&__plan-copy {
+		display: flex;
+		flex-direction: column;
+		gap: rem(16);
+		align-items: center;
+		text-align: center;
+	}
+
+	&__plan-title {
+		@include h2;
+		color: var(--gold-color);
+		margin: 0;
+	}
+
+	// переносы заголовка: desktop/1440 — свои, 360 — по макету Figma
+	&__br-desk { display: inline; }
+	&__br-mob { display: none; }
+
+	&__plan-lead {
+		@include body-s;
+		color: var(--beige-color);
+		opacity: 0.7;
+		margin: 0;
+	}
+
+	&__plan-map {
+		position: relative;
+		width: 100%;
+		max-width: rem(620);
+
+		&::before {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 112%;
+			height: 94%;
+			background: radial-gradient(
+				ellipse 50% 50% at center,
+				rgba(241, 185, 101, 0.12) 0%,
+				rgba(241, 185, 101, 0.04) 36%,
+				rgba(11, 11, 11, 0) 74%
+			);
+			filter: blur(rem(34));
+			pointer-events: none;
+			z-index: 0;
+		}
+
+		// схема зала (картинка из макета)
+		&-img {
+			position: relative;
+			z-index: 1;
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+
+		&-placeholder {
+			position: absolute;
+			inset: rem(28);
+			background:
+				repeating-linear-gradient(0deg, rgba(241, 185, 101, 0.06) 0 1px, transparent 1px 24px),
+				repeating-linear-gradient(90deg, rgba(241, 185, 101, 0.06) 0 1px, transparent 1px 24px);
+		}
+
+		&-stage {
+			position: relative;
+			z-index: 1;
+			@include descr-xs;
+			color: var(--gold-color);
+		}
+	}
+
+	// Колонка управления: селект + подсказка + кнопка (одна колонка, gap 20)
+	&__plan-controls {
+		width: 100%;
+		max-width: rem(440);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(20);
+	}
+
+	// Селект выбора стола — крупный золотой дисплейный пикер по макету Figma
+	// (TT Ricordi UPPERCASE + шеврон 28 + линия с отступом 16), а не мелкое поле.
+	// Скоуплено под .hall, чтобы общий +select() в модалках брони не менялся.
+	&__plan-select {
+		width: 100%;
+
+		.custom-select__input.input {
+			@include h4; // 28 (360) / 32 / 40 — TT Ricordi, uppercase
+			line-height: 0.96;
+			color: var(--gold-color);
+			text-align: left;
+			height: auto;
+			// правый паддинг под шеврон, нижний — отступ 16 до подчёркивающей линии
+			padding: 0 rem(36) rem(16) 0;
+			// Line 40 из макета: золотой #F9C479, opacity 0.4
+			border-bottom: 1px solid rgba(249, 196, 121, 0.4);
+
+			&::placeholder {
+				color: var(--gold-color);
+				opacity: 0.5;
+			}
+
+			&:focus,
+			&:hover {
+				border-bottom-color: rgba(249, 196, 121, 0.7);
+			}
+		}
+
+		// Шеврон из макета: 28px-глиф с вертикальным градиентом stroke (чёрный сверху → золото снизу).
+		// Градиент-stroke нельзя задать через currentColor, поэтому подменяем дефолтный svg
+		// фоном-картинкой (секция вне fetch-модалок — background-svg отрисуется).
+		.custom-select__icon {
+			width: rem(28);
+			height: rem(28);
+			background: url('@/shared/img/hall/chevron.svg') no-repeat center / contain;
+
+			svg { display: none; }
+		}
+	}
+
+	&__plan-hint {
+		@include body-xs;
+		color: var(--beige-color);
+		opacity: 0.5;
+		text-align: center;
+		margin: 0;
+	}
+
+	&__plan-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		max-width: rem(440);
+		height: rem(64);
+		padding: rem(8) rem(16) rem(6);
+		border-radius: rem(99);
+		// Заливка + градиентный бордер из макета. get_design_context отдал и заливку, и
+		// бордер неточно (заливку — слишком яркой 0.9/0.6/0.2, бордер — сплошным #65360A).
+		// Реальные значения сняты с кадра: заливка — тёмный золотисто-коричневый (ярче
+		// сверху, быстро темнеет), бордер — ярко-кремовый верх → золото → тёмный низ-лево.
+		border: 1px solid transparent;
+		background:
+			linear-gradient(180deg, #9c6836 0%, #432c19 45%, #472d1a 100%) padding-box,
+			linear-gradient(180deg, #fff1d6 0%, #fbe2b3 14%, #f1b965 40%, #9a6c38 70%, #65360a 100%) border-box;
+		backdrop-filter: blur(4px);
+		cursor: pointer;
+		transition: var(--trs-300);
+
+		&-text {
+			font-family: 'TT Ricordi Allegria Trl', sans-serif;
+			font-size: rem(20);
+			line-height: 0.96;
+			color: #f6f2ec; // тёплый off-white из макета (не beige #FFF5E5)
+			text-transform: uppercase;
+		}
+
+		@media (hover: hover) {
+			&:hover { transform: translateY(-1px); }
+		}
+	}
+
+	@media (max-width: $desktop-xl) {
+		&::before {
+			width: rem(760);
+			height: rem(360);
+		}
+
+		&::after {
+			right: -18%;
+			width: rem(420);
+			height: rem(420);
+		}
+
+		&__expand-photo {
+			width: rem(640);
+			height: rem(360);
+		}
+
+		&__plan-block { padding: rem(72) rem(36) rem(72); }
+
+		// plan-title: h2-миксин на 1440 даёт 48 (убран ошибочный override 40)
+
+		&__plan-copy {
+			gap: rem(20);
+			max-width: rem(888);
+		}
+
+		&__plan-lead {
+			@include body-l; // 18px beige
+			opacity: 1;
+		}
+
+		&__plan-map {
+			max-width: rem(888);
+		}
+
+		&__plan-controls { max-width: rem(432); }
+
+		&__plan-hint {
+			@include body-s; // 14px beige
+			opacity: 1;
+		}
+
+		&__plan-btn-text { font-size: rem(20); }
+	}
+
+	@media (max-width: $tab-sm) {
+		// фото прижато к верху секции; badge лежит поверх низа фото (макет 360)
+		padding-top: 0;
+
+		// на мобиле фото на всю ширину статично — ореол не нужен (и без sticky-inner
+		// он бы спозиционировался по всей высокой секции с планом). Скрываем.
+		&__glow { display: none; }
+
+		&::after {
+			right: -36%;
+			bottom: rem(180);
+			width: rem(280);
+			height: rem(280);
+			filter: blur(rem(62));
+		}
+
+		// на мобиле фото статичное, без sticky-раскрытия
+		&__expand {
+			height: auto;
+
+			&-inner {
+				position: static;
+				height: auto;
+			}
+
+			&-photo,
+			&.is-expanded &-photo {
+				position: relative;
+				width: 100%;
+				max-width: 100%;
+				height: rem(288);
+				border-radius: 0;
+			}
+
+			// затемнение верх/низ фото — чтобы badge читался поверх (как в макете)
+			&-photo::before,
+			&-photo::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				right: 0;
+				z-index: 1;
+				pointer-events: none;
+			}
+
+			&-photo::before {
+				top: 0;
+				height: rem(88);
+				background: linear-gradient(180deg, var(--black-color) 0%, rgba(11, 11, 11, 0) 100%);
+			}
+
+			&-photo::after {
+				bottom: 0;
+				height: rem(116);
+				background: linear-gradient(0deg, var(--black-color) 0%, rgba(11, 11, 11, 0) 100%);
+			}
+		}
+
+		&__expand-photo::before {
+			width: 92%;
+			height: 76%;
+			filter: blur(rem(26));
+		}
+
+		// badge — поверх фото, нижний край вровень с низом фото (288px)
+		&__badge-wrap {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: rem(288);
+			transform: translateY(-100%);
+			padding: 0;
+			z-index: 3;
+		}
+
+		&__plan-block { padding: rem(28) rem(16) rem(48); gap: rem(48); }
+
+		&__plan-title {
+			font-size: rem(24);
+			letter-spacing: rem(1);
+			line-height: 1.16;
+		}
+
+		&__br-desk { display: none; }
+		&__br-mob { display: inline; }
+
+		&__plan-lead { @include body-s; } // Vela Regular 14
+
+		// Figma 360: подсказка — Vela Regular 14, бежевый (а не 12/полупрозрачный)
+		&__plan-hint {
+			@include body-s;
+			opacity: 1;
+		}
+
+		&__plan-map {
+			max-width: 100%;
+
+			&::before {
+				width: 108%;
+				height: 88%;
+				filter: blur(rem(22));
+			}
+		}
+
+		&__plan-controls { gap: rem(24); }
+
+		// Figma 360: кнопка ниже (48) и blur 2px (десктоп — 64/4)
+		&__plan-btn {
+			max-width: 100%;
+			height: rem(48);
+			backdrop-filter: blur(2px);
+		}
+
+		&__plan-btn-text { font-size: rem(16); }
+	}
+}

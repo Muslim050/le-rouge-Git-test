@@ -1,0 +1,259 @@
+@use '@/app/styles/config/index.scss' as *;
+
+// ============================================
+// Базовая обёртка любого поля
+// ============================================
+.form-group {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: rem(4);
+	width: 100%;
+
+	&.error .input {
+		border-bottom-color: #b33a3a;
+	}
+
+	.input__error {
+		@include body-xs;
+		color: #b33a3a;
+		text-align: center;
+		margin: 0;
+	}
+}
+
+// ============================================
+// Текстовый input (text / email / tel / search ...)
+// Минималистичный — текст + нижняя линия
+// ============================================
+input.input {
+	width: 100%;
+	height: rem(35);
+	padding: 0;
+	border: 0;
+	border-bottom: 1px solid rgba(255, 245, 229, 0.2);
+	background: transparent;
+	color: var(--beige-color);
+	@include body-s;
+	text-align: center;
+	outline: none;
+	transition: var(--trs-300);
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	border-radius: 0;
+
+	&::placeholder {
+		color: var(--beige-color);
+		opacity: 0.4;
+	}
+
+	&:focus,
+	&:hover {
+		border-bottom-color: rgba(255, 245, 229, 0.4);
+	}
+}
+
+// ============================================
+// Чекбокс
+// ============================================
+input[type='checkbox'].input,
+input[type='checkbox'] {
+	appearance: none;
+	-webkit-appearance: none;
+	width: rem(20);
+	height: rem(20);
+	min-width: rem(20);
+	border: 1px solid rgba(255, 245, 229, 0.2);
+	border-radius: rem(6);
+	background: transparent;
+	cursor: pointer;
+	position: relative;
+	transition: var(--trs-300);
+	display: inline-block;
+	flex-shrink: 0;
+
+	&:checked {
+		border-color: rgba(101, 54, 10, 0.8);
+		background: linear-gradient(
+			230deg,
+			rgba(242, 182, 79, 0.9) 2%,
+			rgba(221, 148, 71, 0.6) 33%,
+			rgba(121, 64, 34, 0.2) 93%
+		);
+		backdrop-filter: blur(2px);
+
+		&::after {
+			content: '';
+			position: absolute;
+			left: rem(4);
+			top: rem(5);
+			width: rem(10);
+			height: rem(6);
+			border-left: 1px solid var(--beige-color);
+			border-bottom: 1px solid var(--beige-color);
+			transform: rotate(-45deg);
+		}
+	}
+
+	&.error,
+	.error & {
+		border-color: #b33a3a;
+	}
+}
+
+// label рядом с чекбоксом
+.form-group:has(input[type='checkbox']) {
+	flex-direction: row;
+	align-items: flex-start;
+	gap: rem(12);
+
+	label {
+		@include body-s;
+		color: var(--beige-color);
+		cursor: pointer;
+		flex: 1;
+
+		a {
+			color: var(--gold-color);
+			text-decoration: underline;
+			text-underline-offset: rem(2);
+
+			@media (hover: hover) {
+				&:hover {
+					opacity: 0.8;
+				}
+			}
+		}
+	}
+}
+
+// ============================================
+// Радио-кнопка
+// ============================================
+input[type='radio'] {
+	appearance: none;
+	-webkit-appearance: none;
+	width: rem(20);
+	height: rem(20);
+	min-width: rem(20);
+	border: 1px solid rgba(255, 245, 229, 0.4);
+	border-radius: 50%;
+	background: transparent;
+	cursor: pointer;
+	position: relative;
+	transition: var(--trs-300);
+	flex-shrink: 0;
+
+	&:checked {
+		border-color: var(--gold-color);
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: rem(3);
+			border-radius: 50%;
+			background: var(--gold-color);
+		}
+	}
+}
+
+.form-group:has(input[type='radio']) {
+	flex-direction: row;
+	align-items: center;
+	gap: rem(12);
+
+	label {
+		@include body-s;
+		color: var(--beige-color);
+		cursor: pointer;
+	}
+}
+
+// ============================================
+// File upload
+// ============================================
+input[type='file'].input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.file-upload-area {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: rem(12);
+	width: 100%;
+	min-height: rem(35);
+	padding: rem(8) 0;
+	border-bottom: 1px solid rgba(255, 245, 229, 0.2);
+	cursor: pointer;
+	transition: var(--trs-300);
+
+	&__text {
+		@include body-s;
+		color: var(--beige-color);
+		opacity: 0.6;
+	}
+
+	&__link {
+		color: var(--gold-color);
+		text-decoration: underline;
+		text-underline-offset: rem(2);
+		opacity: 1;
+	}
+
+	&__icon {
+		display: inline-flex;
+		flex-shrink: 0;
+
+		svg path {
+			fill: var(--beige-color);
+		}
+	}
+
+	&__remove {
+		background: none;
+		border: 0;
+		padding: 0;
+		cursor: pointer;
+		display: none;
+
+		svg path {
+			stroke: var(--beige-color);
+		}
+	}
+
+	&.has-file {
+		.file-upload-area__text {
+			opacity: 1;
+			color: var(--gold-color);
+		}
+
+		.file-upload-area__icon {
+			display: none;
+		}
+
+		.file-upload-area__remove {
+			display: inline-flex;
+		}
+	}
+
+	@media (hover: hover) {
+		&:hover {
+			border-bottom-color: rgba(255, 245, 229, 0.4);
+		}
+	}
+}
+
+.file-upload-hint {
+	@include body-xs;
+	color: var(--beige-color);
+	opacity: 0.4;
+	margin-top: rem(4);
+}

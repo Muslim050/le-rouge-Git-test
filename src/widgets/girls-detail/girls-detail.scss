@@ -1,0 +1,747 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.girls-detail {
+	position: relative;
+	width: 100%;
+	height: 100vh; // строго на высоту экрана
+	min-height: rem(720);
+	background: var(--black-color);
+	color: var(--beige-color);
+	display: grid;
+	grid-template-columns: 948fr 972fr; // Figma: left 948, right 972 (= 1920)
+	overflow: hidden;
+
+	// Mobile-only элементы (показываются в $tab-sm)
+	&__page-title,
+	&__mobile-avatars { display: none; }
+
+	// ============================================
+	// Левая часть — фото девушки
+	// ============================================
+	&__photo {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+
+		// Тёплый glow за прозрачной PNG-фигурой, чтобы на десктопе силуэт
+		// держал композицию и не терялся в пустом чёрном поле.
+		&::before {
+			content: '';
+			position: absolute;
+			inset: rem(60) rem(80) rem(32);
+			z-index: 0;
+			pointer-events: none;
+			background:
+				radial-gradient(ellipse 44% 54% at 50% 52%, rgba(236, 174, 104, 0.34) 0%, rgba(218, 154, 94, 0.12) 42%, rgba(11, 11, 11, 0) 74%),
+				radial-gradient(ellipse 24% 18% at 54% 20%, rgba(238, 152, 98, 0.2) 0%, rgba(238, 152, 98, 0) 72%);
+			filter: blur(44px);
+		}
+	}
+
+	// В блоке может лежать НЕСКОЛЬКО <img> (бэкенд выводит фото девушки циклом).
+	// Чтобы они НЕ накладывались — видна только .is-active, остальные скрыты.
+	&__photo-img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		object-fit: contain;
+		object-position: center bottom;
+		display: block;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 280ms ease-out, transform 280ms ease-out;
+
+		&.is-active {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	// Анимация смены: fade + лёгкое движение (прячем активную картинку)
+	&.is-transitioning &__photo-img.is-active,
+	&.is-photo-transitioning &__photo-img.is-active {
+		opacity: 0;
+		transform: scale(1.02);
+	}
+
+	&__photo-gradient {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: rem(228);
+		background: linear-gradient(180deg, #0b0b0b 0%, rgba(11, 11, 11, 0) 100%);
+		pointer-events: none;
+		z-index: 2; // ПОВЕРХ фото (z1) — затемняет верх под хедером (Figma «градиент» 228)
+	}
+
+	// Навигация по фото снизу
+	&__photo-nav {
+		position: absolute;
+		bottom: rem(48);
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		align-items: center;
+		gap: rem(48);
+		z-index: 2;
+	}
+
+	&__photo-btn {
+		width: rem(64);
+		height: rem(64);
+		border-radius: 50%;
+		@include glow-border; // золотое градиентное кольцо (как в Figma)
+		background: rgba(11, 11, 11, 0.3);
+		background-clip: padding-box;
+		backdrop-filter: blur(6px);
+		color: var(--gold-color); // стрелка золотая
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: var(--trs-300);
+
+		&:disabled {
+			opacity: 0.35;
+			cursor: default;
+			pointer-events: none;
+		}
+
+		svg {
+			width: rem(20);
+			height: rem(22);
+			path { stroke: currentColor; }
+		}
+
+		&--prev svg { transform: rotate(90deg); }
+		&--next svg { transform: rotate(-90deg); }
+
+		@media (hover: hover) {
+			&:hover {
+				filter: brightness(1.15);
+			}
+		}
+	}
+
+	&__photo-counter {
+		display: inline-flex;
+		align-items: center;
+		gap: rem(16);
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(48); // h3 на 1920 — Figma h51 при line 1.06
+		line-height: 1.06;
+		letter-spacing: rem(-1);
+		color: var(--beige-color);
+	}
+
+	&__photo-num {
+		opacity: 0.5;
+		transition: var(--trs-300);
+
+		&.is-active {
+			color: var(--gold-color);
+			opacity: 1;
+		}
+	}
+
+	&__photo-sep {
+		width: rem(28);
+		height: 1px;
+		background: var(--beige-color);
+		opacity: 0.6;
+		flex-shrink: 0;
+	}
+
+	// ============================================
+	// Правая часть — инфо
+	// ============================================
+	&__info {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		// Контент центрируем по вертикали с резервом снизу под аватарки (96+48).
+		// Так имя стоит ~центр-верх панели (как Figma на 1080), а на более низких
+		// экранах не налезает на аватарки и сохраняет нижний отступ.
+		justify-content: center;
+		padding: rem(48) rem(106) rem(150);
+	}
+
+	// «свет» — декоративные glow на фоне правой части
+	&__lights {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: 0;
+		// реальный слой «свет» из Figma (нода 785:10392) растянут на всю правую панель
+		background: url('@/shared/img/girls-detail/svet.svg') no-repeat center / 100% 100%;
+	}
+
+	// Карточка инфо
+	&__card {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		gap: rem(48);
+		max-width: rem(760);
+		transition: opacity 280ms ease-out, transform 280ms ease-out;
+	}
+
+	&.is-transitioning &__card {
+		opacity: 0;
+		transform: translateY(rem(8));
+	}
+
+	&__photo-counter {
+		display: inline-flex;
+		align-items: center;
+		gap: rem(16);
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(48); // h3 на 1920 — Figma h51 при line 1.06
+		line-height: 1.06;
+		letter-spacing: rem(-1);
+		color: var(--beige-color);
+		transition: opacity 280ms ease-out;
+	}
+
+	&.is-transitioning &__photo-counter,
+	&.is-photo-transitioning &__photo-counter {
+		opacity: 0.3;
+	}
+
+	// Заголовок: имя + meta + знак зодиака
+	&__head {
+		position: relative;
+	}
+
+	&__name {
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(80);
+		font-weight: 400;
+		line-height: 1.06;
+		letter-spacing: rem(-2);
+		text-transform: uppercase;
+		color: var(--beige-color);
+		text-align: center;
+		margin: 0;
+		position: relative;
+		display: inline-block;
+		width: 100%;
+	}
+
+	&__zodiac-icon {
+		display: inline-flex;
+		width: rem(28);
+		height: rem(28);
+		margin-left: rem(8);
+		vertical-align: top;
+
+		svg {
+			width: 100%;
+			height: 100%;
+			// path использует собственный gold-gradient из SVG — не переопределяем
+		}
+	}
+
+	&__meta {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: rem(12);
+		margin-top: rem(28);
+
+		&-item {
+			@include descr-s;
+			color: var(--beige-color);
+		}
+
+		&-divider {
+			// золотая градиентная линия (Figma: #F4B97D, прозрачная по краям → центр, opacity .4)
+			width: rem(24);
+			height: 1px;
+			background: linear-gradient(90deg, rgba(244, 185, 125, 0) 0%, rgba(244, 185, 125, 0.4) 50%, rgba(244, 185, 125, 0) 100%);
+			flex-shrink: 0;
+		}
+	}
+
+	// Статы — 4 в 2 колонки. Колонки заполняются СВЕРХУ ВНИЗ (Figma):
+	// Скромность | Темперамент / Обаяние | Напористость → grid-auto-flow: column.
+	&__stats {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: repeat(2, auto);
+		grid-auto-flow: column;
+		gap: rem(28) rem(94);
+	}
+
+	&__stat {
+		display: flex;
+		flex-direction: column;
+		gap: rem(8);
+	}
+
+	&__stat-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__stat-label {
+		@include descr-s;
+		color: var(--gold-color);
+	}
+
+	&__stat-value {
+		@include descr-s;
+		color: var(--beige-color);
+	}
+
+	&__stat-bar {
+		position: relative;
+		height: 1px;
+		background: rgba(255, 245, 229, 0.2);
+		overflow: hidden;
+	}
+
+	&__stat-fill {
+		display: block;
+		height: 100%;
+		background: linear-gradient(90deg, var(--gold-color) 0%, rgba(241, 185, 101, 0.4) 100%);
+	}
+
+	// Био — описание + любит / не любит
+	&__bio {
+		display: flex;
+		flex-direction: column;
+		gap: rem(24);
+	}
+
+	&__bio-text {
+		@include body-l; // 18px
+		color: var(--beige-color);
+		text-align: center;
+		margin: 0;
+	}
+
+	&__bio-divider {
+		// золотая градиентная линия (Figma Line 37/35: #F4B97D, прозрачная края → центр, opacity .4)
+		width: 100%;
+		height: 1px;
+		border: 0;
+		background: linear-gradient(90deg, rgba(244, 185, 125, 0) 0%, rgba(244, 185, 125, 0.4) 50%, rgba(244, 185, 125, 0) 100%);
+		margin: 0;
+	}
+
+	&__pref {
+		display: flex;
+		flex-direction: column;
+		gap: rem(4);
+		align-items: center;
+		text-align: center;
+	}
+
+	&__pref-label {
+		@include descr-s;
+		color: var(--gold-color);
+	}
+
+	&__pref-text {
+		@include body-l; // Figma 1920 txt/body/L: Vela Light 18 / lh 1.64 (было 24)
+		color: var(--beige-color);
+		text-align: center;
+		margin: 0;
+	}
+
+	// ============================================
+	// Слайдер аватарок
+	// ============================================
+	&__avatars {
+		position: absolute;
+		bottom: rem(48);
+		left: rem(48);
+		right: rem(48);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: rem(23);
+		z-index: 2;
+	}
+
+	&__avatar-btn {
+		width: rem(22);
+		height: rem(22);
+		border: 0;
+		background: none;
+		backdrop-filter: none;
+		color: var(--gold-color); // стрелки выбора девушки — золотые (Figma)
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		flex-shrink: 0;
+		padding: 0;
+		transition: var(--trs-300);
+
+		svg {
+			width: rem(22);
+			height: rem(19);
+			path { stroke: currentColor; }
+		}
+
+		&--prev svg { transform: rotate(90deg); }
+		&--next svg { transform: rotate(-90deg); }
+
+		@media (hover: hover) {
+			&:hover { color: var(--gold-color); }
+		}
+	}
+
+	&__avatar-list {
+		flex: 1;
+		min-width: 0;
+		display: flex;
+		// safe center: центрирует когда аватарки влезают, но при переполнении
+		// прижимает к началу и НЕ обрезает крайнюю (увеличенную активную) аватарку
+		justify-content: safe center;
+		gap: rem(23);
+		list-style: none;
+		margin: 0 -20px;
+		// верт. паддинг даёт место увеличенной активной (scale 1.08) аватарке,
+		// горизонтальный — чтобы кольцо крайней аватарки не упиралось в край
+		padding: 5px rem(12);
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scrollbar-width: none;
+		-webkit-overflow-scrolling: touch;
+
+		&::-webkit-scrollbar { display: none; }
+	}
+
+	&__avatar-item {
+		flex: 0 0 auto;
+		scroll-snap-align: center;
+	}
+
+	&__avatar {
+		display: block;
+		width: rem(96);
+		height: rem(96);
+		border-radius: 50%;
+		overflow: hidden;
+		cursor: pointer;
+		padding: 0;
+		background: #1c1714; // тёмная база (фото — прозрачные вырезки)
+		transition: var(--trs-300);
+		opacity: 0.6;
+		border: 2px solid transparent;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center top; // зум на лицо/грудь — кроп заполняет круг
+			transform: scale(2);
+			transform-origin: center top;
+			display: block;
+		}
+
+		@media (hover: hover) {
+			&:hover { opacity: 1; }
+		}
+	}
+
+	&__avatar-item.is-active &__avatar {
+		opacity: 1;
+		border-color: var(--gold-color);
+		transform: scale(1.08);
+	}
+
+	// ============================================
+	// 1440
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		// 1440: 1440×768 (split 708/732), Figma 1022:1832
+		min-height: rem(640);
+
+		// «свет» — тот же SVG, тянется на панель автоматически (отдельных размеров не нужно)
+
+		&__info {
+			// центрирование + резерв снизу под аватарки (64+36)
+			padding: rem(36) rem(48) rem(110);
+		}
+
+		&__card {
+			gap: rem(28);
+			max-width: rem(636);
+		}
+
+		// header — name 64px + zodiac 24
+		&__name { font-size: rem(64); }
+
+		&__zodiac-icon {
+			width: rem(24);
+			height: rem(24);
+			margin-left: rem(6);
+		}
+
+		&__meta {
+			margin-top: rem(16);
+
+			&-item { @include descr-xs; } // 10px на 1440 (Figma h12)
+		}
+
+		// Stats: 294+48 col-gap, row-gap 16
+		&__stats {
+			gap: rem(16) rem(48);
+		}
+
+		&__stat-label, &__stat-value { @include descr-xs; }
+
+		// Bio — body-s 14, gap 16
+		&__bio { gap: rem(16); }
+		&__bio-text { @include body-s; }
+
+		&__pref-text { @include body-s; } // 1440: тот же стиль, что bio (Vela 14 / lh 1.64)
+
+		// Photo nav
+		&__photo-btn { width: rem(48); height: rem(48); svg { width: rem(14); height: rem(16); } }
+		&__photo-counter { font-size: rem(40); } // h3 на 1440
+
+		// Avatars: 64×64, gap 18
+		&__avatars {
+			bottom: rem(36);
+			left: rem(48);
+			right: rem(48);
+			gap: rem(18);
+		}
+		&__avatar { width: rem(64); height: rem(64); }
+		&__avatar-list { gap: rem(18); }
+	}
+
+	// ============================================
+	// 360-992 — вертикальный stack, заголовок + мобайл-аватарки + фото + инфо
+	// (раньше $tab-sm 768 — split layout ломался на 768-1200, поэтому подняли до $tab 992)
+	// ============================================
+	@media (max-width: $tab) {
+		display: block;
+		height: auto;
+		min-height: auto;
+		max-height: none;
+		padding-top: rem(120); // отступ под фикс-шапку (~88px)
+
+		// Заголовок страницы — Figma h1 40px
+		&__page-title {
+			display: block;
+			text-align: center;
+			font-family: 'TT Ricordi Allegria Trl', sans-serif;
+			font-size: rem(40);
+			line-height: 1.06;
+			letter-spacing: rem(-1);
+			color: var(--beige-color);
+			text-transform: uppercase;
+			margin: 0 0 rem(28);
+			padding: 0 rem(16);
+		}
+
+		// Верхний слайдер аватарок с именами
+		&__mobile-avatars {
+			display: flex;
+			gap: rem(12);
+			list-style: none;
+			margin: 0 0 rem(28);
+			padding: 0 rem(16);
+			overflow-x: auto;
+			scrollbar-width: none;
+			-webkit-overflow-scrolling: touch;
+
+			&::-webkit-scrollbar { display: none; }
+		}
+
+		&__mobile-avatar-item {
+			flex: 0 0 auto;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: rem(10);
+		}
+
+		&__mobile-avatar {
+			display: block;
+			width: rem(64);
+			height: rem(64);
+			border-radius: 50%;
+			overflow: hidden;
+			padding: 0;
+			background: #1c1714; // тёмная база (фото в проекте — прозрачные вырезки)
+			border: 1px solid transparent; // Figma: тонкое кольцо 1px
+			cursor: pointer;
+			transition: var(--trs-300);
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				// Фото девушек — вырезки в полный рост; зумируем на лицо/грудь,
+				// чтобы кроп заполнял круг (в Figma тут плотные портретные кропы).
+				object-position: center top;
+				transform: scale(2);
+				transform-origin: center top;
+				display: block;
+			}
+		}
+
+		&__mobile-avatar-item.is-active &__mobile-avatar {
+			border-color: var(--gold-color);
+		}
+
+		&__mobile-avatar-name {
+			@include descr-xs; // Vela Sans Medium 10 / 1.16
+			color: var(--beige-color);
+			text-align: center;
+			text-transform: uppercase;
+			letter-spacing: rem(1);
+		}
+
+		// Активная подпись — золотым (Figma)
+		&__mobile-avatar-item.is-active &__mobile-avatar-name {
+			color: var(--gold-color);
+		}
+
+		// Фото — по гуттерам 16px, пропорции Figma 328×464
+		&__photo {
+			width: auto;
+			max-width: none;
+			margin: 0 rem(16);
+			aspect-ratio: 328 / 464;
+			height: auto;
+			position: relative;
+			border-radius: rem(8);
+			overflow: visible; // чтобы «свет» вылазил за пределы фото
+
+			// «свет» — тёплый ОРЕОЛ ПО ЦЕНТРУ за фигурой (Figma node «свет»).
+			// PNG девушек прозрачные → свет просвечивает вокруг тела (как в макете).
+			&::before {
+				content: '';
+				position: absolute;
+				inset: rem(-30) rem(-24);
+				z-index: 0;
+				pointer-events: none;
+				background:
+					radial-gradient(ellipse 60% 48% at 50% 50%, rgba(236, 174, 104, 0.62) 0%, rgba(218, 154, 94, 0.28) 42%, rgba(11, 11, 11, 0) 72%),
+					radial-gradient(ellipse 42% 30% at 56% 40%, rgba(238, 152, 98, 0.42) 0%, rgba(238, 152, 98, 0) 70%); // тёплый блик сверху-справа
+				filter: blur(34px);
+			}
+		}
+
+		// На мобиле cover, центр по горизонтали (Figma: кадр центрирован, низ прижат)
+		&__photo-img {
+			position: absolute;
+			z-index: 1; // поверх glow ::before
+			object-fit: cover;
+			object-position: center top; // голова сверху, как в макете
+			border-radius: rem(8); // overflow у .photo visible (для glow) — клипаем сам кадр
+		}
+
+		// Чёрный градиент — СНИЗУ фото (Figma «градиент»): фото плавно
+		// уходит в тёмный текстовый блок. Сверху затемнения быть НЕ должно.
+		&__photo-gradient {
+			top: auto;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: rem(148);
+			border-radius: 0 0 rem(8) rem(8);
+			background: linear-gradient(0deg, var(--black-color) 0%, rgba(11, 11, 11, 0) 100%);
+			z-index: 2; // поверх фото
+		}
+
+		// Counter «01-12» скрыт на мобиле
+		&__photo-counter { display: none; }
+
+		// Стрелки overlay на фото — bare, не круглые
+		&__photo-nav {
+			position: absolute;
+			top: 50%;
+			left: rem(-12); // в боковые поля экрана (Figma: у краёв, на середине фото)
+			right: rem(-12);
+			bottom: auto;
+			transform: translateY(-50%);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 0;
+			padding: 0;
+			z-index: 4; // поверх gradient(2) и info(3)
+		}
+
+		&__photo-btn {
+			width: rem(28); // Figma node «стрелки»: вектор 28×25
+			height: rem(25);
+			border: 0;
+			border-radius: 0;
+			background: none;
+			backdrop-filter: none;
+			color: var(--gold-color);
+			padding: 0;
+			// лёгкое золотое свечение вокруг тонкой стрелки
+			filter: drop-shadow(0 0 rem(6) rgba(241, 185, 101, 0.45));
+
+			// сбрасываем десктопное кольцо glow-border (иначе квадратная рамка)
+			&::before { display: none; }
+
+			svg {
+				width: rem(28);
+				height: rem(25);
+			}
+		}
+
+		// На мобиле «свет» только за фото (через .photo::before).
+		// Декоративные glow инфо-блока — десктопные, скрываем.
+		&__lights { display: none; }
+
+		// Инфо-карта НАКЛАДЫВАЕТСЯ на низ фото (Figma: перекрытие ~64px).
+		&__info {
+			position: relative;
+			z-index: 3; // поверх фото
+			margin-top: rem(-64); // наложение на низ фото (Figma: ~64px)
+			padding: 0 rem(16) rem(36);
+			height: auto;
+		}
+
+		&__card {
+			gap: rem(24);
+			max-width: 100%;
+		}
+
+		&__name { font-size: rem(36); } // h2 база
+		&__zodiac-icon { width: rem(20); height: rem(20); margin-left: rem(4); }
+
+		&__meta { flex-wrap: wrap; gap: rem(6); margin-top: rem(16); } // Figma gap 6
+		&__meta-item { @include descr-xs; }
+
+		// Stats в 1 колонку — стопкой сверху вниз (сбрасываем column-flow)
+		&__stats {
+			grid-template-columns: 1fr;
+			grid-template-rows: auto;
+			grid-auto-flow: row;
+			gap: rem(10);
+		}
+		&__stat-label, &__stat-value { @include descr-xs; }
+		&__stat { gap: rem(4); }
+
+		&__bio { gap: rem(20); } // Figma: gap блока любит/не любит 20
+		&__bio-text { @include body-s; } // Vela Regular 14 / lh 1.64
+		&__pref { gap: rem(6); } // Figma: label↔text 6
+		&__pref-label { @include descr-xs; } // Figma: Vela Med 10, gold, uppercase, tracking 1
+		&__pref-text { @include body-s; } // Figma: Vela Regular 14 / lh 1.64 (было 20)
+
+		// Нижний слайдер аватарок (desktop-only) — скрыт на мобиле
+		&__avatars { display: none; }
+	}
+}

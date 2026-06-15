@@ -1,0 +1,55 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.tabs {
+	display: inline-flex;
+	align-items: center;
+	gap: rem(8);
+
+	&__item {
+		@include h6;
+		font-size: rem(20);
+		line-height: 116%;
+		letter-spacing: 0;
+		color: var(--beige-color);
+
+		height: rem(36);
+		padding: rem(6) rem(16);
+		border-radius: rem(96);
+		border: 1px solid rgba(255, 245, 229, 0.2);
+		background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.5) 100%);
+
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: var(--trs-300);
+		white-space: nowrap;
+
+		&.is-active {
+			color: var(--gold-color);
+			border-color: rgba(244, 185, 125, 0.2);
+			background: linear-gradient(
+				90deg,
+				rgba(244, 185, 125, 0.02) 0%,
+				rgba(244, 185, 125, 0.2) 100%
+			);
+		}
+
+		@media (hover: hover) {
+			&:hover:not(.is-active) {
+				color: var(--gold-color);
+				border-color: rgba(244, 185, 125, 0.2);
+				background: none;
+			}
+		}
+	}
+
+	&--s &__item {
+		min-width: rem(95);
+		padding: rem(6) rem(12);
+	}
+
+	&--m &__item {
+		min-width: rem(156);
+	}
+}

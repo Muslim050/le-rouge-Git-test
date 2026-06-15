@@ -1,0 +1,14 @@
+extends @/app/templates/template.pug
+block head
+    +head()
+
+block header
+    +header()
+
+block content
+    main.certificate-page
+        +certificate()
+        +contacts()
+
+block footer
+    +footer()(class='footer--compact')

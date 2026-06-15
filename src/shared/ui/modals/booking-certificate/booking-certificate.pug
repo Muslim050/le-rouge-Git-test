@@ -1,0 +1,56 @@
+extends @/app/templates/template-modal.pug
+
+block content
+    +modal('booking-certificate')
+        .modal-inner-wrapper
+            button.modal-close-btn.close-modal(type='button' aria-label='Закрыть')
+                +svg('close')
+
+            .modal-inner
+                .booking-form
+                    h2.booking-form__title заказать сертификат
+                    //- Подзаголовок = выбранный на странице номинал + вид (заполняет JS из data-object)
+                    p.booking-form__subtitle(data-object-text) 10 000 ₽ — электронный
+
+                    form.booking-form__form.js-booking-certificate
+                        //- Контекст для бэка: тип формы (статика) + страница и объект (заполняет JS)
+                        input(type='hidden' name='form_type' value='booking_certificate')
+                        input(type='hidden' name='page' value='')
+                        input(type='hidden' name='object' value='')
+                        .form-block
+                            .form-row
+                                +input({
+                                    name: 'name',
+                                    placeholder: 'Ваше имя',
+                                    type: 'text'
+                                }).input__valid-name
+
+                        .form-block
+                            .form-row
+                                +input({
+                                    name: 'email',
+                                    placeholder: 'E-mail',
+                                    type: 'email'
+                                }).input__valid-email
+
+                        .form-block
+                            .form-row
+                                +input({
+                                    name: 'phone',
+                                    placeholder: '+7 (XXX) XXX-XX-XX',
+                                    type: 'tel'
+                                }).input__valid-phone
+
+                        .form-footer
+                            .form-footer__agreement
+                                .form-group
+                                    input(type="checkbox" id="agreement-cert" name="agreement" required).input
+                                    label(for="agreement-cert")
+                                        p Нажимая кнопку «Отправить заявку» я&nbsp;соглашаюсь с&nbsp;
+                                            a(href='/personal-data' target='_blank') правилами обработки персональных данных
+                                            |  согласно&nbsp;
+                                            a(href='/privacy' target='_blank') политике конфиденциальности
+                                            |  и&nbsp;даю согласие на&nbsp;получение информационных и&nbsp;рекламных рассылок
+
+                            .form-footer__btn
+                                +button({variant: 'gold', text: 'отправить заявку', size: 'l'})(type='submit' disabled='').booking-form__submit

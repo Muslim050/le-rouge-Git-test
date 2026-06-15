@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Le Rouge</title>
+    <meta name="description" content="template">
+    <meta name="keywords" content="template">
+    <meta name="robots" content="index, follow">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="./assets/static/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="./assets/static/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/static/apple-touch-icon.png">
+    <link rel="manifest" href="./assets/static/site.webmanifest.json">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0B0B0B;
+            color: #FFF5E5;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity .2s ease-out;
+        }
+
+        body.is-ready {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <link href="./assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__container container">
+            <div class="header__top"><button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="header__city-name">москва</span><span class="header__city-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 4L8 9L13 4" stroke="url(#hdrChev-m)"></path>
+                            <defs>
+                                <linearGradient id="hdrChev-m" x1="8" y1="4" x2="8" y2="9" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#F6F2EC" stop-opacity="0"></stop>
+                                    <stop offset="1" stop-color="#F6F2EC"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg></span></button><span class="header__address">Б. Путинковский пер., 5</span></div>
+            <div class="header__main">
+                <div class="header__col header__col--left"><button class="btn ghost m header__menu-btn" type="button" aria-expanded="false" aria-controls="site-menu"><span class="btn__icon"><svg>
+                                <use xlink:href="assets/img/sprite.svg#menu"></use>
+                            </svg></span><span class="btn__text">меню</span></button>
+                    <ul class="header__lang" role="list">
+                        <li class="header__lang-item is-active"><button type="button" data-lang="ru">ru</button></li>
+                        <li class="header__lang-item"><button type="button" data-lang="en">en</button></li>
+                        <li class="header__lang-item"><button type="button" data-lang="cn">cn</button></li>
+                    </ul><button class="header__city header__city--desktop" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="header__city-name">москва</span><span class="header__city-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 4L8 9L13 4" stroke="url(#hdrChev-d)"></path>
+                                <defs>
+                                    <linearGradient id="hdrChev-d" x1="8" y1="4" x2="8" y2="9" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#F6F2EC" stop-opacity="0"></stop>
+                                        <stop offset="1" stop-color="#F6F2EC"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg></span></button>
+                </div><a class="header__logo" href="index.html" aria-label="Le Rouge — главная"><img src="assets/img/logo.svg" alt="Le Rouge" width="210" height="60"></a>
+                <div class="header__col header__col--right"><span class="header__address header__address--desktop">Б. Путинковский пер., 5</span><button class="btn gold m header__booking-btn" type="button" data-modal-load="modals/booking-table.html"><span class="btn__text">бронь</span><span class="btn__icon"> <svg>
+                                <use xlink:href="assets/img/sprite.svg#phone"></use>
+                            </svg></span></button></div>
+            </div>
+        </div>
+    </header>
+    <main class="home-page">
+        <section class="hero">
+            <div class="hero__bg">
+                <picture>
+                    <source media="(max-width: 767px)" srcset="assets/img/hero/bg-mob.webp, assets/img/hero/bg-mob@2x.webp 2x" type="image/webp">
+                    <source media="(max-width: 767px)" srcset="assets/img/hero/bg-mob.jpg, assets/img/hero/bg-mob@2x.jpg 2x">
+                    <source srcset="assets/img/hero/bg.webp, assets/img/hero/bg@2x.webp 2x" type="image/webp"><img src="assets/img/hero/bg.jpg" srcset="assets/img/hero/bg.jpg, assets/img/hero/bg@2x.jpg 2x" fetchpriority="high" alt="Le Rouge">
+                </picture><video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero/bg.jpg" aria-hidden="true">
+                    <source media="(max-width: 768px)" src="assets/files/show-reel-mob.mp4" type="video/mp4">
+                </video>
+                <div class="hero__gradient hero__gradient--top" aria-hidden="true"></div>
+                <div class="hero__gradient hero__gradient--bottom" aria-hidden="true"></div>
+            </div>
+            <div class="hero__inner container">
+                <h1 class="hero__title"><span class="hero__title-line">VIP mens club</span><span class="hero__title-line">& cabaret</span></h1><a class="go-btn" href="#" data-modal-load="modals/booking-table.html"><svg>
+                        <use xlink:href="assets/img/sprite.svg#go"></use>
+                    </svg><span class="go-btn__title">вызвать такси</span></a>
+            </div>
+        </section>
+        <section class="girls-select">
+            <div class="girls-select__header container">
+                <div class="badge">девушки</div>
+                <p class="girls-select__lead">Красивейшие артистки, каждая со своим уникальным характером, ролью и внешностью.<br>Настоящая магия приватного разговора</p>
+            </div>
+            <div class="girls-select__main">
+                <div class="girls-select__stage">
+                    <div class="girls-select__glow" aria-hidden="true"></div>
+                    <div class="girls-select__swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" data-name="мерседес" data-age="22 года" data-params="90 / 57 / 82" data-zodiac="скорпион" data-stats="[{&quot;label&quot;:&quot;Скромность&quot;,&quot;value&quot;:20},{&quot;label&quot;:&quot;Обаяние&quot;,&quot;value&quot;:80},{&quot;label&quot;:&quot;Темперамент&quot;,&quot;value&quot;:100},{&quot;label&quot;:&quot;Напористость&quot;,&quot;value&quot;:50}]">
+                                <div class="girls-select__photo"><img src="assets/img/girls/mercedes.png" alt="мерседес" loading="lazy"></div>
+                            </div>
+                            <div class="swiper-slide" data-name="анжелика" data-age="24 года" data-params="88 / 60 / 90" data-zodiac="скорпион" data-stats="[{&quot;label&quot;:&quot;Скромность&quot;,&quot;value&quot;:40},{&quot;label&quot;:&quot;Обаяние&quot;,&quot;value&quot;:90},{&quot;label&quot;:&quot;Темперамент&quot;,&quot;value&quot;:80},{&quot;label&quot;:&quot;Напористость&quot;,&quot;value&quot;:70}]">
+                                <div class="girls-select__photo"><img src="assets/img/girls/angelika.png" alt="анжелика" loading="lazy"></div>
+                            </div>
+                            <div class="swiper-slide" data-name="виктория" data-age="23 года" data-params="92 / 58 / 88" data-zodiac="скорпион" data-stats="[{&quot;label&quot;:&quot;Скромность&quot;,&quot;value&quot;:30},{&quot;label&quot;:&quot;Обаяние&quot;,&quot;value&quot;:100},{&quot;label&quot;:&quot;Темперамент&quot;,&quot;value&quot;:90},{&quot;label&quot;:&quot;Напористость&quot;,&quot;value&quot;:60}]">
+                                <div class="girls-select__photo"><img src="assets/img/girls/viktoriya.png" alt="виктория" loading="lazy"></div>
+                            </div>
+                        </div>
+                    </div><span class="girls-select__nav-line" aria-hidden="true"></span>
+                    <div class="girls-select__nav"><button class="girls-select__nav-btn girls-select__nav-btn--prev btn-reset" type="button" aria-label="Предыдущая"><span class="girls-select__nav-ico is-desktop"><svg>
+                                    <use xlink:href="assets/img/sprite.svg#arrow-l"></use>
+                                </svg></span><svg class="girls-select__nav-arrow" width="28" height="25" viewBox="0 0 28.2 25.15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M12.7487 0.0732C11.7913 6.5458 6.7706 11.6098 0.4027 12.5255L0.0712 12.5732L0.4027 12.6208C6.7706 13.5365 11.7913 18.6005 12.7487 25.0732M0.8635 12.5732L28.1962 12.5732" stroke="url(#girlsArrow-prev)"></path>
+                                <defs>
+                                    <linearGradient id="girlsArrow-prev" x1="28.2" y1="12.57" x2="0" y2="12.57" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#E0B471" stop-opacity="0"></stop>
+                                        <stop offset="0.82" stop-color="#E0B471"></stop>
+                                        <stop offset="1" stop-color="#FFEDBF"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg></button><button class="girls-select__nav-btn girls-select__nav-btn--next btn-reset" type="button" aria-label="Следующая"><span class="girls-select__nav-ico is-desktop"><svg>
+                                    <use xlink:href="assets/img/sprite.svg#arrow-l"></use>
+                                </svg></span><svg class="girls-select__nav-arrow" width="28" height="25" viewBox="0 0 28.2 25.15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M12.7487 0.0732C11.7913 6.5458 6.7706 11.6098 0.4027 12.5255L0.0712 12.5732L0.4027 12.6208C6.7706 13.5365 11.7913 18.6005 12.7487 25.0732M0.8635 12.5732L28.1962 12.5732" stroke="url(#girlsArrow-next)"></path>
+                                <defs>
+                                    <linearGradient id="girlsArrow-next" x1="28.2" y1="12.57" x2="0" y2="12.57" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#E0B471" stop-opacity="0"></stop>
+                                        <stop offset="0.82" stop-color="#E0B471"></stop>
+                                        <stop offset="1" stop-color="#FFEDBF"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg></button></div>
+                </div>
+                <div class="girls-select__info-stack">
+                    <div class="girls-select__info is-active">
+                        <div class="girls-select__name-row">
+                            <h3 class="girls-select__name">мерседес</h3><span class="girls-select__zodiac-icon" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7251 0.0590607C20.4261 -0.645056 27.2392 5.02799 27.9413 12.7289C28.6433 20.4298 22.9694 27.2414 15.2684 27.9416C7.56997 28.6416 0.760812 22.9695 0.0587419 15.2712C-0.643274 7.57313 5.02808 0.76301 12.7251 0.0590607ZM26.6691 12.806C26.0068 5.78775 19.7652 0.645254 12.7496 1.33821C5.7789 2.02695 0.674875 8.22119 1.33339 15.1956C1.99065 22.1701 8.16188 27.3008 15.1403 26.6739C22.161 26.0431 27.3302 19.8244 26.6691 12.806Z" fill="url(#girlsZodiacGrad)"></path>
+                                    <path d="M5.08965 7.28953C6.62959 7.2935 7.32012 8.01568 8.35785 8.40118C8.48084 8.44666 10.0618 7.36909 10.6857 7.29017C12.3755 7.07673 12.6523 7.71718 13.8258 8.52392C14.5266 8.31663 15.6412 7.27979 16.1498 7.27197C22.79 7.16961 18.903 15.6256 20.5903 19.3089C20.7594 19.6772 21.2923 20.0842 21.6229 20.3547L21.227 19.1787C21.0515 18.647 21.0079 18.441 21.2437 17.9734C21.6588 17.7937 21.441 17.8375 21.9278 17.8873C22.5722 18.369 23.0719 20.7235 23.3153 21.601C22.3198 22.017 20.2482 22.9425 19.3002 22.42C19.1541 21.9616 19.1528 22.1815 19.272 21.7377C19.6563 21.3927 20.1688 21.3208 20.6877 21.1838C18.0036 18.9623 18.8902 14.6095 18.9004 11.2471C18.8594 8.32393 16.1357 7.57791 14.6035 10.0298C14.4343 12.8961 14.7008 15.8392 14.4856 18.7005C14.4587 19.0529 14.401 19.0866 14.1422 19.261C13.6452 19.3035 13.7105 19.3783 13.3633 19.1722C12.6766 17.4203 14.1999 10.1271 12.4242 9.07481C6.80767 5.7451 9.83117 17.7639 8.63073 19.2813C8.24639 19.3505 8.24767 19.3769 7.88255 19.2017C7.30731 18.4533 7.6955 17.8667 7.62247 17.0451C7.44951 15.1162 8.21565 10.5597 6.97678 9.17064C6.63087 8.78271 5.39327 8.71878 4.90387 8.18736C4.84494 7.6731 4.86673 7.82659 5.08965 7.28953Z" fill="url(#girlsZodiacGrad)"></path>
+                                    <defs>
+                                        <linearGradient id="girlsZodiacGrad" x1="22.5" y1="2.5" x2="3.5" y2="24" gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#FFD698"></stop>
+                                            <stop offset="0.362284" stop-color="#F1B965"></stop>
+                                            <stop offset="1" stop-color="#BA8D4A"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                </svg></span>
+                        </div>
+                        <div class="girls-select__meta"><span class="girls-select__meta-item">22 года</span><span class="girls-select__meta-divider"></span><span class="girls-select__meta-item">90 / 57 / 82</span><span class="girls-select__meta-divider"></span><span class="girls-select__meta-item">скорпион</span></div>
+                        <div class="girls-select__stats">
+                            <div class="girls-select__stats-row">
+                                <div class="girls-select__stat">
+                                    <div class="girls-select__stat-head"><span class="girls-select__stat-label">Скромность</span><span class="girls-select__stat-value">20%</span></div>
+                                    <div class="girls-select__stat-bar"><span class="girls-select__stat-fill" style="width: 20%"></span></div>
+                                </div>
+                                <div class="girls-select__stat">
+                                    <div class="girls-select__stat-head"><span class="girls-select__stat-label">Обаяние</span><span class="girls-select__stat-value">80%</span></div>
+                                    <div class="girls-select__stat-bar"><span class="girls-select__stat-fill" style="width: 80%"></span></div>
+                                </div>
+                            </div>
+                            <div class="girls-select__stats-row">
+                                <div class="girls-select__stat">
+                                    <div class="girls-select__stat-head"><span class="girls-select__stat-label">Темперамент</span><span class="girls-select__stat-value">100%</span></div>
+                                    <div class="girls-select__stat-bar"><span class="girls-select__stat-fill" style="width: 100%"></span></div>
+                                </div>
+                                <div class="girls-select__stat">
+                                    <div class="girls-select__stat-head"><span class="girls-select__stat-label">Напористость</span><span class="girls-select__stat-value">50%</span></div>
+                                    <div class="girls-select__stat-bar"><span class="girls-select__stat-fill" style="width: 50%"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="tg-bot">
+            <div class="tg-bot__bg" aria-hidden="true">
+                <div class="tg-bot__bg-inner"><img class="tg-bot__bg-img" src="assets/img/divider/wave.png" alt="" loading="lazy"></div>
+            </div>
+            <div class="tg-bot__container container">
+                <h2 class="tg-bot__title">хочешь<br>ещё больше<br>и&nbsp;откровенней?</h2>
+                <div class="tg-bot__photos" aria-hidden="true" data-parallax>
+                    <div class="tg-bot__photo tg-bot__photo--main" data-parallax-speed="0.45"><img src="assets/img/tg-bot/main.png" alt="" loading="lazy"></div>
+                    <div class="tg-bot__photo tg-bot__photo--small-tl" data-parallax-speed="-0.7"><img src="assets/img/tg-bot/small-tl.png" alt="" loading="lazy"></div>
+                    <div class="tg-bot__photo tg-bot__photo--big-bl" data-parallax-speed="0.85"><img src="assets/img/tg-bot/big-bl.png" alt="" loading="lazy"></div>
+                    <div class="tg-bot__photo tg-bot__photo--big-br" data-parallax-speed="-0.6"><img src="assets/img/tg-bot/big-br.png" alt="" loading="lazy"></div>
+                </div>
+                <ol class="tg-bot__steps" role="list">
+                    <li class="tg-bot__step"><span class="tg-bot__step-num">1</span>
+                        <p class="tg-bot__step-text">переходи<br>в&nbsp;нашего&nbsp;<br class="tg-bot__br-mob">тг-бота</p>
+                    </li>
+                    <li class="tg-bot__step"><span class="tg-bot__step-num">2</span>
+                        <p class="tg-bot__step-text">Напиши:&nbsp;<br class="tg-bot__br-mob">/start</p>
+                    </li>
+                    <li class="tg-bot__step"><span class="tg-bot__step-num">3</span>
+                        <p class="tg-bot__step-text">Получай ссылку<br>на&nbsp;тг-канал</p>
+                    </li>
+                </ol><a class="tg-bot__btn" href="https://t.me/lerouge_bot" target="_blank" rel="noopener"><span class="tg-bot__btn-text">перейти в тг-бот</span></a>
+            </div>
+        </section>
+        <section class="show-performance">
+            <div class="show-performance__container container">
+                <div class="badge">Шоу перформанс</div>
+                <div class="show-performance__visual" aria-hidden="true">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="assets/img/show/performers-m.webp"><img class="show-performance__visual-img" src="assets/img/show/performers.png" alt="" loading="lazy">
+                    </picture>
+                </div>
+                <h2 class="show-performance__title">Искушения и&nbsp;провокации&nbsp;–<br>всё это вы&nbsp;увидите своими глазами и&nbsp;сможете управлять моментом</h2>
+                <p class="show-performance__lead">Невероятный коктейль, где страсть, эротика<br>и&nbsp;безупречная хореография слились воедино. Шоу, которое держит вас в&nbsp;плену с&nbsp;первой и&nbsp;до&nbsp;последней минуты</p><a class="show-performance__btn" href="/show"><span class="show-performance__btn-text">подробнее о&nbsp;шоу</span></a>
+            </div>
+        </section>
+        <section class="poster">
+            <div class="poster__container container">
+                <div class="badge">афиша</div>
+                <div class="poster__main">
+                    <div class="poster__glow" aria-hidden="true"></div>
+                    <div class="poster__swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <article class="poster__card"><img class="poster__card-img" src="assets/img/poster/jazz.png" alt="JAZZ DO IT" loading="lazy"></article>
+                                <p class="poster__lead">Кабаре Le&nbsp;Rouge приглашает на&nbsp;яркий weekend в&nbsp;стиле страстной эпохи джаза! Шоу-перформанс Jazz&nbsp;do&nbsp;It погрузит, даже самого искушенного зрителя, в&nbsp;атмосферу роскоши, свободы и&nbsp;внимания красивейших<br>«джазовых» девушек.</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <article class="poster__card"><img class="poster__card-img" src="assets/img/poster/jazz.png" alt="JAZZ DO IT" loading="lazy"></article>
+                                <p class="poster__lead">Кабаре Le&nbsp;Rouge приглашает на&nbsp;яркий weekend в&nbsp;стиле страстной эпохи джаза! Шоу-перформанс Jazz&nbsp;do&nbsp;It погрузит, даже самого искушенного зрителя, в&nbsp;атмосферу роскоши, свободы и&nbsp;внимания красивейших<br>«джазовых» девушек.</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <article class="poster__card"><img class="poster__card-img" src="assets/img/poster/jazz.png" alt="JAZZ DO IT" loading="lazy"></article>
+                                <p class="poster__lead">Кабаре Le&nbsp;Rouge приглашает на&nbsp;яркий weekend в&nbsp;стиле страстной эпохи джаза! Шоу-перформанс Jazz&nbsp;do&nbsp;It погрузит, даже самого искушенного зрителя, в&nbsp;атмосферу роскоши, свободы и&nbsp;внимания красивейших<br>«джазовых» девушек.</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <article class="poster__card"><img class="poster__card-img" src="assets/img/poster/jazz.png" alt="JAZZ DO IT" loading="lazy"></article>
+                                <p class="poster__lead">Кабаре Le&nbsp;Rouge приглашает на&nbsp;яркий weekend в&nbsp;стиле страстной эпохи джаза! Шоу-перформанс Jazz&nbsp;do&nbsp;It погрузит, даже самого искушенного зрителя, в&nbsp;атмосферу роскоши, свободы и&nbsp;внимания красивейших<br>«джазовых» девушек.</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <article class="poster__card"><img class="poster__card-img" src="assets/img/poster/jazz.png" alt="JAZZ DO IT" loading="lazy"></article>
+                                <p class="poster__lead">Кабаре Le&nbsp;Rouge приглашает на&nbsp;яркий weekend в&nbsp;стиле страстной эпохи джаза! Шоу-перформанс Jazz&nbsp;do&nbsp;It погрузит, даже самого искушенного зрителя, в&nbsp;атмосферу роскоши, свободы и&nbsp;внимания красивейших<br>«джазовых» девушек.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="poster__nav"><button class="poster__nav-btn poster__nav-btn--prev btn-reset" type="button" aria-label="Предыдущий постер"><svg>
+                                <use xlink:href="assets/img/sprite.svg#arrow-l"></use>
+                            </svg></button><button class="poster__nav-btn poster__nav-btn--next btn-reset" type="button" aria-label="Следующий постер"><svg>
+                                <use xlink:href="assets/img/sprite.svg#arrow-l"></use>
+                            </svg></button></div>
+                </div><button class="poster__btn" type="button" data-modal-load="modals/booking-table.html"><span class="poster__btn-text">забронировать стол</span></button>
+            </div>
+        </section>
+        <section class="special-menu">
+            <div class="special-menu__bg" aria-hidden="true"><img class="special-menu__bg-img" src="assets/img/special-menu/girl-bg.png" alt="" loading="lazy"></div>
+            <div class="special-menu__container">
+                <h2 class="special-menu__title">Special menu</h2>
+                <div class="special-menu__cloud"><button class="special-menu__hint special-menu__hint--1 btn-reset" type="button" data-hint="1" data-img="assets/img/special-menu/bubble.png">(Без цензуры)</button><button class="special-menu__hint special-menu__hint--2 btn-reset" type="button" data-hint="2" data-img="assets/img/special-menu/bubble.png">(наслаждение)</button><button class="special-menu__hint special-menu__hint--3 btn-reset" type="button" data-hint="3" data-img="assets/img/special-menu/bubble.png">(расслабление)</button><button class="special-menu__hint special-menu__hint--4 btn-reset" type="button" data-hint="4" data-img="assets/img/special-menu/bubble.png">(Мечты)</button><button class="special-menu__hint special-menu__hint--5 btn-reset" type="button" data-hint="5" data-img="assets/img/special-menu/bubble.png">(Желания)</button><button class="special-menu__hint special-menu__hint--6 btn-reset" type="button" data-hint="6" data-img="assets/img/special-menu/bubble.png">(удовольствие)</button>
+                    <div class="special-menu__bubble is-hidden" aria-hidden="true"><img class="special-menu__bubble-img" src="assets/img/special-menu/bubble.png" alt="" loading="lazy"><button class="special-menu__bubble-close btn-reset" type="button" aria-label="Скрыть"></button></div>
+                </div>
+                <div class="special-menu__copy">
+                    <p class="special-menu__heading">Меню от&nbsp;девушек клуба,<br>с&nbsp;которым ваши тайные желания<br>станут явью</p>
+                    <p class="special-menu__lead">Полное погружение в&nbsp;атмосферу наслаждения,<br>перед которым невозможно устоять!</p>
+                </div>
+            </div>
+        </section>
+        <section class="gallery">
+            <div class="gallery__container container">
+                <div class="badge">галерея</div>
+                <div class="gallery__main">
+                    <div class="gallery__glow" aria-hidden="true"></div>
+                    <div class="gallery__line" aria-hidden="true"></div>
+                    <div class="gallery__swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <figure class="gallery__card"><a class="gallery__card-link" href="assets/img/gallery/1.png" aria-label="Открыть фото"><img class="gallery__card-img" src="assets/img/gallery/1.png" alt="Le Rouge" loading="lazy"></a></figure>
+                            </div>
+                            <div class="swiper-slide">
+                                <figure class="gallery__card"><a class="gallery__card-link" href="assets/img/gallery/2.png" aria-label="Открыть фото"><img class="gallery__card-img" src="assets/img/gallery/2.png" alt="Le Rouge" loading="lazy"></a></figure>
+                            </div>
+                            <div class="swiper-slide">
+                                <figure class="gallery__card"><a class="gallery__card-link" href="assets/img/gallery/3.png" aria-label="Открыть фото"><img class="gallery__card-img" src="assets/img/gallery/3.png" alt="Le Rouge" loading="lazy"></a></figure>
+                            </div>
+                            <div class="swiper-slide">
+                                <figure class="gallery__card"><a class="gallery__card-link" href="assets/img/gallery/4.png" aria-label="Открыть фото"><img class="gallery__card-img" src="assets/img/gallery/4.png" alt="Le Rouge" loading="lazy"></a></figure>
+                            </div>
+                            <div class="swiper-slide">
+                                <figure class="gallery__card"><a class="gallery__card-link" href="assets/img/gallery/5.png" aria-label="Открыть фото"><img class="gallery__card-img" src="assets/img/gallery/5.png" alt="Le Rouge" loading="lazy"></a></figure>
+                            </div>
+                            <div class="swiper-slide">
+                                <figure class="gallery__card"><a class="gallery__card-link" href="assets/img/gallery/1.png" aria-label="Открыть фото"><img class="gallery__card-img" src="assets/img/gallery/1.png" alt="Le Rouge" loading="lazy"></a></figure>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery__nav"><button class="gallery__nav-btn gallery__nav-btn--prev btn-reset" type="button" aria-label="Назад"><svg>
+                                <use xlink:href="assets/img/sprite.svg#arrow-l"></use>
+                            </svg></button><button class="gallery__nav-btn gallery__nav-btn--next btn-reset" type="button" aria-label="Вперёд"><svg>
+                                <use xlink:href="assets/img/sprite.svg#arrow-l"></use>
+                            </svg></button></div>
+                </div>
+            </div>
+        </section>
+        <section class="food-bar">
+            <div class="food-bar__container container">
+                <article class="food-bar__block">
+                    <div class="badge">кухня</div>
+                    <div class="food-bar__photo">
+                        <div class="food-bar__photo-frame"><img src="assets/img/food/kitchen.png" alt="Меню кухни" loading="lazy"></div>
+                    </div>
+                    <div class="food-bar__text">
+                        <p class="food-bar__lead">Откройте новые грани вкуса и&nbsp;эстетического наслаждения. Безукоризненное качество блюд, созданных бренд-шефом кабаре Le&nbsp;Rouge.</p><button class="food-bar__card btn-reset" type="button" data-modal-target="menu-kitchen"><span class="food-bar__card-icon" aria-hidden="true"><svg>
+                                    <use xlink:href="assets/img/sprite.svg#cutlery"></use>
+                                </svg></span><span class="food-bar__card-title">меню кухни</span></button>
+                    </div>
+                </article>
+                <article class="food-bar__block">
+                    <div class="badge">бар</div>
+                    <div class="food-bar__photo">
+                        <div class="food-bar__photo-frame"><img src="assets/img/bar/bartender.png" alt="Меню бара" loading="lazy"></div>
+                    </div>
+                    <div class="food-bar__text">
+                        <p class="food-bar__lead">Настоящий разговор начинается не&nbsp;со&nbsp;слов, а&nbsp;с&nbsp;глотка любимого напитка.<br>Барная карта клуба&nbsp;— ваша ода мужественности и&nbsp;эстетике.</p><button class="food-bar__card btn-reset" type="button" data-modal-target="menu-bar"><span class="food-bar__card-icon" aria-hidden="true"><svg>
+                                    <use xlink:href="assets/img/sprite.svg#cocktail"></use>
+                                </svg></span><span class="food-bar__card-title">меню бара</span></button>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="loyalty"><img class="loyalty__wave" src="assets/img/loyalty/wave.png" alt="" aria-hidden="true" loading="lazy">
+            <div class="loyalty__container container">
+                <div class="loyalty__copy">
+                    <div class="badge">программа лояльности</div>
+                    <h2 class="loyalty__title">Клубная карта гостя<br>Le&nbsp;Rouge</h2>
+                    <p class="loyalty__lead">Статус обязывает. Привилегии&nbsp;— вдохновляют. Ваш ключ в&nbsp;мир, где каждая деталь работает<br>на&nbsp;ваш комфорт. Для тех, кто привык получать лучшее, не&nbsp;тратя слов.</p>
+                </div>
+                <div class="loyalty__cards"><span class="loyalty__cards-glow" aria-hidden="true"></span><img class="loyalty__cards-img" src="assets/img/loyalty/cards.png" alt="Клубные карты Le Rouge — Gold и Silver" loading="lazy"></div>
+                <div class="loyalty__footer">
+                    <p class="loyalty__hint"><span class="loyalty__hint-manager">подробности уточняйте&nbsp;<br class="loyalty__br-mob">у&nbsp;менеджера в&nbsp;клубе</span><span class="loyalty__hint-sep" aria-hidden="true">&nbsp;—&nbsp;</span><span class="loyalty__hint-net">действует во&nbsp;всех клубах сети</span></p>
+                    <ul class="loyalty__partners" role="list">
+                        <li><img src="assets/img/city/show-girls.svg" alt="Show Girls" loading="lazy" width="192" height="108"></li>
+                        <li><img src="assets/img/city/le-rouge.svg" alt="Le Rouge" loading="lazy" width="192" height="108"></li>
+                        <li><img src="assets/img/city/show-girls-cabaret.svg" alt="Show Girls Cabaret" loading="lazy" width="192" height="108"></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="hall">
+            <div class="hall__badge-wrap">
+                <div class="badge">Основной зал со сценой</div>
+            </div>
+            <div class="hall__expand" data-hall-expand>
+                <div class="hall__expand-inner"><span class="hall__glow" aria-hidden="true"></span>
+                    <div class="hall__expand-photo"><img class="hall__expand-img" src="assets/img/photo-stack/1.jpg" alt="Интерьер зала" loading="lazy"></div>
+                </div>
+            </div>
+            <div class="hall__plan-block">
+                <div class="hall__plan-copy">
+                    <h2 class="hall__plan-title">столы расположены так,&nbsp;<br class="hall__br-desk">чтобы вам было удобно наблюдать<br>за&nbsp;происходящим&nbsp;<br class="hall__br-mob">на&nbsp;сцене</h2>
+                    <p class="hall__plan-lead">В&nbsp;зале есть стандартные столы<br>и&nbsp;отдельные ложе с&nbsp;почасовой арендой</p>
+                </div>
+                <div class="hall__plan-map" aria-hidden="true"><img class="hall__plan-map-img" src="assets/img/hall/plan.png" alt="Схема зала: бар, сцена, столы и ложи" loading="lazy"></div>
+                <div class="hall__plan-controls">
+                    <div class="hall__plan-select">
+                        <div class="form-group custom-select">
+                            <div class="custom-select__wrapper"><input class="input custom-select__input" name="table" id="table" placeholder="Стол №" readonly="readonly">
+                                <div class="custom-select__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M3 5L8 10L13 5" stroke="currentColor"></path>
+                                    </svg></div>
+                                <div class="custom-select__dropdown">
+                                    <div class="custom-select__option" data-value="royal"><span class="custom-select__option-text">Королевское ложе</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="lozha-1"><span class="custom-select__option-text">Ложа №1 — почасовая аренда</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="table-2"><span class="custom-select__option-text">Стол №2 — стандарт</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="table-3"><span class="custom-select__option-text">Стол №3 — стандарт</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="table-4"><span class="custom-select__option-text">Стол №4 — стандарт</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="table-5"><span class="custom-select__option-text">Стол №5 — стандарт</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="lozha-6"><span class="custom-select__option-text">Ложа №6 — почасовая аренда</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="lozha-7"><span class="custom-select__option-text">Ложа №7 — почасовая аренда</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="lozha-8"><span class="custom-select__option-text">Ложа №8 — почасовая аренда</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="lozha-9"><span class="custom-select__option-text">Ложа №9 — почасовая аренда</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="lozha-10"><span class="custom-select__option-text">Ложа №10 — почасовая аренда</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="table-11"><span class="custom-select__option-text">Стол №11 — стандарт</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="table-12"><span class="custom-select__option-text">Стол №12 — стандарт</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="table-13"><span class="custom-select__option-text">Стол №13 — стандарт</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="lozha-14"><span class="custom-select__option-text">Ложа №14 — почасовая аренда</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="lozha-15"><span class="custom-select__option-text">Ложа №15 — почасовая аренда</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                    <div class="custom-select__option" data-value="table-16"><span class="custom-select__option-text">Стол №16 — стандарт</span>
+                                        <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                            </svg></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="hall__plan-hint">Посадка с&nbsp;почасовой арендой или по&nbsp;депозиту</p><button class="hall__plan-btn" type="button" data-modal-load="modals/booking-table.html" data-object="Бронь стола по схеме зала"><span class="hall__plan-btn-text">забронировать стол</span></button>
+                </div>
+            </div>
+        </section>
+        <section class="show-video">
+            <div class="show-video__badge-wrap">
+                <div class="badge">экскурсия по клубу</div>
+            </div>
+            <div class="show-video__expand" data-video-expand>
+                <div class="show-video__expand-inner"><span class="show-video__glow" aria-hidden="true"></span>
+                    <div class="show-video__expand-media"><video class="show-video__player" autoplay muted loop playsinline preload="metadata" poster="assets/img/show-video/excursion.png">
+                            <source src="assets/files/video.mp4" type="video/mp4">
+                        </video></div>
+                </div>
+            </div>
+        </section>
+        <section class="vip-karaoke">
+            <div class="vip-karaoke__container">
+                <article class="vip-karaoke__block">
+                    <div class="vip-karaoke__photo"><img src="assets/img/vip/vip-zal.png" alt="vip-залы" loading="lazy"></div>
+                    <div class="vip-karaoke__info">
+                        <h2 class="vip-karaoke__title">vip-залы</h2>
+                        <div class="vip-karaoke__params">
+                            <hr class="vip-karaoke__divider">
+                            <div class="vip-karaoke__param"><span class="vip-karaoke__param-label">Депозит</span><span class="vip-karaoke__param-value">50 000 ₽</span></div>
+                            <hr class="vip-karaoke__divider">
+                            <div class="vip-karaoke__param"><span class="vip-karaoke__param-label">Время брони</span><span class="vip-karaoke__param-value">3 часа</span></div>
+                            <hr class="vip-karaoke__divider">
+                            <div class="vip-karaoke__param"><span class="vip-karaoke__param-label">Продление</span><span class="vip-karaoke__param-value">10 000 ₽/час</span></div>
+                            <hr class="vip-karaoke__divider">
+                        </div>
+                        <p class="vip-karaoke__lead">Личное пространство для тех, кто не&nbsp;привык к&nbsp;публичности. Отдельные локации повышенного комфорта для небольших компаний. Здесь вы&nbsp;можете позволить себе быть собой, не&nbsp;опасаясь посторонних глаз.</p>
+                    </div>
+                </article>
+                <article class="vip-karaoke__block">
+                    <div class="vip-karaoke__photo"><img src="assets/img/vip/karaoke.png" alt="караоке" loading="lazy"></div>
+                    <div class="vip-karaoke__info">
+                        <h2 class="vip-karaoke__title">караоке</h2>
+                        <div class="vip-karaoke__params">
+                            <hr class="vip-karaoke__divider">
+                            <div class="vip-karaoke__param"><span class="vip-karaoke__param-label">Депозит</span><span class="vip-karaoke__param-value">50 000 ₽</span></div>
+                            <hr class="vip-karaoke__divider">
+                            <div class="vip-karaoke__param"><span class="vip-karaoke__param-label">Время брони</span><span class="vip-karaoke__param-value">3 часа</span></div>
+                            <hr class="vip-karaoke__divider">
+                            <div class="vip-karaoke__param"><span class="vip-karaoke__param-label">Продление</span><span class="vip-karaoke__param-value">10 000 ₽/час</span></div>
+                            <hr class="vip-karaoke__divider">
+                        </div>
+                        <p class="vip-karaoke__lead">Отдельные залы с&nbsp;караоке-оборудованием. Приглушённый свет создаёт идеальный полумрак, в&nbsp;котором проще быть собой, а&nbsp;премиальная акустика бережно подхватывает каждую ноту, каждое дыхание.<br>Это не&nbsp;просто караоке. Это пространство полной свободы.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="photo-stack">
+            <div class="photo-stack__container container">
+                <div class="badge">интерьеры</div>
+                <div class="photo-stack__main">
+                    <div class="photo-stack__glow" aria-hidden="true"></div>
+                    <div class="photo-stack__line" aria-hidden="true"></div>
+                    <div class="photo-stack__swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <figure class="photo-stack__card"><a class="photo-stack__card-link" href="assets/img/photo-stack/1.jpg" aria-label="Открыть фото"><img class="photo-stack__card-img" src="assets/img/photo-stack/1.jpg" alt="Интерьер 1" loading="lazy"></a></figure>
+                            </div>
+                            <div class="swiper-slide">
+                                <figure class="photo-stack__card"><a class="photo-stack__card-link" href="assets/img/photo-stack/2.jpg" aria-label="Открыть фото"><img class="photo-stack__card-img" src="assets/img/photo-stack/2.jpg" alt="Интерьер 2" loading="lazy"></a></figure>
+                            </div>
+                            <div class="swiper-slide">
+                                <figure class="photo-stack__card"><a class="photo-stack__card-link" href="assets/img/photo-stack/3.jpg" aria-label="Открыть фото"><img class="photo-stack__card-img" src="assets/img/photo-stack/3.jpg" alt="Интерьер 3" loading="lazy"></a></figure>
+                            </div>
+                            <div class="swiper-slide">
+                                <figure class="photo-stack__card"><a class="photo-stack__card-link" href="assets/img/photo-stack/4.jpg" aria-label="Открыть фото"><img class="photo-stack__card-img" src="assets/img/photo-stack/4.jpg" alt="VIP-зал" loading="lazy"></a></figure>
+                            </div>
+                            <div class="swiper-slide">
+                                <figure class="photo-stack__card"><a class="photo-stack__card-link" href="assets/img/photo-stack/5.jpg" aria-label="Открыть фото"><img class="photo-stack__card-img" src="assets/img/photo-stack/5.jpg" alt="Караоке" loading="lazy"></a></figure>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-stack__nav"><button class="photo-stack__nav-btn photo-stack__nav-btn--prev btn-reset" type="button" aria-label="Назад"><svg>
+                                <use xlink:href="assets/img/sprite.svg#arrow-l"></use>
+                            </svg></button><button class="photo-stack__nav-btn photo-stack__nav-btn--next btn-reset" type="button" aria-label="Вперёд"><svg>
+                                <use xlink:href="assets/img/sprite.svg#arrow-l"></use>
+                            </svg></button></div>
+                </div>
+                <div class="photo-stack__foot"><button class="photo-stack__more" type="button"><span class="photo-stack__more-text">смотреть все</span></button></div>
+            </div>
+        </section>
+        <section class="contacts">
+            <div class="contacts__map" aria-hidden="true"><img class="contacts__map-bg" src="assets/img/footer/map-bg.png" alt="">
+                <div class="contacts__map-canvas" data-yandex-map data-lat="55.767442" data-lng="37.607568" data-zoom="16" data-address="Большой Путинковский переулок, 5"></div>
+                <div class="contacts__map-gradient"></div>
+            </div>
+            <div class="contacts__card"><span class="contacts__heading">контакты</span>
+                <div class="contacts__badge"><span class="contacts__badge-text">FC/DC</span><span class="contacts__badge-divider" aria-hidden="true"></span><span class="contacts__badge-text">18+</span></div>
+                <div class="contacts__main"><a class="contacts__phone" href="tel:+79857737731">+7 (985) 773-77-31</a>
+                    <div class="contacts__address">
+                        <p class="contacts__address-line">Большой Путинковский переулок, 5</p>
+                        <p class="contacts__address-metro">м. Пушкинская, Чеховская, Тверская</p>
+                    </div>
+                </div>
+                <div class="contacts__hours">
+                    <div class="contacts__hours-item"><span class="contacts__hours-label">Понедельник - четверг:&nbsp;</span><span class="contacts__hours-label contacts__hours-label--short">ПН - ЧТ</span><span class="contacts__hours-value">16:00 — 04:00</span></div>
+                    <div class="contacts__hours-divider" aria-hidden="true"></div>
+                    <div class="contacts__hours-item"><span class="contacts__hours-label">Пятница - воскресенье:&nbsp;</span><span class="contacts__hours-label contacts__hours-label--short">ПТ - ВС</span><span class="contacts__hours-value">14:00 — 04:00</span></div>
+                </div>
+                <div class="contacts__prices">
+                    <hr class="contacts__divider">
+                    <div class="contacts__price">
+                        <p class="contacts__price-amount">3 500 ₽</p>
+                        <p class="contacts__price-label">Мужчины</p>
+                    </div>
+                    <hr class="contacts__divider">
+                    <div class="contacts__price">
+                        <p class="contacts__price-amount">5 000 ₽</p>
+                        <p class="contacts__price-label">Девушки&nbsp;<span class="contacts__price-label-note">только в&nbsp;сопровождении мужчин</span></p>
+                    </div>
+                    <hr class="contacts__divider contacts__divider--mobile">
+                </div>
+                <div class="contacts__photo" aria-hidden="true"><img class="contacts__photo-img" src="assets/img/footer/girl-mask.jpg" alt="" loading="lazy"><span class="contacts__glow contacts__glow--tl"></span><span class="contacts__glow contacts__glow--tr"></span><span class="contacts__glow contacts__glow--br"></span></div>
+                <div class="contacts__fcdc" aria-hidden="true"><span class="contacts__fcdc-text">FC/DC</span><span class="contacts__fcdc-text">18+</span></div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer footer--compact" id="footer">
+        <div class="footer__top">
+            <div class="footer__map"><img class="footer__map-bg" src="assets/img/footer/map-bg.png" alt="" aria-hidden="true">
+                <div class="footer__map-canvas" data-yandex-map data-lat="55.767442" data-lng="37.607568" data-zoom="16" data-address="Большой Путинковский переулок, 5" aria-hidden="true"></div>
+            </div>
+            <div class="footer__contacts"><span class="footer__contacts-heading">контакты</span><a class="footer__phone" href="tel:+79857737731">+7 (985) 773-77-31</a>
+                <div class="footer__address">
+                    <p class="footer__address-line">Большой Путинковский переулок, 5</p>
+                    <p class="footer__address-metro">м. Пушкинская, Чеховская, Тверская</p>
+                </div>
+                <div class="footer__hours">
+                    <div class="footer__hours-item"><span class="footer__hours-label">Понедельник - четверг:</span><span class="footer__hours-label footer__hours-label--short">ПН - ЧТ</span><span class="footer__hours-value">16:00 — 04:00</span></div>
+                    <div class="footer__hours-divider"></div>
+                    <div class="footer__hours-item"><span class="footer__hours-label">Пятница - воскресенье:</span><span class="footer__hours-label footer__hours-label--short">ПТ - ВС</span><span class="footer__hours-value">14:00 — 04:00</span></div>
+                </div>
+                <div class="footer__prices">
+                    <hr class="footer__divider">
+                    <div class="footer__price">
+                        <p class="footer__price-amount">3 500 ₽</p>
+                        <p class="footer__price-label">Мужчины</p>
+                    </div>
+                    <hr class="footer__divider">
+                    <div class="footer__price">
+                        <p class="footer__price-amount">5 000 ₽</p>
+                        <p class="footer__price-label">Девушки&nbsp;<span class="footer__price-label-note">только в&nbsp;сопровождении мужчин</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__photo"><img class="footer__photo-img" src="assets/img/footer/girl-mask.jpg" alt="" aria-hidden="true" loading="lazy"><span class="footer__glow footer__glow--tl" aria-hidden="true"></span><span class="footer__glow footer__glow--tr" aria-hidden="true"></span><span class="footer__glow footer__glow--br" aria-hidden="true"></span></div>
+            <div class="footer__fcdc" aria-hidden="true"><span class="footer__fcdc-text">FC/DC</span><span class="footer__fcdc-text">18+</span></div>
+        </div>
+        <div class="footer__info">
+            <div class="footer__copyright">©2026 — Le Rouge</div>
+            <nav class="footer__links" aria-label="Документы"><a class="footer__link" href="#">соглашение об обработке персональных данных</a><a class="footer__link" href="#">Политика конфиденциальности</a><a class="footer__link" href="#">пользовательское соглашение</a><a class="footer__link" href="#">согласие на получение информационных и рекламных рассылок</a></nav>
+            <div class="footer__brand"><span class="footer__brand-text">FC/DC</span>
+                <div class="footer__partners"><a class="footer__partner" href="#" aria-label="Show Girls"><img src="assets/img/footer/partner-show-girls.svg" alt="Show Girls" loading="lazy"></a><a class="footer__partner" href="#" aria-label="Le Rouge"><img src="assets/img/footer/partner-le-rouge.svg" alt="Le Rouge" loading="lazy"></a><a class="footer__partner" href="#" aria-label="Show Girls Cabaret"><img src="assets/img/footer/partner-sg-cabaret.svg" alt="Show Girls Cabaret" loading="lazy"></a></div><span class="footer__brand-text">18+</span>
+            </div>
+        </div>
+    </footer>
+    <aside class="main-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Главное меню">
+        <div class="main-menu__backdrop" data-menu-close></div>
+        <div class="main-menu__panel"><button class="main-menu__close btn-reset" type="button" aria-label="Закрыть меню" data-menu-close><svg>
+                    <use xlink:href="assets/img/sprite.svg#close"></use>
+                </svg></button><a class="main-menu__logo" href="index.html" aria-label="Le Rouge — главная" data-menu-close><img src="assets/img/logo.svg" alt="Le Rouge" width="168" height="48"></a>
+            <nav class="main-menu__nav" aria-label="Основная навигация">
+                <ul class="main-menu__list">
+                    <li class="main-menu__item"><a class="main-menu__link" href="index.html" data-menu-close>главная</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="girls.html" data-menu-close>девушки</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="show.html" data-menu-close>шоу-перформанс</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="halls.html" data-menu-close>vip залы</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="events.html" data-menu-close>мероприятия в le rouge</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="certificate.html" data-menu-close>подарочные сертификаты</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="contacts.html" data-menu-close>контакты</a></li>
+                </ul>
+            </nav><a class="main-menu__vacancies" href="#footer" data-menu-close data-scroll-to="footer">вакансии le rouge</a>
+            <ul class="main-menu__lang" role="list">
+                <li class="main-menu__lang-item is-active"><button type="button" data-lang="ru">ru</button></li>
+                <li class="main-menu__lang-item"><button type="button" data-lang="en">en</button></li>
+                <li class="main-menu__lang-item"><button type="button" data-lang="cn">cn</button></li>
+            </ul>
+        </div>
+    </aside>
+    <aside class="city-switcher" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Выбор города">
+        <div class="city-switcher__backdrop" data-city-close></div>
+        <div class="city-switcher__panel"><button class="city-switcher__close btn-reset" type="button" aria-label="Закрыть" data-city-close><svg>
+                    <use xlink:href="assets/img/sprite.svg#close"></use>
+                </svg></button>
+            <ul class="city-switcher__list" role="list">
+                <li class="city-switcher__item is-active"><a class="city-switcher__card" href="index.html" aria-current="page"><img class="city-switcher__logo" src="assets/img/city/le-rouge.svg" alt="Le Rouge" width="128" height="40"><span class="city-switcher__city">москва</span><span class="city-switcher__address">Б. Путинковский пер., 5</span></a></li>
+                <li class="city-switcher__item"><a class="city-switcher__card" href="https://show-girls.ru/ekaterinburg" rel="noopener"><img class="city-switcher__logo" src="assets/img/city/show-girls.svg" alt="Show Girls" width="128" height="56" loading="lazy"><span class="city-switcher__city">екатеринбург</span><span class="city-switcher__address">ул. Малышева, 7а</span></a></li>
+                <li class="city-switcher__item"><a class="city-switcher__card" href="https://show-girls.ru/chelyabinsk" rel="noopener"><img class="city-switcher__logo" src="assets/img/city/show-girls-cabaret.svg" alt="Show Girls Cabaret" width="128" height="56" loading="lazy"><span class="city-switcher__city">челябинск</span><span class="city-switcher__address">проспект Ленина, 89</span></a></li>
+            </ul>
+        </div>
+    </aside>
+    <div class="cookies-notice" role="dialog" aria-label="Уведомление о cookies" data-cookies-notice hidden><button class="cookies-notice__close btn-reset" type="button" aria-label="Закрыть" data-cookies-close><svg>
+                <use xlink:href="assets/img/sprite.svg#close"></use>
+            </svg></button>
+        <p class="cookies-notice__text">наш сайт использует<br><a class="cookies-notice__link" href="/cookies" target="_blank" rel="noopener">cookie-файлы</a></p><button class="cookies-notice__accept" type="button" data-cookies-accept>принимаю</button>
+    </div>
+    <div class="modals">
+        <div class="modal modal--menu-kitchen" data-modal="menu-kitchen">
+            <div class="modal-content">
+                <div class="modal-inner-wrapper"><button class="modal-close-btn close-modal" type="button" aria-label="Закрыть"><svg>
+                            <use xlink:href="assets/img/sprite.svg#close"></use>
+                        </svg></button>
+                    <div class="modal-inner">
+                        <div class="menu-modal">
+                            <div class="menu-modal__hero"><img class="menu-modal__hero-img" src="assets/img/menu/hero-bar.png" alt="" loading="lazy"><span class="menu-modal__hero-title">кухня</span></div><img class="menu-modal__sheet" src="assets/img/menu/menu.png" alt="Меню — кухня" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal modal--menu-bar" data-modal="menu-bar">
+            <div class="modal-content">
+                <div class="modal-inner-wrapper"><button class="modal-close-btn close-modal" type="button" aria-label="Закрыть"><svg>
+                            <use xlink:href="assets/img/sprite.svg#close"></use>
+                        </svg></button>
+                    <div class="modal-inner">
+                        <div class="menu-modal">
+                            <div class="menu-modal__hero"><img class="menu-modal__hero-img" src="assets/img/menu/hero-bar.png" alt="" loading="lazy"><span class="menu-modal__hero-title">бар</span></div><img class="menu-modal__sheet" src="assets/img/menu/menu.png" alt="Меню — бар" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=a836c5ff-d201-4b8d-a539-25b87beb6450&amp;lang=ru_RU" defer="defer"></script>
+    <script defer="defer" src="./assets/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+extends @/app/templates/template.pug
+block head
+    +head()
+
+block header
+    +header()
+
+block content
+    main.contacts-page
+        +contacts()
+
+block footer
+    +footer()(class='footer--compact')

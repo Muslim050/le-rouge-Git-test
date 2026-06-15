@@ -1,0 +1,11 @@
+mixin cookies-notice()
+    .cookies-notice(role='dialog' aria-label='Уведомление о cookies' data-cookies-notice hidden)
+        button.cookies-notice__close.btn-reset(type='button' aria-label='Закрыть' data-cookies-close)
+            +svg('close')
+
+        p.cookies-notice__text
+            | наш сайт использует
+            br
+            a.cookies-notice__link(href='/cookies' target='_blank' rel='noopener') cookie-файлы
+
+        button.cookies-notice__accept(type='button' data-cookies-accept) принимаю

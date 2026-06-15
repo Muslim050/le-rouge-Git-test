@@ -1,0 +1,8 @@
+mixin show-portrait()
+    section.show-portrait
+        //- Готовая сцена (тореадор + огонь + фон). На мобиле — свой кадр 360×400
+        //- (Figma 707-8982): фигура крупная и целиком, иначе широкая ПК-картинка
+        //- сжимается в узкую полоску и тореадор становится крошечным.
+        picture.show-portrait__pic
+            source(srcset=PUBLIC + 'assets/img/show-portrait/portrait-mobile.png' media='(max-width: 768px)')
+            img.show-portrait__img(src=PUBLIC + 'assets/img/show-portrait/portrait.png' alt='Тореадор шоу Le Rouge' loading='lazy')

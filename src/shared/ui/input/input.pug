@@ -1,0 +1,35 @@
+mixin input({type = 'text', placeholder = '', hasError = true, value = '', name = '', id = '', label = '', labelClass = '', hintEnabled = true, hintText = 'Загрузите файл (DOC, PDF, XLS) максимальный размер 100 МБ', maxFileSize = 100, allowedFileTypes = null} = {})
+    - const resolvedId = id || name || null;
+    - const inputType = type || 'text';
+    -
+    - // Формируем accept и data-атрибуты для file input
+    - let fileAccept = ".doc,.docx,.pdf,.xls,.xlsx";
+    - let fileAllowedTypes = "pdf,doc,docx,xls,xlsx";
+    -
+    - if (inputType === 'file' && allowedFileTypes) {
+    -     // Массив разрешенных типов для этого конкретного поля
+    -     fileAllowedTypes = allowedFileTypes.join(',');
+    -     fileAccept = allowedFileTypes.map(ext => `.${ext}`).join(',');
+    - }
+    -
+    .form-group
+        if label
+            label(for=resolvedId class=labelClass)
+                p !{label}
+        if inputType === 'file'
+            input(type=inputType placeholder=placeholder value=value name=name id=resolvedId accept=fileAccept data-max-size=maxFileSize data-allowed-types=fileAllowedTypes).input&attributes(attributes)
+            .file-upload-area
+                span.file-upload-area__text Перенесите сюда файл или&nbsp;
+                    span.file-upload-area__link выберите на устройстве
+                .file-upload-area__icon
+                    svg(xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none")
+                        path(d="M13.8998 11.8269L12.4435 13.2958L8.36462 17.409C6.76731 19.0194 4.1674 19.0194 2.56945 17.4084C0.971513 15.7973 0.971828 13.1758 2.56945 11.5647L4.90058 9.21366L8.70939 5.37279L11.8462 2.20953C12.9386 1.10793 14.7171 1.10793 15.8095 2.20953C16.9019 3.31145 16.9019 5.10427 15.8095 6.20619L11.3401 10.713L9.57792 12.4896L7.28101 14.8062C6.70828 15.3838 5.77633 15.3831 5.20391 14.8062C4.63117 14.2286 4.63117 13.2885 5.20391 12.711L8.53387 9.3533L9.26266 8.61805L12.3756 5.47918L11.4051 4.50075L8.2924 7.63963L7.56361 8.37456L4.23334 11.7335C3.12618 12.8497 3.12586 14.6675 4.23334 15.7849C5.34113 16.9017 7.14379 16.9017 8.25095 15.7849L10.3456 13.6723L12.31 11.6914L16.7792 7.1843C18.4069 5.54314 18.4069 2.87258 16.7792 1.23111C15.1517 -0.410368 12.5031 -0.410368 10.8757 1.23111L7.46062 4.67554L4.05404 8.11079L1.59951 10.5863C-0.53317 12.7366 -0.53317 16.2365 1.59951 18.3868C3.73219 20.5377 7.2022 20.5377 9.33519 18.3868L13.4134 14.2742L14.8701 12.8053L17.577 10.0759L16.6071 9.09713L13.8998 11.8269Z" fill="#292929")
+                button.file-upload-area__remove.btn-reset(type="button" style="display: none;")
+                    svg(xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none")
+                        path(d="M0.353516 10.3535L5.35352 5.34934M5.35352 5.34934L10.3452 0.353516M5.35352 5.34934L0.36185 0.353516M5.35352 5.34934L10.3535 10.3535" stroke="#292929")
+            if hintEnabled
+                .file-upload-hint= hintText
+        else
+            input(type=inputType placeholder=placeholder value=value name=name id=resolvedId).input&attributes(attributes)
+
+

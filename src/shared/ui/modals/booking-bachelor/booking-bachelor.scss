@@ -1,0 +1,75 @@
+@use '@/app/styles/config/index.scss' as *;
+
+// ============================================
+// Pill-group (radio-кнопки в виде pill-таб)
+// ============================================
+.pill-group {
+	display: flex;
+	flex-direction: column;
+	gap: rem(12);
+
+	&__label {
+		@include descr-xs;
+		color: var(--beige-color);
+		opacity: 0.6;
+		text-align: center;
+	}
+
+	&__items {
+		display: flex;
+		gap: rem(8);
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	&__item {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: rem(95);
+		height: rem(36);
+		padding: rem(6) rem(16);
+		border-radius: rem(96);
+		border: 1px solid rgba(255, 245, 229, 0.2);
+		background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.5) 100%);
+		cursor: pointer;
+		transition: var(--trs-300);
+		color: var(--beige-color);
+
+		input {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
+			border: 0;
+		}
+
+		&__text {
+			@include descr-s;
+			font-size: rem(14);
+			text-transform: none;
+			letter-spacing: 0;
+		}
+
+		&:has(input:checked),
+		&.is-active {
+			color: var(--gold-color);
+			border-color: rgba(244, 185, 125, 0.2);
+			background: linear-gradient(
+				90deg,
+				rgba(244, 185, 125, 0.02) 0%,
+				rgba(244, 185, 125, 0.2) 100%
+			);
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				color: var(--gold-color);
+				border-color: rgba(244, 185, 125, 0.2);
+			}
+		}
+	}
+}

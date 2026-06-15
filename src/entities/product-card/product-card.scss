@@ -1,0 +1,12 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.product-card {
+	border: 1px solid #ccc;
+	padding: rem(10);
+	.image-wrapper {
+		width: rem(100);
+		height: rem(100);
+		background: #ccc;
+		margin-bottom: rem(20);
+	}
+}

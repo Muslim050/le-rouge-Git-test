@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Le Rouge</title>
+    <meta name="description" content="template">
+    <meta name="keywords" content="template">
+    <meta name="robots" content="index, follow">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="./assets/static/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="./assets/static/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/static/apple-touch-icon.png">
+    <link rel="manifest" href="./assets/static/site.webmanifest.json">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0B0B0B;
+            color: #FFF5E5;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity .2s ease-out;
+        }
+
+        body.is-ready {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <link href="./assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__container container">
+            <div class="header__top"><button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="header__city-name">москва</span><span class="header__city-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 4L8 9L13 4" stroke="url(#hdrChev-m)"></path>
+                            <defs>
+                                <linearGradient id="hdrChev-m" x1="8" y1="4" x2="8" y2="9" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#F6F2EC" stop-opacity="0"></stop>
+                                    <stop offset="1" stop-color="#F6F2EC"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg></span></button><span class="header__address">Б. Путинковский пер., 5</span></div>
+            <div class="header__main">
+                <div class="header__col header__col--left"><button class="btn ghost m header__menu-btn" type="button" aria-expanded="false" aria-controls="site-menu"><span class="btn__icon"><svg>
+                                <use xlink:href="assets/img/sprite.svg#menu"></use>
+                            </svg></span><span class="btn__text">меню</span></button>
+                    <ul class="header__lang" role="list">
+                        <li class="header__lang-item is-active"><button type="button" data-lang="ru">ru</button></li>
+                        <li class="header__lang-item"><button type="button" data-lang="en">en</button></li>
+                        <li class="header__lang-item"><button type="button" data-lang="cn">cn</button></li>
+                    </ul><button class="header__city header__city--desktop" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="header__city-name">москва</span><span class="header__city-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 4L8 9L13 4" stroke="url(#hdrChev-d)"></path>
+                                <defs>
+                                    <linearGradient id="hdrChev-d" x1="8" y1="4" x2="8" y2="9" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#F6F2EC" stop-opacity="0"></stop>
+                                        <stop offset="1" stop-color="#F6F2EC"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg></span></button>
+                </div><a class="header__logo" href="index.html" aria-label="Le Rouge — главная"><img src="assets/img/logo.svg" alt="Le Rouge" width="210" height="60"></a>
+                <div class="header__col header__col--right"><span class="header__address header__address--desktop">Б. Путинковский пер., 5</span><button class="btn gold m header__booking-btn" type="button" data-modal-load="modals/booking-table.html"><span class="btn__text">бронь</span><span class="btn__icon"> <svg>
+                                <use xlink:href="assets/img/sprite.svg#phone"></use>
+                            </svg></span></button></div>
+            </div>
+        </div>
+    </header>
+    <main class="events-page">
+        <section class="events-detail">
+            <nav class="events-detail__anchors" aria-label="Мероприятия">
+                <ul class="events-detail__anchor-list" role="list">
+                    <li class="events-detail__anchor-item is-active"><a class="events-detail__anchor" href="#malchishnik" data-index="0">мальчишник</a></li>
+                    <li class="events-detail__anchor-item"><a class="events-detail__anchor" href="#birthday" data-index="1">день рождения</a></li>
+                    <li class="events-detail__anchor-item"><a class="events-detail__anchor" href="#event-keys" data-index="2">event под ключ</a></li>
+                </ul>
+            </nav>
+            <div class="events-detail__zones">
+                <div class="events-detail__zone" id="malchishnik" data-index="0">
+                    <div class="events-detail__photo"><img class="events-detail__photo-img is-active" src="assets/img/events/event-bg.png" alt="мальчишник" loading="eager" fetchpriority="high"><img class="events-detail__photo-img" src="assets/img/halls/hall-1.png" alt="мальчишник" loading="lazy" fetchpriority="auto"><img class="events-detail__photo-img" src="assets/img/halls/hall-2.png" alt="мальчишник" loading="lazy" fetchpriority="auto">
+                        <div class="events-detail__photo-gradient-top" aria-hidden="true"></div>
+                        <div class="events-detail__photo-gradient" aria-hidden="true"></div>
+                        <h2 class="events-detail__title">Мальчишник<br>в le rouge</h2>
+                    </div>
+                    <aside class="events-detail__info">
+                        <article class="events-detail__card">
+                            <h3 class="events-detail__card-title">организация Мальчишника в&nbsp;le&nbsp;rouge</h3>
+                            <div class="events-detail__card-grid">
+                                <div class="events-detail__card-row">
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">3+</span><span class="events-detail__card-param-label">Девушек будут только вашими</span></div>
+                                    <div class="events-detail__card-param-divider" aria-hidden="true"></div>
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">6</span><span class="events-detail__card-param-label">Залов на выбор: VIP и караоке</span></div>
+                                </div>
+                                <div class="events-detail__card-row">
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">50</span><span class="events-detail__card-param-label">Любых шотов в подарок</span></div>
+                                    <div class="events-detail__card-param-divider" aria-hidden="true"></div>
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">50 000 ₽</span><span class="events-detail__card-param-label">Минимальная стоимость</span></div>
+                                </div>
+                            </div><button class="events-detail__card-btn btn-reset" type="button" data-modal-load="modals/booking-table.html" data-object="мальчишник"><span class="events-detail__card-btn-text">организовать мальчишник</span></button>
+                        </article>
+                    </aside>
+                </div>
+                <div class="events-detail__zone" id="birthday" data-index="1">
+                    <div class="events-detail__photo"><img class="events-detail__photo-img is-active" src="assets/img/events/event-bg.png" alt="день рождения" loading="lazy" fetchpriority="auto"><img class="events-detail__photo-img" src="assets/img/halls/hall-3.png" alt="день рождения" loading="lazy" fetchpriority="auto"><img class="events-detail__photo-img" src="assets/img/halls/hall-4.png" alt="день рождения" loading="lazy" fetchpriority="auto">
+                        <div class="events-detail__photo-gradient-top" aria-hidden="true"></div>
+                        <div class="events-detail__photo-gradient" aria-hidden="true"></div>
+                        <h2 class="events-detail__title">День рождения<br>в le rouge</h2>
+                    </div>
+                    <aside class="events-detail__info">
+                        <article class="events-detail__card">
+                            <h3 class="events-detail__card-title">организация дня рождения в&nbsp;le&nbsp;rouge</h3>
+                            <div class="events-detail__card-grid">
+                                <div class="events-detail__card-row">
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">3+</span><span class="events-detail__card-param-label">Девушек будут только вашими</span></div>
+                                    <div class="events-detail__card-param-divider" aria-hidden="true"></div>
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">6</span><span class="events-detail__card-param-label">Залов на выбор: VIP и караоке</span></div>
+                                </div>
+                                <div class="events-detail__card-row">
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">50</span><span class="events-detail__card-param-label">Любых шотов в подарок</span></div>
+                                    <div class="events-detail__card-param-divider" aria-hidden="true"></div>
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">50 000 ₽</span><span class="events-detail__card-param-label">Минимальная стоимость</span></div>
+                                </div>
+                            </div><button class="events-detail__card-btn btn-reset" type="button" data-modal-load="modals/booking-table.html" data-object="день рождения"><span class="events-detail__card-btn-text">организовать день рождения</span></button>
+                        </article>
+                    </aside>
+                </div>
+                <div class="events-detail__zone" id="event-keys" data-index="2">
+                    <div class="events-detail__photo"><img class="events-detail__photo-img is-active" src="assets/img/events/event-bg.png" alt="event под ключ" loading="lazy" fetchpriority="auto"><img class="events-detail__photo-img" src="assets/img/halls/hall-2.png" alt="event под ключ" loading="lazy" fetchpriority="auto"><img class="events-detail__photo-img" src="assets/img/halls/hall-4.png" alt="event под ключ" loading="lazy" fetchpriority="auto">
+                        <div class="events-detail__photo-gradient-top" aria-hidden="true"></div>
+                        <div class="events-detail__photo-gradient" aria-hidden="true"></div>
+                        <h2 class="events-detail__title">Event под ключ<br>в le rouge</h2>
+                    </div>
+                    <aside class="events-detail__info">
+                        <article class="events-detail__card">
+                            <h3 class="events-detail__card-title">организация event под ключ в&nbsp;le&nbsp;rouge</h3>
+                            <div class="events-detail__card-grid">
+                                <div class="events-detail__card-row">
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">3+</span><span class="events-detail__card-param-label">Девушек будут только вашими</span></div>
+                                    <div class="events-detail__card-param-divider" aria-hidden="true"></div>
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">6</span><span class="events-detail__card-param-label">Залов на выбор: VIP и караоке</span></div>
+                                </div>
+                                <div class="events-detail__card-row">
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">50</span><span class="events-detail__card-param-label">Любых шотов в подарок</span></div>
+                                    <div class="events-detail__card-param-divider" aria-hidden="true"></div>
+                                    <div class="events-detail__card-param"><span class="events-detail__card-param-value">50 000 ₽</span><span class="events-detail__card-param-label">Минимальная стоимость</span></div>
+                                </div>
+                            </div><button class="events-detail__card-btn btn-reset" type="button" data-modal-load="modals/booking-table.html" data-object="event под ключ"><span class="events-detail__card-btn-text">организовать event</span></button>
+                        </article>
+                    </aside>
+                </div>
+            </div>
+            <nav class="events-detail__nav" aria-label="Переключение мероприятия"><button class="events-detail__nav-btn events-detail__nav-btn--prev btn-reset" type="button" aria-label="Предыдущее"><svg>
+                        <use xlink:href="assets/img/sprite.svg#arrow-l"></use>
+                    </svg></button>
+                <div class="events-detail__counter"><span class="events-detail__counter-num events-detail__counter-active is-active">01</span><span class="events-detail__counter-sep"></span><span class="events-detail__counter-num">03</span></div><button class="events-detail__nav-btn events-detail__nav-btn--next btn-reset" type="button" aria-label="Следующее"><svg>
+                        <use xlink:href="assets/img/sprite.svg#arrow-l"></use>
+                    </svg></button>
+            </nav>
+            <div class="events-detail__mobile">
+                <div class="events-detail__mobile-hero"><img class="events-detail__mobile-hero-img" src="assets/img/events/event-bg.png" alt="Мероприятия в Le Rouge"><video class="events-detail__mobile-hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/img/events/event-bg.png" aria-hidden="true">
+                        <source src="assets/files/show-reel-mob.mp4" type="video/mp4">
+                    </video>
+                    <div class="events-detail__mobile-hero-gradient-top" aria-hidden="true"></div>
+                    <div class="events-detail__mobile-hero-gradient-bottom" aria-hidden="true"></div>
+                    <h1 class="events-detail__mobile-hero-title">Мероприятия в&nbsp;Le&nbsp;Rouge</h1>
+                </div>
+                <div class="events-detail__mobile-tabs" role="tablist"><button class="events-detail__mobile-tab btn-reset is-active" type="button" role="tab" data-mobile-tab="0" aria-selected="true">мальчишник</button><button class="events-detail__mobile-tab btn-reset" type="button" role="tab" data-mobile-tab="1" aria-selected="false">день рождения</button><button class="events-detail__mobile-tab btn-reset" type="button" role="tab" data-mobile-tab="2" aria-selected="false">event под ключ</button></div>
+                <div class="events-detail__mobile-gallery">
+                    <div class="events-detail__mobile-gallery-item"><img class="events-detail__mobile-gallery-img" src="assets/img/events/event-bg.png" alt="Фото 1" data-gallery-i="0"></div>
+                    <div class="events-detail__mobile-gallery-item"><img class="events-detail__mobile-gallery-img" src="assets/img/halls/hall-1.png" alt="Фото 2" data-gallery-i="1"></div>
+                    <div class="events-detail__mobile-gallery-item"><img class="events-detail__mobile-gallery-img" src="assets/img/halls/hall-2.png" alt="Фото 3" data-gallery-i="2"></div>
+                </div>
+                <nav class="events-detail__mobile-arrows" aria-label="Переключение фото мероприятия"><button class="events-detail__mobile-arrow events-detail__mobile-arrow--prev btn-reset" type="button" aria-label="Назад"><svg class="events-detail__mobile-arrow-svg" viewBox="0 0 25.1463 28.1962" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M25.0732 15.4474C18.6005 16.4048 13.5365 21.4256 12.6208 27.7934L12.5732 28.125L12.5255 27.7934C11.6098 21.4256 6.54579 16.4048 0.0731607 15.4474M12.5732 27.3326L12.5732 5.45178e-08" stroke="url(#eventsArrow-prev)"></path>
+                            <defs>
+                                <linearGradient id="eventsArrow-prev" x1="12.5732" y1="0" x2="12.5732" y2="28.125" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#E0B471" stop-opacity="0"></stop>
+                                    <stop offset="0.817308" stop-color="#E0B471"></stop>
+                                    <stop offset="1" stop-color="#FFEDBF"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg></button><span class="events-detail__mobile-arrow-line" aria-hidden="true"></span><button class="events-detail__mobile-arrow events-detail__mobile-arrow--next btn-reset" type="button" aria-label="Вперёд"><svg class="events-detail__mobile-arrow-svg" viewBox="0 0 25.1463 28.1962" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M25.0732 15.4474C18.6005 16.4048 13.5365 21.4256 12.6208 27.7934L12.5732 28.125L12.5255 27.7934C11.6098 21.4256 6.54579 16.4048 0.0731607 15.4474M12.5732 27.3326L12.5732 5.45178e-08" stroke="url(#eventsArrow-next)"></path>
+                            <defs>
+                                <linearGradient id="eventsArrow-next" x1="12.5732" y1="0" x2="12.5732" y2="28.125" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#E0B471" stop-opacity="0"></stop>
+                                    <stop offset="0.817308" stop-color="#E0B471"></stop>
+                                    <stop offset="1" stop-color="#FFEDBF"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg></button></nav>
+                <div class="events-detail__mobile-params">
+                    <div class="events-detail__mobile-param"><span class="events-detail__mobile-param-value">3+</span><span class="events-detail__mobile-param-label">Девушек будут только вашими</span></div>
+                    <div class="events-detail__mobile-param"><span class="events-detail__mobile-param-value">6</span><span class="events-detail__mobile-param-label">Залов на выбор: VIP и караоке</span></div>
+                    <div class="events-detail__mobile-param"><span class="events-detail__mobile-param-value">50</span><span class="events-detail__mobile-param-label">Любых шотов в подарок</span></div>
+                    <div class="events-detail__mobile-param"><span class="events-detail__mobile-param-value">50 000 ₽</span><span class="events-detail__mobile-param-label">Минимальная стоимость</span></div>
+                </div><button class="events-detail__mobile-cta btn-reset" type="button" data-modal-load="modals/booking-table.html" data-object="мальчишник"><span class="events-detail__card-btn-text">организовать мальчишник</span></button>
+            </div>
+        </section>
+        <section class="events-form">
+            <div class="events-form__lights" aria-hidden="true"></div>
+            <div class="events-form__container">
+                <header class="events-form__head">
+                    <div class="badge">выбирать себя</div>
+                    <div class="events-form__intro">
+                        <h2 class="events-form__title">Вся атмосфера кабаре Le&nbsp;Rouge создана для того, чтобы мужчина расслабился и&nbsp;получал удовольствие</h2>
+                        <p class="events-form__lead">Выберите бюджет, укажите количество гостей и&nbsp;мы&nbsp;подберём для вас идеальную программу</p>
+                    </div>
+                </header>
+                <form class="events-form__form js-events-form" action="#" method="post" novalidate><input type="hidden" name="form_type" value="events_request"><input type="hidden" name="page" value=""><input type="hidden" name="budget" value=""><input type="hidden" name="guests" value="">
+                    <div class="events-form__row">
+                        <div class="events-form__group"><span class="events-form__label">какое мероприятие планируете?</span>
+                            <div class="form-group custom-select events-form__select js-event-select">
+                                <div class="custom-select__wrapper"><input class="input custom-select__input events-form__select js-event-select" name="event_type" id="event_type" placeholder="Ваш вариант праздника" readonly="readonly">
+                                    <div class="custom-select__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path d="M3 5L8 10L13 5" stroke="currentColor"></path>
+                                        </svg></div>
+                                    <div class="custom-select__dropdown">
+                                        <div class="custom-select__option" data-value="Мальчишник"><span class="custom-select__option-text">Мальчишник</span>
+                                            <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                    <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                                </svg></div>
+                                        </div>
+                                        <div class="custom-select__option" data-value="День рождения"><span class="custom-select__option-text">День рождения</span>
+                                            <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                    <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                                </svg></div>
+                                        </div>
+                                        <div class="custom-select__option" data-value="Event под ключ"><span class="custom-select__option-text">Event под ключ</span>
+                                            <div class="custom-select__option-icon"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                                                    <path d="M0.353516 1.87012L3.85352 5.37012L9.35352 0.370117" stroke="#292929"></path>
+                                                </svg></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="events-form__group"><span class="events-form__label">планируемая дата</span>
+                            <div class="form-group"><input class="input input__valid-date" placeholder="ДД.ММ.ГГГГ" value="" name="event_date" id="event_date" inputmode="numeric"></div>
+                        </div>
+                    </div>
+                    <div class="events-form__group events-form__group--tight"><span class="events-form__label">выберите бюджет</span>
+                        <div class="events-form__tabs" data-pills="budget"><button class="events-form__tab btn-reset" type="button" data-value="10000">10 000 ₽</button><button class="events-form__tab btn-reset" type="button" data-value="25000">25 000 ₽</button><button class="events-form__tab btn-reset" type="button" data-value="50000">50 000 ₽</button><button class="events-form__tab btn-reset" type="button" data-value="100000">100 000 ₽</button><button class="events-form__tab btn-reset" type="button" data-value="custom">Своя сумма</button></div>
+                        <div class="form-group"><input class="input events-form__custom" placeholder="0 ₽" value="" name="budget_custom" id="budget_custom" inputmode="numeric"></div>
+                    </div>
+                    <div class="events-form__group events-form__group--tight"><span class="events-form__label">количество гостей</span>
+                        <div class="events-form__tabs" data-pills="guests"><button class="events-form__tab btn-reset" type="button" data-value="5-10">5-10</button><button class="events-form__tab btn-reset" type="button" data-value="11-15">11-15</button><button class="events-form__tab btn-reset" type="button" data-value="16-20">16-20</button><button class="events-form__tab btn-reset" type="button" data-value="21-25">21-25</button></div>
+                    </div>
+                    <div class="events-form__group"><span class="events-form__label">контактные данные</span>
+                        <div class="events-form__row">
+                            <div class="form-group"><input class="input input__valid-name" placeholder="Ваше имя" value="" name="name" id="name"></div>
+                            <div class="form-group"><input class="input input__valid-phone" type="tel" placeholder="+7 (XXX) XXX-XX-XX" value="" name="phone" id="phone"></div>
+                        </div>
+                    </div>
+                    <div class="events-form__footer">
+                        <div class="events-form__agree">
+                            <div class="form-group"><input class="input input__valid-checkbox" id="ef-agree" type="checkbox" name="agree" required><label for="ef-agree">
+                                    <p>Нажимая кнопку «Отправить заявку» я&nbsp;соглашаюсь с&nbsp;<a href="/personal-data" target="_blank">правилами обработки персональных данных</a> согласно&nbsp;<a href="/privacy" target="_blank">политике конфиденциальности</a> и&nbsp;даю&nbsp;<a href="/privacy" target="_blank">согласие на&nbsp;получение информационных и&nbsp;рекламных рассылок</a></p>
+                                </label></div>
+                        </div><button class="events-form__submit btn-reset" type="submit"><span class="events-form__submit-text">организовать праздник</span></button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section class="contacts">
+            <div class="contacts__map" aria-hidden="true"><img class="contacts__map-bg" src="assets/img/footer/map-bg.png" alt="">
+                <div class="contacts__map-canvas" data-yandex-map data-lat="55.767442" data-lng="37.607568" data-zoom="16" data-address="Большой Путинковский переулок, 5"></div>
+                <div class="contacts__map-gradient"></div>
+            </div>
+            <div class="contacts__card"><span class="contacts__heading">контакты</span>
+                <div class="contacts__badge"><span class="contacts__badge-text">FC/DC</span><span class="contacts__badge-divider" aria-hidden="true"></span><span class="contacts__badge-text">18+</span></div>
+                <div class="contacts__main"><a class="contacts__phone" href="tel:+79857737731">+7 (985) 773-77-31</a>
+                    <div class="contacts__address">
+                        <p class="contacts__address-line">Большой Путинковский переулок, 5</p>
+                        <p class="contacts__address-metro">м. Пушкинская, Чеховская, Тверская</p>
+                    </div>
+                </div>
+                <div class="contacts__hours">
+                    <div class="contacts__hours-item"><span class="contacts__hours-label">Понедельник - четверг:&nbsp;</span><span class="contacts__hours-label contacts__hours-label--short">ПН - ЧТ</span><span class="contacts__hours-value">16:00 — 04:00</span></div>
+                    <div class="contacts__hours-divider" aria-hidden="true"></div>
+                    <div class="contacts__hours-item"><span class="contacts__hours-label">Пятница - воскресенье:&nbsp;</span><span class="contacts__hours-label contacts__hours-label--short">ПТ - ВС</span><span class="contacts__hours-value">14:00 — 04:00</span></div>
+                </div>
+                <div class="contacts__prices">
+                    <hr class="contacts__divider">
+                    <div class="contacts__price">
+                        <p class="contacts__price-amount">3 500 ₽</p>
+                        <p class="contacts__price-label">Мужчины</p>
+                    </div>
+                    <hr class="contacts__divider">
+                    <div class="contacts__price">
+                        <p class="contacts__price-amount">5 000 ₽</p>
+                        <p class="contacts__price-label">Девушки&nbsp;<span class="contacts__price-label-note">только в&nbsp;сопровождении мужчин</span></p>
+                    </div>
+                    <hr class="contacts__divider contacts__divider--mobile">
+                </div>
+                <div class="contacts__photo" aria-hidden="true"><img class="contacts__photo-img" src="assets/img/footer/girl-mask.jpg" alt="" loading="lazy"><span class="contacts__glow contacts__glow--tl"></span><span class="contacts__glow contacts__glow--tr"></span><span class="contacts__glow contacts__glow--br"></span></div>
+                <div class="contacts__fcdc" aria-hidden="true"><span class="contacts__fcdc-text">FC/DC</span><span class="contacts__fcdc-text">18+</span></div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer footer--compact" id="footer">
+        <div class="footer__top">
+            <div class="footer__map"><img class="footer__map-bg" src="assets/img/footer/map-bg.png" alt="" aria-hidden="true">
+                <div class="footer__map-canvas" data-yandex-map data-lat="55.767442" data-lng="37.607568" data-zoom="16" data-address="Большой Путинковский переулок, 5" aria-hidden="true"></div>
+            </div>
+            <div class="footer__contacts"><span class="footer__contacts-heading">контакты</span><a class="footer__phone" href="tel:+79857737731">+7 (985) 773-77-31</a>
+                <div class="footer__address">
+                    <p class="footer__address-line">Большой Путинковский переулок, 5</p>
+                    <p class="footer__address-metro">м. Пушкинская, Чеховская, Тверская</p>
+                </div>
+                <div class="footer__hours">
+                    <div class="footer__hours-item"><span class="footer__hours-label">Понедельник - четверг:</span><span class="footer__hours-label footer__hours-label--short">ПН - ЧТ</span><span class="footer__hours-value">16:00 — 04:00</span></div>
+                    <div class="footer__hours-divider"></div>
+                    <div class="footer__hours-item"><span class="footer__hours-label">Пятница - воскресенье:</span><span class="footer__hours-label footer__hours-label--short">ПТ - ВС</span><span class="footer__hours-value">14:00 — 04:00</span></div>
+                </div>
+                <div class="footer__prices">
+                    <hr class="footer__divider">
+                    <div class="footer__price">
+                        <p class="footer__price-amount">3 500 ₽</p>
+                        <p class="footer__price-label">Мужчины</p>
+                    </div>
+                    <hr class="footer__divider">
+                    <div class="footer__price">
+                        <p class="footer__price-amount">5 000 ₽</p>
+                        <p class="footer__price-label">Девушки&nbsp;<span class="footer__price-label-note">только в&nbsp;сопровождении мужчин</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__photo"><img class="footer__photo-img" src="assets/img/footer/girl-mask.jpg" alt="" aria-hidden="true" loading="lazy"><span class="footer__glow footer__glow--tl" aria-hidden="true"></span><span class="footer__glow footer__glow--tr" aria-hidden="true"></span><span class="footer__glow footer__glow--br" aria-hidden="true"></span></div>
+            <div class="footer__fcdc" aria-hidden="true"><span class="footer__fcdc-text">FC/DC</span><span class="footer__fcdc-text">18+</span></div>
+        </div>
+        <div class="footer__info">
+            <div class="footer__copyright">©2026 — Le Rouge</div>
+            <nav class="footer__links" aria-label="Документы"><a class="footer__link" href="#">соглашение об обработке персональных данных</a><a class="footer__link" href="#">Политика конфиденциальности</a><a class="footer__link" href="#">пользовательское соглашение</a><a class="footer__link" href="#">согласие на получение информационных и рекламных рассылок</a></nav>
+            <div class="footer__brand"><span class="footer__brand-text">FC/DC</span>
+                <div class="footer__partners"><a class="footer__partner" href="#" aria-label="Show Girls"><img src="assets/img/footer/partner-show-girls.svg" alt="Show Girls" loading="lazy"></a><a class="footer__partner" href="#" aria-label="Le Rouge"><img src="assets/img/footer/partner-le-rouge.svg" alt="Le Rouge" loading="lazy"></a><a class="footer__partner" href="#" aria-label="Show Girls Cabaret"><img src="assets/img/footer/partner-sg-cabaret.svg" alt="Show Girls Cabaret" loading="lazy"></a></div><span class="footer__brand-text">18+</span>
+            </div>
+        </div>
+    </footer>
+    <aside class="main-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Главное меню">
+        <div class="main-menu__backdrop" data-menu-close></div>
+        <div class="main-menu__panel"><button class="main-menu__close btn-reset" type="button" aria-label="Закрыть меню" data-menu-close><svg>
+                    <use xlink:href="assets/img/sprite.svg#close"></use>
+                </svg></button><a class="main-menu__logo" href="index.html" aria-label="Le Rouge — главная" data-menu-close><img src="assets/img/logo.svg" alt="Le Rouge" width="168" height="48"></a>
+            <nav class="main-menu__nav" aria-label="Основная навигация">
+                <ul class="main-menu__list">
+                    <li class="main-menu__item"><a class="main-menu__link" href="index.html" data-menu-close>главная</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="girls.html" data-menu-close>девушки</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="show.html" data-menu-close>шоу-перформанс</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="halls.html" data-menu-close>vip залы</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="events.html" data-menu-close>мероприятия в le rouge</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="certificate.html" data-menu-close>подарочные сертификаты</a></li>
+                    <li class="main-menu__item"><a class="main-menu__link" href="contacts.html" data-menu-close>контакты</a></li>
+                </ul>
+            </nav><a class="main-menu__vacancies" href="#footer" data-menu-close data-scroll-to="footer">вакансии le rouge</a>
+            <ul class="main-menu__lang" role="list">
+                <li class="main-menu__lang-item is-active"><button type="button" data-lang="ru">ru</button></li>
+                <li class="main-menu__lang-item"><button type="button" data-lang="en">en</button></li>
+                <li class="main-menu__lang-item"><button type="button" data-lang="cn">cn</button></li>
+            </ul>
+        </div>
+    </aside>
+    <aside class="city-switcher" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Выбор города">
+        <div class="city-switcher__backdrop" data-city-close></div>
+        <div class="city-switcher__panel"><button class="city-switcher__close btn-reset" type="button" aria-label="Закрыть" data-city-close><svg>
+                    <use xlink:href="assets/img/sprite.svg#close"></use>
+                </svg></button>
+            <ul class="city-switcher__list" role="list">
+                <li class="city-switcher__item is-active"><a class="city-switcher__card" href="index.html" aria-current="page"><img class="city-switcher__logo" src="assets/img/city/le-rouge.svg" alt="Le Rouge" width="128" height="40"><span class="city-switcher__city">москва</span><span class="city-switcher__address">Б. Путинковский пер., 5</span></a></li>
+                <li class="city-switcher__item"><a class="city-switcher__card" href="https://show-girls.ru/ekaterinburg" rel="noopener"><img class="city-switcher__logo" src="assets/img/city/show-girls.svg" alt="Show Girls" width="128" height="56" loading="lazy"><span class="city-switcher__city">екатеринбург</span><span class="city-switcher__address">ул. Малышева, 7а</span></a></li>
+                <li class="city-switcher__item"><a class="city-switcher__card" href="https://show-girls.ru/chelyabinsk" rel="noopener"><img class="city-switcher__logo" src="assets/img/city/show-girls-cabaret.svg" alt="Show Girls Cabaret" width="128" height="56" loading="lazy"><span class="city-switcher__city">челябинск</span><span class="city-switcher__address">проспект Ленина, 89</span></a></li>
+            </ul>
+        </div>
+    </aside>
+    <div class="cookies-notice" role="dialog" aria-label="Уведомление о cookies" data-cookies-notice hidden><button class="cookies-notice__close btn-reset" type="button" aria-label="Закрыть" data-cookies-close><svg>
+                <use xlink:href="assets/img/sprite.svg#close"></use>
+            </svg></button>
+        <p class="cookies-notice__text">наш сайт использует<br><a class="cookies-notice__link" href="/cookies" target="_blank" rel="noopener">cookie-файлы</a></p><button class="cookies-notice__accept" type="button" data-cookies-accept>принимаю</button>
+    </div>
+    <div class="modals"></div>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=a836c5ff-d201-4b8d-a539-25b87beb6450&amp;lang=ru_RU" defer="defer"></script>
+    <script defer="defer" src="./assets/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+mixin poster()
+    //- Каждый постер — единый блок В СЛАЙДЕРЕ: картинка + свой текст. Листаются вместе.
+    //- Бэкенд (Bitrix) заменяет цикл `each item in posters` своим выводом, сохраняя классы.
+    -
+        const posterLead = 'Кабаре Le&nbsp;Rouge приглашает на&nbsp;яркий weekend в&nbsp;стиле страстной эпохи джаза! Шоу-перформанс Jazz&nbsp;do&nbsp;It погрузит, даже самого искушенного зрителя, в&nbsp;атмосферу роскоши, свободы и&nbsp;внимания красивейших<br>«джазовых» девушек.';
+        const posters = [
+            { title: 'JAZZ DO IT', image: PUBLIC + 'assets/img/poster/jazz.png', lead: posterLead },
+            { title: 'JAZZ DO IT', image: PUBLIC + 'assets/img/poster/jazz.png', lead: posterLead },
+            { title: 'JAZZ DO IT', image: PUBLIC + 'assets/img/poster/jazz.png', lead: posterLead },
+            { title: 'JAZZ DO IT', image: PUBLIC + 'assets/img/poster/jazz.png', lead: posterLead },
+            { title: 'JAZZ DO IT', image: PUBLIC + 'assets/img/poster/jazz.png', lead: posterLead }
+        ];
+
+    section.poster
+        .poster__container.container
+            +badge({text: 'афиша'})
+
+            .poster__main
+                .poster__glow(aria-hidden='true')
+
+                .poster__swiper
+                    .swiper-wrapper
+                        each item in posters
+                            .swiper-slide
+                                article.poster__card
+                                    if item.image
+                                        img.poster__card-img(src=item.image alt=item.title loading='lazy')
+                                    else
+                                        .poster__card-placeholder
+                                p.poster__lead!= item.lead
+
+                .poster__nav
+                    button.poster__nav-btn.poster__nav-btn--prev.btn-reset(type='button' aria-label='Предыдущий постер')
+                        +svg('arrow-l')
+                    button.poster__nav-btn.poster__nav-btn--next.btn-reset(type='button' aria-label='Следующий постер')
+                        +svg('arrow-l')
+
+            button.poster__btn(type='button' data-modal-load='modals/booking-table.html')
+                span.poster__btn-text забронировать стол

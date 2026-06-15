@@ -1,0 +1,485 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.tg-bot {
+	position: relative;
+	isolation: isolate;
+	padding: rem(120) 0 rem(80);
+	overflow: hidden;
+	background: var(--black-color);
+	color: var(--beige-color);
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	&::before {
+		left: -12%;
+		top: rem(180);
+		width: rem(460);
+		height: rem(460);
+		background: radial-gradient(
+			circle,
+			rgba(152, 84, 47, 0.22) 0%,
+			rgba(152, 84, 47, 0.08) 36%,
+			rgba(11, 11, 11, 0) 74%
+		);
+		filter: blur(rem(100));
+	}
+
+	&::after {
+		right: -12%;
+		bottom: rem(140);
+		width: rem(540);
+		height: rem(540);
+		background: radial-gradient(
+			circle,
+			rgba(204, 124, 83, 0.2) 0%,
+			rgba(204, 124, 83, 0.08) 38%,
+			rgba(11, 11, 11, 0) 74%
+		);
+		filter: blur(rem(118));
+	}
+
+	// Sticky точечная волна-фон (фон тг бот)
+	&__bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	&__bg-inner {
+		position: sticky;
+		top: 0;
+		height: 100vh;
+		max-height: rem(950);
+		overflow: hidden;
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background:
+				linear-gradient(90deg, #0b0b0b 0%, rgba(11, 11, 11, 0) 50%, #0b0b0b 100%),
+				linear-gradient(180deg, #0b0b0b 0%, rgba(11, 11, 11, 0.5) 50%, #0b0b0b 100%);
+		}
+	}
+
+	&__bg-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center bottom;
+		display: block;
+	}
+
+	&__container {
+		position: relative;
+		z-index: 1;
+	}
+
+	&__title {
+		@include h2;
+		color: var(--gold-color);
+		text-align: center;
+		margin: 0 auto;
+		max-width: rem(900);
+		position: relative;
+		z-index: 2;
+	}
+
+	&__photos {
+		position: relative;
+		height: rem(986);
+		margin-top: rem(40);
+		z-index: 1;
+
+		&::before {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: rem(80);
+			transform: translateX(-50%);
+			width: min(72vw, rem(960));
+			height: rem(760);
+			background: radial-gradient(
+				ellipse 50% 50% at center,
+				rgba(241, 185, 101, 0.14) 0%,
+				rgba(241, 185, 101, 0.05) 34%,
+				rgba(11, 11, 11, 0) 74%
+			);
+			filter: blur(rem(72));
+			pointer-events: none;
+			z-index: 0;
+		}
+	}
+
+	&__photo {
+		position: absolute;
+		overflow: hidden;
+		will-change: transform;
+
+		img {
+			position: relative;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			-webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+			mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+		}
+
+		// Центральное большое фото
+		&--main {
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: rem(500);
+			height: rem(666);
+			z-index: 2;
+
+			&::before {
+				content: '';
+				position: absolute;
+				left: 50%;
+				top: 56%;
+				transform: translate(-50%, -50%);
+				width: 84%;
+				height: 72%;
+				background: radial-gradient(
+					ellipse 50% 52% at center,
+					rgba(241, 185, 101, 0.16) 0%,
+					rgba(241, 185, 101, 0.06) 36%,
+					rgba(11, 11, 11, 0) 74%
+				);
+				filter: blur(rem(30));
+				pointer-events: none;
+				z-index: 0;
+			}
+		}
+
+		// Мелкое слева сверху
+		&--small-tl {
+			top: rem(200);
+			left: 16%;
+			width: rem(128);
+			height: rem(170);
+		}
+
+		// Большое слева снизу
+		&--big-bl {
+			bottom: rem(40);
+			left: 6%;
+			width: rem(284);
+			height: rem(378);
+		}
+
+		// Большое справа
+		&--big-br {
+			top: rem(390);
+			right: 8%;
+			width: rem(284);
+			height: rem(378);
+		}
+	}
+
+	&__steps {
+		position: relative;
+		z-index: 2;
+		list-style: none;
+		padding: 0;
+		margin: 0 auto;
+		max-width: rem(592);
+		display: flex;
+		flex-direction: column;
+		gap: rem(48);
+		text-align: center;
+		margin-top: rem(-280);
+	}
+
+	&__step {
+		display: flex;
+		flex-direction: column;
+		gap: rem(6);
+		align-items: center;
+	}
+
+	&__step-num {
+		@include h2;
+		background: linear-gradient(
+			180deg,
+			#ffedc5 14%,
+			#f4b97d 26%,
+			#0b0b0b 119%
+		);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		line-height: 1.06;
+	}
+
+	&__step-text {
+		@include h4;
+		color: var(--beige-color);
+		margin: 0;
+	}
+
+	// перенос строки только для мобильной раскладки (360)
+	&__br-mob {
+		display: none;
+	}
+
+	&__btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		max-width: rem(592);
+		height: rem(64);
+		margin: rem(64) auto 0;
+		padding: rem(8) rem(16) rem(6);
+		border-radius: rem(96);
+		@include glow-border; // свечение-обводка как в Figma
+		background: linear-gradient(90deg, rgba(244, 185, 125, 0.02) 0%, rgba(244, 185, 125, 0.2) 100%);
+		background-clip: padding-box;
+		backdrop-filter: blur(6px);
+		text-decoration: none;
+		transition: var(--trs-300);
+		position: relative;
+		z-index: 2;
+
+		&-text {
+			@include descr-md;
+			font-size: rem(20);
+			line-height: 0.96;
+			color: var(--beige-color);
+			text-align: center;
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				border-color: rgba(244, 185, 125, 0.5);
+
+				.tg-bot__btn-text {
+					color: var(--gold-color);
+				}
+			}
+		}
+	}
+
+	// ============================================
+	// 1440
+	// ============================================
+	@media (max-width: $desktop-xl) {
+		padding: rem(96) 0 rem(64);
+
+		&::before {
+			left: -18%;
+			width: rem(360);
+			height: rem(360);
+		}
+
+		&::after {
+			right: -18%;
+			width: rem(440);
+			height: rem(440);
+		}
+
+		&__title {
+			font-size: rem(48);
+		}
+
+		&__photos {
+			height: rem(820);
+		}
+
+		&__photo--main {
+			width: rem(400);
+			height: rem(533);
+		}
+
+		&__photo--small-tl {
+			width: rem(100);
+			height: rem(133);
+		}
+
+		&__photo--big-bl,
+		&__photo--big-br {
+			width: rem(220);
+			height: rem(293);
+		}
+
+		&__steps {
+			margin-top: rem(-220);
+			gap: rem(36);
+		}
+
+		&__step-num {
+			font-size: rem(48);
+		}
+
+		&__step-text {
+			font-size: rem(32);
+		}
+
+		&__btn {
+			max-width: rem(432);
+			height: rem(64);
+
+			&-text { font-size: rem(20); }
+		}
+	}
+
+	// ============================================
+	// 360
+	// ============================================
+	// ============================================
+	// 360 — другой макет: одно фото-фон, заголовок 24, шаги в ряд
+	// ============================================
+	@media (max-width: $tab-sm) {
+		padding: rem(24) 0 rem(40);
+
+		&::before,
+		&::after {
+			display: none;
+		}
+
+		// волна-фон на мобиле не используется
+		&__bg { display: none; }
+
+		&__container {
+			display: flex;
+			flex-direction: column;
+			min-height: rem(760); // Figma 360: высота блока 760 (было 600 — блок сжимался, текст наезжал на фото)
+		}
+
+		&__title {
+			font-size: rem(24);
+			letter-spacing: rem(1);
+			line-height: 1.16;
+			max-width: 100%;
+		}
+
+		// Параллакс-коллаж → одно фоновое фото на всю ширину
+		&__photos {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 100vw;
+			height: rem(640); // Figma 360: фото-блок 640 (было 560)
+			margin-top: 0;
+			z-index: 0;
+
+			&::before { display: none; }
+		}
+
+		&__photo--main {
+			position: absolute;
+			inset: 0;
+			top: 0;
+			left: 0;
+			transform: none;
+			width: 100%;
+			height: 100%;
+
+			&::before { display: none; }
+
+			img {
+				object-fit: cover;
+				object-position: center top;
+				-webkit-mask-image: none;
+				mask-image: none;
+			}
+
+			// затемнение сверху (128) и снизу (96) как в макете
+			&::before,
+			&::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				right: 0;
+				pointer-events: none;
+				z-index: 1;
+			}
+
+			// Держим тёмное до ~45% высоты, чтобы золотой заголовок (3 строки) лёг на
+			// тёмный фон и не наезжал на светлую фигуру (main.png широкая — cover зумит
+			// торс выше под заголовок). Было 128px с быстрым спадом — текст просвечивал.
+			&::before {
+				top: 0;
+				height: rem(200);
+				background: linear-gradient(
+					180deg,
+					#0b0b0b 0%,
+					#0b0b0b 45%,
+					rgba(11, 11, 11, 0) 100%
+				);
+			}
+
+			&::after {
+				bottom: 0;
+				height: rem(96);
+				background: linear-gradient(0deg, #0b0b0b 0%, rgba(11, 11, 11, 0) 100%);
+			}
+		}
+
+		&__photo--small-tl,
+		&__photo--big-bl,
+		&__photo--big-br {
+			display: none;
+		}
+
+		// Шаги — горизонтальный ряд из 3 колонок
+		&__steps {
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: flex-start;
+			gap: rem(16);
+			max-width: 100%;
+			margin-top: auto;
+			padding: 0;
+		}
+
+		&__step {
+			flex: 1;
+			align-items: center;
+			text-align: center;
+			gap: rem(12);
+		}
+
+		&__step-num {
+			font-size: rem(36);
+			line-height: 0.88;
+		}
+
+		&__step-text {
+			font-family: 'VelaSans', sans-serif;
+			font-size: rem(12);
+			font-weight: 500;
+			line-height: 1.36;
+			letter-spacing: rem(1);
+			text-transform: uppercase;
+		}
+
+		// на 360 включаем переносы по макету Figma
+		&__br-mob {
+			display: inline;
+		}
+
+		&__btn {
+			margin: rem(28) auto 0;
+			width: 100%;
+			max-width: 100%;
+			height: rem(48); // Figma 360: кнопка 48h
+
+			&-text { font-size: rem(16); } // Figma 360: текст кнопки 16px
+		}
+	}
+}

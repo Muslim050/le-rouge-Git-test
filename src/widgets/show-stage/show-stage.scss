@@ -1,0 +1,566 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.show-stage {
+	position: relative;
+	padding: rem(96) 0 rem(80);
+	background:
+		radial-gradient(circle at 14% 30%, rgba(160, 87, 40, 0.14) 0%, rgba(11, 11, 11, 0) 28%),
+		radial-gradient(circle at 84% 40%, rgba(181, 103, 58, 0.18) 0%, rgba(11, 11, 11, 0) 34%),
+		linear-gradient(180deg, #060606 0%, #0b0b0b 12%, #0b0b0b 88%, #060606 100%);
+	color: var(--beige-color);
+	overflow: hidden;
+	isolation: isolate;
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	&::before {
+		top: 0;
+		height: rem(160);
+		background: linear-gradient(180deg, rgba(0, 0, 0, 0.74) 0%, rgba(0, 0, 0, 0) 100%);
+	}
+
+	&::after {
+		bottom: 0;
+		height: rem(180);
+		background: linear-gradient(0deg, rgba(0, 0, 0, 0.66) 0%, rgba(0, 0, 0, 0) 100%);
+	}
+
+	&__container {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		gap: rem(96);
+	}
+
+	&__lights {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	&__light {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(80px);
+		opacity: 0.9;
+	}
+
+	&__light--bl {
+		left: rem(-320);
+		bottom: rem(116);
+		width: rem(573);
+		height: rem(559);
+		background: radial-gradient(circle, rgba(255, 160, 80, 0.34) 0%, rgba(255, 120, 40, 0.08) 42%, rgba(11, 11, 11, 0) 72%);
+	}
+
+	&__light--br {
+		right: rem(-320);
+		bottom: rem(116);
+		width: rem(533);
+		height: rem(623);
+		background: radial-gradient(circle, rgba(255, 160, 80, 0.34) 0%, rgba(255, 120, 40, 0.08) 42%, rgba(11, 11, 11, 0) 72%);
+	}
+
+	&__light--mr {
+		right: rem(-94);
+		top: 38%;
+		width: rem(322);
+		height: rem(300);
+		background: radial-gradient(circle, rgba(255, 200, 120, 0.18) 0%, rgba(11, 11, 11, 0) 65%);
+	}
+
+	&__head {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(48);
+		max-width: rem(1202);
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	&__head .badge {
+		height: rem(48);
+		padding: rem(8) rem(36);
+		font-size: rem(20);
+		line-height: 1.16;
+	}
+
+	&__lead {
+		@include body-xl;
+		margin: 0;
+		color: var(--beige-color);
+		text-wrap: balance;
+	}
+
+	// перенос «в нескольких актах» отдельной строкой — только мобайл (макет 360)
+	&__br-mob { display: none; }
+
+	&__slider {
+		position: relative;
+	}
+
+	&__track {
+		position: relative;
+		max-width: rem(1824);
+		min-height: rem(704);
+		margin: 0 auto;
+		padding: 0 rem(96);
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: rem(156);
+			right: rem(156);
+			height: 1px;
+			transform: translateY(-50%);
+			background: linear-gradient(
+				90deg,
+				rgba(241, 185, 101, 0) 0%,
+				rgba(241, 185, 101, 0.44) 18%,
+				rgba(241, 185, 101, 0.54) 50%,
+				rgba(241, 185, 101, 0.44) 82%,
+				rgba(241, 185, 101, 0) 100%
+			);
+			pointer-events: none;
+			z-index: 0;
+		}
+	}
+
+	&__slots {
+		position: relative;
+		height: rem(704);
+		z-index: 1;
+	}
+
+	&__slot {
+		position: absolute;
+		top: 50%;
+		overflow: hidden;
+		border-radius: rem(8);
+		background: #151515;
+		box-shadow: 0 rem(20) rem(48) rgba(0, 0, 0, 0.28);
+		transform: translateY(-50%);
+		transition: var(--trs-300);
+
+		img,
+		video {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(180deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.18) 100%);
+			pointer-events: none;
+		}
+	}
+
+	&__slot--side {
+		width: rem(264);
+		height: rem(469);
+	}
+
+	&__slot--outer-left,
+	&__slot--outer-right {
+		opacity: 0.34;
+		filter: saturate(0.72) brightness(0.72);
+	}
+
+	&__slot--inner-left,
+	&__slot--inner-right {
+		opacity: 0.82;
+		filter: saturate(0.92) brightness(0.92);
+	}
+
+	&__slot--outer-left {
+		left: calc(50% - #{rem(754)});
+	}
+
+	&__slot--inner-left {
+		left: calc(50% - #{rem(482)});
+	}
+
+	&__slot--center {
+		left: 50%;
+		z-index: 2;
+		width: rem(396);
+		height: rem(704);
+		transform: translate(-50%, -50%);
+		box-shadow:
+			0 rem(32) rem(80) rgba(0, 0, 0, 0.4),
+			0 0 rem(1) rgba(255, 255, 255, 0.18);
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			padding: 1px;
+			background: linear-gradient(188deg, rgba(251, 226, 179, 0.92) 0%, rgba(241, 185, 101, 0.7) 34%, rgba(115, 74, 40, 0.42) 72%, rgba(24, 16, 12, 0.9) 100%);
+			-webkit-mask:
+				linear-gradient(#fff 0 0) content-box,
+				linear-gradient(#fff 0 0);
+			-webkit-mask-composite: xor;
+			mask-composite: exclude;
+			pointer-events: none;
+			z-index: 1;
+		}
+	}
+
+	&__slot--inner-right {
+		left: calc(50% + #{rem(218)});
+	}
+
+	&__slot--outer-right {
+		left: calc(50% + #{rem(490)});
+	}
+
+	&__center-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	&__play {
+		position: absolute;
+		left: 50%;
+		bottom: rem(40);
+		z-index: 3;
+		width: rem(56);
+		height: rem(56);
+		border-radius: 50%;
+		// Figma 667:1488: ровный тонкий золотой бордер (а не свечение-кольцо)
+		border: 1px solid rgba(241, 185, 101, 0.4);
+		background: rgba(11, 11, 11, 0.32);
+		backdrop-filter: blur(8px);
+		color: var(--gold-color);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transform: translateX(-50%);
+		transition: var(--trs-300);
+
+		// контурный треугольник (обводка), не заливка
+		&-icon {
+			width: rem(16);
+			height: rem(18);
+
+			path {
+				stroke: currentColor;
+			}
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				border-color: rgba(244, 185, 125, 0.7);
+			}
+		}
+	}
+
+	&__nav {
+		position: absolute;
+		inset: 0;
+		z-index: 3;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		pointer-events: none;
+	}
+
+	&__nav-btn {
+		width: rem(64);
+		height: rem(64);
+		border-radius: 50%;
+		@include glow-border;
+		background: rgba(11, 11, 11, 0.3);
+		background-clip: padding-box;
+		backdrop-filter: blur(6px);
+		color: var(--beige-color);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: var(--trs-300);
+		pointer-events: auto;
+		box-shadow: 0 rem(10) rem(24) rgba(0, 0, 0, 0.24);
+
+		svg {
+			width: rem(20);
+			height: rem(22);
+
+			path {
+				stroke: currentColor;
+			}
+		}
+
+		&--prev svg { transform: rotate(90deg); }
+		&--next svg { transform: rotate(-90deg); }
+
+		@media (hover: hover) {
+			&:hover {
+				background: linear-gradient(90deg, rgba(244, 185, 125, 0.2) 0%, rgba(244, 185, 125, 0.02) 100%);
+			}
+		}
+	}
+
+	@media (max-width: $desktop-xl) {
+		padding: rem(72) 0 rem(64);
+
+		&__container {
+			gap: rem(48);
+		}
+
+		&__light--bl {
+			width: rem(430);
+			height: rem(419);
+			left: rem(-240);
+			bottom: rem(80);
+		}
+
+		&__light--br {
+			width: rem(400);
+			height: rem(467);
+			right: rem(-240);
+			bottom: rem(80);
+		}
+
+		&__light--mr {
+			width: rem(241);
+			height: rem(225);
+			right: rem(-80);
+		}
+
+		&__head {
+			gap: rem(28);
+			max-width: rem(888);
+		}
+
+		&__head .badge {
+			height: auto;
+			padding: rem(8) rem(16) rem(6);
+			font-size: rem(12);
+			line-height: 1.16;
+		}
+
+		&__lead {
+			@include body-l;
+			max-width: rem(888);
+		}
+
+		&__track {
+			max-width: rem(1344);
+			min-height: rem(628);
+			padding: 0 rem(48);
+
+			&::before {
+				left: rem(102);
+				right: rem(102);
+			}
+		}
+
+		&__slots {
+			height: rem(628);
+		}
+
+		&__slot--side {
+			width: rem(224);
+			height: rem(400);
+		}
+
+		&__slot--outer-left {
+			left: calc(50% - #{rem(629)});
+		}
+
+		&__slot--inner-left {
+			left: calc(50% - #{rem(421)});
+		}
+
+		&__slot--center {
+			width: rem(353);
+			height: rem(628);
+		}
+
+		&__slot--inner-right {
+			left: calc(50% + #{rem(197)});
+		}
+
+		&__slot--outer-right {
+			left: calc(50% + #{rem(405)});
+		}
+
+		&__play {
+			bottom: rem(28);
+		}
+
+		&__nav-btn {
+			width: rem(48);
+			height: rem(48);
+
+			svg {
+				width: rem(14);
+				height: rem(16);
+			}
+		}
+	}
+
+	@media (max-width: $tab-sm) {
+		padding: rem(48) 0;
+
+		&__container {
+			gap: rem(64); // Figma: между заголовком и слайдером 64
+		}
+
+		// Тёплое свечение вокруг видео (макет 667:1483) — крупнее и ближе к центру,
+		// иначе на мобиле почти не видно
+		// Свечение как в макете: главный тёплый янтарный пул СЛЕВА у границы
+		// «низ лида / верх фото» (~22% секции), справа — мягче и чуть ниже.
+		// Фото на мобиле во всю ширину, поэтому свет ставим в зону над фото,
+		// иначе он уходит под фото и не виден.
+		// Главный тёплый пул — СЛЕВА, ядро держим в чистой зоне между верхним
+		// затемнением (~17%) и фото (~28%), иначе свет гасится/уходит под фото.
+		&__light--bl {
+			width: rem(330);
+			height: rem(280);
+			left: rem(-140);
+			top: 6%;
+			bottom: auto;
+			filter: blur(48px);
+			opacity: 1;
+			background: radial-gradient(circle, rgba(234, 170, 114, 0.98) 0%, rgba(206, 136, 88, 0.34) 44%, rgba(11, 11, 11, 0) 72%);
+		}
+
+		// справа — мягче и слабее (по референсу левый доминирует)
+		&__light--br {
+			width: rem(240);
+			height: rem(240);
+			right: rem(-150);
+			top: 11%;
+			bottom: auto;
+			filter: blur(55px);
+			background: radial-gradient(circle, rgba(216, 146, 94, 0.32) 0%, rgba(190, 120, 76, 0.12) 45%, rgba(11, 11, 11, 0) 72%);
+		}
+
+		&__light--mr {
+			width: rem(200);
+			height: rem(200);
+			right: rem(-40);
+			top: 56%;
+		}
+
+		&__head {
+			gap: rem(28);
+			max-width: rem(328);
+		}
+
+		&__head .badge {
+			height: auto;
+			padding: rem(8) rem(16) rem(6);
+			font-size: rem(12);
+			line-height: 1.16;
+		}
+
+		// Figma 667:1430: лид — Vela Regular 14 (body-s), а не 18
+		&__lead {
+			@include body-s;
+			text-wrap: initial; // переносы строго по <br> макета, без авто-баланса
+		}
+
+		&__br-mob { display: inline; }
+
+		&__track {
+			min-height: rem(636);
+			padding: 0;
+
+			&::before {
+				display: none;
+			}
+		}
+
+		&__slots {
+			height: rem(583);
+		}
+
+		&__slot--side {
+			display: none;
+		}
+
+		&__slot--center {
+			left: 0;
+			width: 100%;
+			height: rem(583);
+			transform: translateY(-50%);
+			// Figma 667:1475: ровный тонкий бордер вместо градиентного кольца
+			border: 1px solid rgba(241, 185, 101, 0.4);
+
+			&::before {
+				content: none;
+			}
+		}
+
+		&__play {
+			bottom: rem(28);
+		}
+
+		&__nav {
+			top: auto;
+			bottom: 0;
+			inset: auto 0 0;
+			height: rem(25);
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: rem(44);
+				right: rem(44);
+				height: 1px;
+				transform: translateY(-50%);
+				background: linear-gradient(
+					90deg,
+					rgba(241, 185, 101, 0) 0%,
+					rgba(241, 185, 101, 0.6) 50%,
+					rgba(241, 185, 101, 0) 100%
+				);
+				pointer-events: none;
+			}
+		}
+
+		&__nav-btn {
+			width: rem(28);
+			height: rem(25);
+			border: 0;
+			border-radius: 0;
+			background: none;
+			backdrop-filter: none;
+			box-shadow: none;
+			color: var(--gold-color);
+
+			// убираем квадратное кольцо glow-border (::before) — стрелки голые, как в макете
+			&::before {
+				content: none;
+			}
+
+			svg {
+				width: rem(28);
+				height: rem(25);
+			}
+		}
+	}
+}

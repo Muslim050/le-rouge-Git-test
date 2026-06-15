@@ -1,0 +1,59 @@
+mixin show-stage()
+    section.show-stage
+        .show-stage__lights(aria-hidden='true')
+            span.show-stage__light.show-stage__light--bl
+            span.show-stage__light.show-stage__light--br
+            span.show-stage__light.show-stage__light--mr
+
+        .show-stage__container.container
+            .show-stage__head
+                +badge({text: 'Главная сцена'})
+                p.show-stage__lead
+                    | Основной зал клуба рассчитан на&nbsp;60&nbsp;персон, выполненный в&nbsp;стиле эклектики.
+                    br
+                    | Вы&nbsp;увидите незабываемое шоу
+                    br.show-stage__br-mob
+                    | в&nbsp;нескольких актах
+
+            //- Список фото галереи и видео — в РАЗМЕТКЕ (для бэкенда/Bitrix), не в JS.
+            //- JS читает data-photos / data-video из DOM.
+            -
+                const stagePhotos = [
+                    PUBLIC + 'assets/img/gallery/1.png',
+                    PUBLIC + 'assets/img/gallery/2.png',
+                    PUBLIC + 'assets/img/gallery/3.png',
+                    PUBLIC + 'assets/img/gallery/4.png',
+                    PUBLIC + 'assets/img/gallery/5.png',
+                    PUBLIC + 'assets/img/photo-stack/1.jpg',
+                    PUBLIC + 'assets/img/photo-stack/2.jpg',
+                    PUBLIC + 'assets/img/photo-stack/3.jpg',
+                    PUBLIC + 'assets/img/photo-stack/4.jpg',
+                    PUBLIC + 'assets/img/photo-stack/5.jpg'
+                ];
+            .show-stage__slider(data-stage data-photos=JSON.stringify(stagePhotos) data-video=PUBLIC + 'assets/files/video.mp4')
+                .show-stage__track
+                    .show-stage__slots
+                        .show-stage__slot.show-stage__slot--side.show-stage__slot--outer-left(aria-hidden='true')
+                            img(src=PUBLIC + 'assets/img/gallery/4.png' alt='' loading='lazy')
+
+                        .show-stage__slot.show-stage__slot--side.show-stage__slot--inner-left
+                            img(src=PUBLIC + 'assets/img/gallery/2.png' alt='Главная сцена Le Rouge' loading='lazy')
+
+                        .show-stage__slot.show-stage__slot--center
+                            img.show-stage__center-img(src=PUBLIC + 'assets/img/show-video/excursion.png' alt='Главная сцена Le Rouge — видео' loading='lazy')
+                            button.show-stage__play.btn-reset(type='button' aria-label='Воспроизвести видео')
+                                //- контурный треугольник (обводка), как в макете 667:1488
+                                svg.show-stage__play-icon(viewBox='0 0 16 18' fill='none' aria-hidden='true')
+                                    path(d='M2.6 1.8 L14 9 L2.6 16.2 Z' stroke='currentColor' stroke-width='1.4' stroke-linejoin='round' stroke-linecap='round')
+
+                        .show-stage__slot.show-stage__slot--side.show-stage__slot--inner-right
+                            img(src=PUBLIC + 'assets/img/gallery/3.png' alt='Главная сцена Le Rouge' loading='lazy')
+
+                        .show-stage__slot.show-stage__slot--side.show-stage__slot--outer-right(aria-hidden='true')
+                            img(src=PUBLIC + 'assets/img/gallery/5.png' alt='' loading='lazy')
+
+                    .show-stage__nav
+                        button.show-stage__nav-btn.show-stage__nav-btn--prev.btn-reset(type='button' aria-label='Предыдущее фото')
+                            +svg('arrow-l')
+                        button.show-stage__nav-btn.show-stage__nav-btn--next.btn-reset(type='button' aria-label='Следующее фото')
+                            +svg('arrow-l')

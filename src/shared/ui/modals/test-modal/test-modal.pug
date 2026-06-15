@@ -1,0 +1,12 @@
+extends @/app/templates/template-modal.pug
+
+block content
+    +modal('test-modal')
+        .modal-inner-wrapper
+            .modal-close-btn
+                | <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                |   <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" stroke="black" stroke-opacity="0.15"/>
+                |   <path d="M15 25L20 19.9958M20 19.9958L24.9917 15M20 19.9958L15.0083 15M20 19.9958L25 25" stroke="#292929"/>
+                | </svg>
+            .modal-inner
+                h2 Оставить заявку

@@ -1,0 +1,36 @@
+mixin show-gallery()
+    section.show-gallery
+        .show-gallery__container
+            +badge({text: 'галерея'})
+
+            .show-gallery__grid
+                .show-gallery__col
+                    figure.show-gallery__card.show-gallery__card--short
+                        img(src=PUBLIC + 'assets/img/gallery/1.png' alt='Галерея Le Rouge' loading='lazy')
+                    figure.show-gallery__card.show-gallery__card--tall
+                        img(src=PUBLIC + 'assets/img/photo-stack/1.jpg' alt='Галерея Le Rouge' loading='lazy')
+                    figure.show-gallery__card.show-gallery__card--short
+                        img(src=PUBLIC + 'assets/img/gallery/2.png' alt='Галерея Le Rouge' loading='lazy')
+                    figure.show-gallery__card.show-gallery__card--tall
+                        img(src=PUBLIC + 'assets/img/photo-stack/2.jpg' alt='Галерея Le Rouge' loading='lazy')
+
+                .show-gallery__col
+                    figure.show-gallery__card.show-gallery__card--tall
+                        img(src=PUBLIC + 'assets/img/gallery/3.png' alt='Галерея Le Rouge' loading='lazy')
+                    figure.show-gallery__card.show-gallery__card--short
+                        img(src=PUBLIC + 'assets/img/photo-stack/3.jpg' alt='Галерея Le Rouge' loading='lazy')
+                    figure.show-gallery__card.show-gallery__card--tall
+                        img(src=PUBLIC + 'assets/img/gallery/4.png' alt='Галерея Le Rouge' loading='lazy')
+
+                .show-gallery__col
+                    figure.show-gallery__card.show-gallery__card--tall
+                        img(src=PUBLIC + 'assets/img/gallery/5.png' alt='Галерея Le Rouge' loading='lazy')
+                    figure.show-gallery__card.show-gallery__card--tall
+                        img(src=PUBLIC + 'assets/img/photo-stack/4.jpg' alt='Галерея Le Rouge' loading='lazy')
+                    figure.show-gallery__card.show-gallery__card--tall
+                        img(src=PUBLIC + 'assets/img/photo-stack/5.jpg' alt='Галерея Le Rouge' loading='lazy')
+
+            .show-gallery__fade(aria-hidden='true')
+
+        button.show-gallery__more.btn-reset(type='button' aria-label='Показать больше')
+            +svg('plus')

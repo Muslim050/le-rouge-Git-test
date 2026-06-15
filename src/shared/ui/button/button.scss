@@ -1,0 +1,218 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.btn {
+	background: none;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	transition: var(--trs-300);
+	padding: 0;
+	color: inherit;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	&.unstyled {
+		padding: 0;
+	}
+
+	&.ghost {
+		position: relative;
+		gap: rem(16);
+		height: rem(64);
+		padding: rem(6) rem(36);
+		border-radius: rem(96);
+		border: 1px solid transparent; // сохраняем габариты (box-sizing: border-box)
+		background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.5) 100%);
+		color: var(--beige-color);
+		@include descr-s;
+		overflow: hidden;
+
+		// Градиентная обводка (ярко слева → мягко справа), как в Figma. Делаем через
+		// pseudo-element + mask, чтобы заливка осталась полупрозрачной (ghost поверх hero).
+		// get_design_context отдаёт обводку сплошной (#fff5e5/#f1b965), но это градиент.
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			padding: 1px;
+			background: linear-gradient(90deg, var(--beige-color) 0%, rgba(255, 245, 229, 0.12) 100%);
+			-webkit-mask:
+				linear-gradient(#fff 0 0) content-box,
+				linear-gradient(#fff 0 0);
+			-webkit-mask-composite: xor;
+			mask-composite: exclude;
+			pointer-events: none;
+			transition: var(--trs-300);
+		}
+
+		.btn__icon svg {
+			width: rem(20);
+			height: rem(9);
+		}
+
+		// Ховер — состояние «ховер» из Figma: золотой градиентный бордер, текст и иконка
+		@media (hover: hover) {
+			&:hover {
+				color: var(--gold-color);
+
+				&::before {
+					background: linear-gradient(90deg, var(--gold-color) 0%, rgba(241, 185, 101, 0.15) 100%);
+				}
+			}
+		}
+
+		@media (max-width: $desktop-xl) {
+			gap: rem(16);
+			height: rem(48);
+			padding: rem(6) rem(36);
+			min-width: rem(128);
+			@include descr-xs;
+		}
+
+		@media (max-width: $tab-sm) {
+			gap: rem(6);
+			height: rem(36);
+			padding: rem(6) rem(16);
+			min-width: rem(88);
+
+			.btn__icon svg {
+				width: rem(12);
+				height: rem(7);
+			}
+		}
+	}
+
+	&.gold {
+		gap: rem(16);
+		height: rem(64);
+		padding: rem(6) rem(36);
+		border-radius: rem(99);
+		// Светящийся градиентный бордер (ярко-золотой сверху → тёмный книзу), как в Figma.
+		// get_design_context отдал его сплошным rgba(101,54,10,0.8), но это градиент-свечение.
+		position: relative;
+		border: 1px solid transparent;
+		background: linear-gradient(
+			196deg,
+			rgba(242, 182, 79, 0.9) 8%,
+			rgba(221, 148, 71, 0.6) 23%,
+			rgba(121, 64, 34, 0.2) 86%
+		);
+		// заливку обрезаем по padding-box, чтобы она совпала с зоной backdrop-filter
+		// и не было тёмного 1px-канала под кольцом ::before («двойной бордер»)
+		background-clip: padding-box;
+		backdrop-filter: blur(2px);
+		color: var(--beige-color);
+		@include descr-s;
+		overflow: hidden;
+
+		// Свечение-бордер: pseudo-element + mask (заливка полупрозрачная — нельзя border-box-слоем)
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			padding: 1px;
+			// диагональ как в Figma: ярко-кремовый верх-право → золото → тёмный низ-лево
+			background: linear-gradient(205deg, #fbe2b3 0%, #f1b965 40%, #9a6c38 70%, #3a2814 100%);
+			-webkit-mask:
+				linear-gradient(#fff 0 0) content-box,
+				linear-gradient(#fff 0 0);
+			-webkit-mask-composite: xor;
+			mask-composite: exclude;
+			pointer-events: none;
+		}
+
+		.btn__icon svg {
+			width: rem(14);
+			height: rem(14);
+		}
+
+		// Ховер — состояние «ховер» бронь из Figma: чёрный текст, более яркий 2-стоповый фон
+		@media (hover: hover) {
+			&:hover {
+				background: linear-gradient(
+					196deg,
+					rgba(242, 182, 79, 0.9) 8%,
+					rgba(221, 148, 71, 0.6) 96%
+				);
+				color: var(--black-color);
+			}
+		}
+
+		@media (max-width: $desktop-xl) {
+			height: rem(48);
+			padding: rem(6) rem(36);
+			min-width: rem(128);
+			@include descr-xs;
+		}
+
+		@media (max-width: $tab-sm) {
+			gap: rem(6);
+			height: rem(36);
+			padding: rem(6) rem(16);
+			min-width: rem(88);
+
+			.btn__icon svg {
+				width: rem(12);
+				height: rem(12);
+			}
+		}
+	}
+
+	// Размер L — большие кнопки = компонент button (Variant3) из Figma:
+	// шрифт TT Ricordi Allegria 20px (а не Vela Sans). Используется для submit в формах.
+	&.l .btn__text {
+		font-family: 'TT Ricordi Allegria Trl', sans-serif;
+		font-size: rem(20);
+		font-weight: 400;
+		line-height: 1.16;
+		letter-spacing: 0;
+	}
+	&.primary {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		max-width: rem(448);
+		height: rem(64);
+		padding: rem(8) rem(16) rem(6);
+		border-radius: rem(99);
+		border: 1px solid rgba(101, 54, 10, 0.8);
+		background: linear-gradient(
+			190deg,
+			rgba(242, 182, 79, 0.9) 2%,
+			rgba(221, 148, 71, 0.6) 33%,
+			rgba(121, 64, 34, 0.2) 93%
+		);
+		backdrop-filter: blur(4px);
+		cursor: pointer;
+		transition: var(--trs-300);
+		@media (max-width: $desktop-xxl) {
+			height: rem(48);
+			max-width: rem(288);
+		}
+		.primary-text {
+			font-family: 'TT Ricordi Allegria Trl', sans-serif;
+			font-size: rem(20);
+			line-height: 0.96;
+			color: var(--beige-color);
+			text-transform: uppercase;
+			@media (max-width: $desktop-xxl) {
+				font-size: rem(16);
+				line-height: 116%;
+			}
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				transform: translateY(-1px);
+			}
+		}
+		&:disabled {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+	}
+}

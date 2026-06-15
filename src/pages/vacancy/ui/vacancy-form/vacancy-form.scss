@@ -1,0 +1,83 @@
+@use '@/app/styles/config/index.scss' as *;
+
+.vacancy-form {
+	margin-bottom: rem(128);
+	@media (max-width: $desktop-xxl) {
+		margin-bottom: rem(96);
+	}
+	@media (max-width: $tab-sm) {
+		margin-bottom: rem(64);
+		margin-top: rem(-94);
+		position: relative;
+		z-index: 5;
+	}
+	.vacancy-form__inner {
+		.badge {
+			display: flex;
+			margin: 0 auto rem(28);
+		}
+		.form__title {
+			@include h2;
+			text-align: center;
+			max-width: rem(900);
+			margin: 0 auto rem(36);
+			@media (max-width: $desktop-xxl) {
+				max-width: rem(660);
+			}
+			@media (max-width: $tab-sm) {
+				@include h4;
+			}
+			span {
+				color: var(--gold-color);
+			}
+		}
+		.form {
+			max-width: rem(900);
+			margin: auto;
+			@media (max-width: $desktop-xxl) {
+				max-width: rem(660);
+			}
+			.inputs {
+				display: flex;
+				flex-direction: column;
+				gap: rem(36);
+				margin-bottom: rem(36);
+			}
+			.form-footer {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: rem(36);
+				.form-footer__agreement {
+					.form-group {
+						display: flex;
+						flex-direction: column;
+						gap: rem(8);
+						align-items: center;
+						label {
+							@include body-xs;
+							p {
+								text-align: center;
+							}
+							a {
+								text-decoration: underline;
+								color: #fff5e5;
+								transition: 300ms ease;
+								&:hover {
+									color: var(--gold-color);
+								}
+							}
+						}
+					}
+				}
+				.form-footer__btn {
+					width: 100%;
+				}
+				.vacancy-form__submit {
+					width: 100%;
+					max-width: 100%;
+				}
+			}
+		}
+	}
+}

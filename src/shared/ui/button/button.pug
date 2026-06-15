@@ -1,0 +1,30 @@
+mixin button({text = '', icon = '', size = 'm', variant = 'primary', type = 'button', isLink = false, isMockBtn = false} ={})
+    - const buttonClass = `${variant} ${size}`
+
+    if isLink
+        a.btn(href='#' class=buttonClass)&attributes(attributes) 
+            if text
+                span.btn__text #{text}
+            if icon 
+                span.btn__icon 
+                    +svg(icon)
+            if block 
+                block
+    else if isMockBtn
+        .btn(class=buttonClass)&attributes(attributes) 
+            if text
+                span.btn__text #{text}
+            if icon 
+                span.btn__icon 
+                    +svg(icon)
+            if block 
+                block
+    else
+        button.btn(type=type class=buttonClass)&attributes(attributes) 
+            if text
+                span.btn__text #{text}
+            if icon 
+                span.btn__icon 
+                    +svg(icon)
+            if block 
+                block

@@ -1,0 +1,35 @@
+mixin loyalty()
+    section.loyalty
+        img.loyalty__wave(src=PUBLIC + 'assets/img/loyalty/wave.png' alt='' aria-hidden='true' loading='lazy')
+
+        .loyalty__container.container
+            .loyalty__copy
+                +badge({text: 'программа лояльности'})
+                h2.loyalty__title
+                    | Клубная карта гостя
+                    br
+                    | Le&nbsp;Rouge
+                p.loyalty__lead
+                    | Статус обязывает. Привилегии&nbsp;— вдохновляют. Ваш ключ в&nbsp;мир, где каждая деталь работает
+                    br
+                    | на&nbsp;ваш комфорт. Для тех, кто привык получать лучшее, не&nbsp;тратя слов.
+
+            .loyalty__cards
+                span.loyalty__cards-glow(aria-hidden='true')
+                img.loyalty__cards-img(src=PUBLIC + 'assets/img/loyalty/cards.png' alt='Клубные карты Le Rouge — Gold и Silver' loading='lazy')
+
+            .loyalty__footer
+                p.loyalty__hint
+                    span.loyalty__hint-manager
+                        | подробности уточняйте&nbsp;
+                        br.loyalty__br-mob
+                        | у&nbsp;менеджера в&nbsp;клубе
+                    span.loyalty__hint-sep(aria-hidden='true') &nbsp;—&nbsp;
+                    span.loyalty__hint-net действует во&nbsp;всех клубах сети
+                ul.loyalty__partners(role='list')
+                    li
+                        img(src=PUBLIC + 'assets/img/city/show-girls.svg' alt='Show Girls' loading='lazy' width='192' height='108')
+                    li
+                        img(src=PUBLIC + 'assets/img/city/le-rouge.svg' alt='Le Rouge' loading='lazy' width='192' height='108')
+                    li
+                        img(src=PUBLIC + 'assets/img/city/show-girls-cabaret.svg' alt='Show Girls Cabaret' loading='lazy' width='192' height='108')

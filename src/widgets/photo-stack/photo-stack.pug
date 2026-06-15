@@ -1,0 +1,35 @@
+mixin photo-stack()
+    -
+        const photos = [
+            { image: PUBLIC + 'assets/img/photo-stack/1.jpg', alt: 'Интерьер 1' },
+            { image: PUBLIC + 'assets/img/photo-stack/2.jpg', alt: 'Интерьер 2' },
+            { image: PUBLIC + 'assets/img/photo-stack/3.jpg', alt: 'Интерьер 3' },
+            { image: PUBLIC + 'assets/img/photo-stack/4.jpg', alt: 'VIP-зал' },
+            { image: PUBLIC + 'assets/img/photo-stack/5.jpg', alt: 'Караоке' }
+        ];
+
+    section.photo-stack
+        .photo-stack__container.container
+            +badge({text: 'интерьеры'})
+
+            .photo-stack__main
+                .photo-stack__glow(aria-hidden='true')
+                .photo-stack__line(aria-hidden='true')
+
+                .photo-stack__swiper
+                    .swiper-wrapper
+                        each item in photos
+                            .swiper-slide
+                                figure.photo-stack__card
+                                    a.photo-stack__card-link(href=item.image aria-label='Открыть фото')
+                                        img.photo-stack__card-img(src=item.image alt=item.alt loading='lazy')
+
+                .photo-stack__nav
+                    button.photo-stack__nav-btn.photo-stack__nav-btn--prev.btn-reset(type='button' aria-label='Назад')
+                        +svg('arrow-l')
+                    button.photo-stack__nav-btn.photo-stack__nav-btn--next.btn-reset(type='button' aria-label='Вперёд')
+                        +svg('arrow-l')
+
+            .photo-stack__foot
+                button.photo-stack__more(type='button')
+                    span.photo-stack__more-text смотреть все

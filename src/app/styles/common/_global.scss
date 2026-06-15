@@ -1,0 +1,107 @@
+@use '@/app/styles/config/index.scss' as *;
+
+html {
+	font-size: 16px;
+	scroll-behavior: smooth;
+	// >1920 — НЕ скейлим вверх, фиксируем 16px (макет не растягиваем)
+	@media (min-width: 1921px) {
+		font-size: 16px;
+	}
+	// 1441–1920 — держим нативный размер 16px (контент 1516px влезает с 1516px),
+	// ужимаем ТОЛЬКО когда контент реально не помещается (<~1516px вьюпорта).
+	// 1.055vw = 16px при 1516px; cap 16px не даёт мельчить на ноутбуках (1512/1680 и т.д.)
+	@media (max-width: 1920px) {
+		font-size: clamp(4.2px, 1.055vw, 16px);
+	}
+	// ≤1440 — нативный 1440-фрейм (16px@1440, далее ужимается)
+	@media (max-width: $desktop-xl) {
+		font-size: clamp(4.2px, 1.111vw, 25px);
+	}
+	@media (max-width: $tab) {
+		font-size: clamp(4.2px, 1.55vw, 25px);
+	}
+	@media (max-width: $tab-sm) {
+		font-size: clamp(4.2px, 4.4vw, 25px);
+	}
+}
+body {
+	display: flex;
+	flex-direction: column;
+	font-family: 'Commissioner', sans-serif;
+	min-height: 100vh;
+	background: var(--black-color);
+	color: var(--txt-color);
+	// Сглаживание шрифтов — текст тонкий/изящный как в Figma (без него macOS рендерит плотнее)
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	// Full-bleed секции (100vw) при наличии классического скроллбара вылезали
+	// за контент-ширину и давали горизонтальный скролл. clip (не hidden) убирает
+	// его, не ломая position: sticky у фоновых слоёв (special-menu, tg-bot, loyalty).
+	overflow-x: clip;
+	//color: $color-txt-graphite;
+	//background: $color-back-grey;
+}
+main {
+	flex: 1;
+}
+
+main {
+	flex: 1;
+}
+
+a {
+	text-decoration: none;
+}
+
+a,
+button,
+[role='button'] {
+	-webkit-tap-highlight-color: transparent !important;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	outline: none;
+}
+
+a:focus,
+button:focus {
+	outline: none !important;
+	-webkit-tap-highlight-color: transparent !important;
+}
+
+a:active,
+button:active {
+	-webkit-tap-highlight-color: transparent !important;
+	background-color: transparent !important;
+}
+
+@keyframes skeleton-shimmer {
+	to {
+		transform: translateX(100%);
+	}
+}
+
+.container {
+	width: 100%;
+
+	@media (min-width: $desktop) {
+		max-width: 100% !important;
+	}
+
+	@media (max-width: $tab) {
+		padding-right: rem(16);
+		padding-left: rem(16);
+	}
+}
+.vacancy-container {
+	padding-right: rem(48);
+	padding-left: rem(48);
+	@media (max-width: $tab) {
+		padding-right: rem(16);
+		padding-left: rem(16);
+	}
+}

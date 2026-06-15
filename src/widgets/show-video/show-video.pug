@@ -1,0 +1,20 @@
+//- src    — десктопный mp4 (≥769)
+//- mobSrc — мобильный mp4 (≤768); если не задан — на мобиле возьмётся десктопный src
+mixin show-video(src = '', mobSrc = '')
+    section.show-video
+        .show-video__badge-wrap
+            +badge({text: 'экскурсия по клубу'})
+
+        .show-video__expand(data-video-expand)
+            .show-video__expand-inner
+                span.show-video__glow(aria-hidden='true')
+                .show-video__expand-media
+                    //- БЭК: видео экскурсии. Передать mp4 в +show-video('<url>'[, '<url-mob>']).
+                    //- Если src пустой — показывается картинка-заглушка. poster = превью до загрузки видео.
+                    if src
+                        video.show-video__player(autoplay muted loop playsinline preload='metadata' poster=PUBLIC + 'assets/img/show-video/excursion.png')
+                            if mobSrc
+                                source(media='(max-width: 768px)' src=mobSrc type='video/mp4')
+                            source(src=src type='video/mp4')
+                    else
+                        img.show-video__img(src=PUBLIC + 'assets/img/show-video/excursion.png' alt='Экскурсия по клубу Le Rouge' loading='lazy')

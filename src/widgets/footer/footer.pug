@@ -1,0 +1,74 @@
+mixin footer()
+    footer#footer.footer&attributes(attributes)
+        .footer__top
+            .footer__map
+                //- Статичная картинка — фолбэк под картой (виден пока грузится API / если JS выключен)
+                img.footer__map-bg(src=PUBLIC + 'assets/img/footer/map-bg.png' alt='' aria-hidden='true')
+                //- Контейнер интерактивной Яндекс-карты. Данные — в разметке, JS только читает (shared/lib/yandex-map)
+                .footer__map-canvas(
+                    data-yandex-map
+                    data-lat=CONTACTS.coords[0]
+                    data-lng=CONTACTS.coords[1]
+                    data-zoom=CONTACTS.mapZoom
+                    data-address=CONTACTS.addressLine
+                    aria-hidden='true'
+                )
+
+            .footer__contacts
+                span.footer__contacts-heading контакты
+                a.footer__phone(href=CONTACTS.phoneHref)= CONTACTS.phone
+                .footer__address
+                    p.footer__address-line= CONTACTS.addressLine
+                    p.footer__address-metro= CONTACTS.metro
+
+                .footer__hours
+                    each h, i in CONTACTS.hours
+                        if i > 0
+                            .footer__hours-divider
+                        .footer__hours-item
+                            span.footer__hours-label= h.full
+                            span.footer__hours-label.footer__hours-label--short= h.short
+                            span.footer__hours-value= h.value
+
+                .footer__prices
+                    each p in CONTACTS.prices
+                        hr.footer__divider
+                        .footer__price
+                            p.footer__price-amount= p.amount
+                            p.footer__price-label
+                                if p.note
+                                    != p.label + '&nbsp;'
+                                    span.footer__price-label-note!= p.note
+                                else
+                                    = p.label
+
+            .footer__photo
+                img.footer__photo-img(src=PUBLIC + 'assets/img/footer/girl-mask.jpg' alt='' aria-hidden='true' loading='lazy')
+                span.footer__glow.footer__glow--tl(aria-hidden='true')
+                span.footer__glow.footer__glow--tr(aria-hidden='true')
+                span.footer__glow.footer__glow--br(aria-hidden='true')
+
+            // FC/DC ⋮ 18+ — отдельной строкой на мобиле (между расписанием и картой по макету)
+            .footer__fcdc(aria-hidden='true')
+                span.footer__fcdc-text FC/DC
+                span.footer__fcdc-text 18+
+
+        .footer__info
+            .footer__copyright ©2026 — Le Rouge
+
+            nav.footer__links(aria-label='Документы')
+                a.footer__link(href='#') соглашение об обработке персональных данных
+                a.footer__link(href='#') Политика конфиденциальности
+                a.footer__link(href='#') пользовательское соглашение
+                a.footer__link(href='#') согласие на получение информационных и рекламных рассылок
+
+            .footer__brand
+                span.footer__brand-text FC/DC
+                .footer__partners
+                    a.footer__partner(href='#' aria-label='Show Girls')
+                        img(src=PUBLIC + 'assets/img/footer/partner-show-girls.svg' alt='Show Girls' loading='lazy')
+                    a.footer__partner(href='#' aria-label='Le Rouge')
+                        img(src=PUBLIC + 'assets/img/footer/partner-le-rouge.svg' alt='Le Rouge' loading='lazy')
+                    a.footer__partner(href='#' aria-label='Show Girls Cabaret')
+                        img(src=PUBLIC + 'assets/img/footer/partner-sg-cabaret.svg' alt='Show Girls Cabaret' loading='lazy')
+                span.footer__brand-text 18+

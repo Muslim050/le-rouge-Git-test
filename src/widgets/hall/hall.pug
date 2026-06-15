@@ -1,0 +1,61 @@
+mixin hall()
+    section.hall
+        .hall__badge-wrap
+            +badge({text: 'Основной зал со сценой'})
+
+        .hall__expand(data-hall-expand)
+            .hall__expand-inner
+                //- Тёплый ореол за фото (1:1 с show-video): гаснет при раскрытии (is-expanded)
+                span.hall__glow(aria-hidden='true')
+                .hall__expand-photo
+                    img.hall__expand-img(src=PUBLIC + 'assets/img/photo-stack/1.jpg' alt='Интерьер зала' loading='lazy')
+
+        .hall__plan-block
+            .hall__plan-copy
+                h2.hall__plan-title
+                    | столы расположены так,&nbsp;
+                    br.hall__br-desk
+                    | чтобы вам было удобно наблюдать
+                    br
+                    | за&nbsp;происходящим&nbsp;
+                    br.hall__br-mob
+                    | на&nbsp;сцене
+                p.hall__plan-lead
+                    | В&nbsp;зале есть стандартные столы
+                    br
+                    | и&nbsp;отдельные ложе с&nbsp;почасовой арендой
+
+            .hall__plan-map(aria-hidden='true')
+                img.hall__plan-map-img(src=PUBLIC + 'assets/img/hall/plan.png' alt='Схема зала: бар, сцена, столы и ложи' loading='lazy')
+
+            .hall__plan-controls
+                //- БЭК: список столов/лож = опции селекта. Один объект на место:
+                //-   value — id места для брони (отдаётся в форму), label — текст в списке.
+                //- Ниже мок-данные под схему зала (Королевское ложе + места 1–16). Заменить на вывод из инфоблока.
+                .hall__plan-select
+                    +select({
+                        name: 'table',
+                        placeholder: 'Стол №',
+                        options: [
+                            { value: 'royal', label: 'Королевское ложе' },
+                            { value: 'lozha-1', label: 'Ложа №1 — почасовая аренда' },
+                            { value: 'table-2', label: 'Стол №2 — стандарт' },
+                            { value: 'table-3', label: 'Стол №3 — стандарт' },
+                            { value: 'table-4', label: 'Стол №4 — стандарт' },
+                            { value: 'table-5', label: 'Стол №5 — стандарт' },
+                            { value: 'lozha-6', label: 'Ложа №6 — почасовая аренда' },
+                            { value: 'lozha-7', label: 'Ложа №7 — почасовая аренда' },
+                            { value: 'lozha-8', label: 'Ложа №8 — почасовая аренда' },
+                            { value: 'lozha-9', label: 'Ложа №9 — почасовая аренда' },
+                            { value: 'lozha-10', label: 'Ложа №10 — почасовая аренда' },
+                            { value: 'table-11', label: 'Стол №11 — стандарт' },
+                            { value: 'table-12', label: 'Стол №12 — стандарт' },
+                            { value: 'table-13', label: 'Стол №13 — стандарт' },
+                            { value: 'lozha-14', label: 'Ложа №14 — почасовая аренда' },
+                            { value: 'lozha-15', label: 'Ложа №15 — почасовая аренда' },
+                            { value: 'table-16', label: 'Стол №16 — стандарт' }
+                        ]
+                    })
+                p.hall__plan-hint Посадка с&nbsp;почасовой арендой или по&nbsp;депозиту
+                button.hall__plan-btn(type='button' data-modal-load='modals/booking-table.html' data-object='Бронь стола по схеме зала')
+                    span.hall__plan-btn-text забронировать стол

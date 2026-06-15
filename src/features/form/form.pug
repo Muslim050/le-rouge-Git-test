@@ -1,0 +1,107 @@
+mixin form()
+    form.hero-form
+        //- Контекст для бэка: тип формы (статика) + страница (заполняет JS)
+        input(type='hidden' name='form_type' value='calc_request')
+        input(type='hidden' name='page' value='')
+        .form-block
+            .form-block-title
+                h2 Обязательные текстовые поля
+            .form-row
+                +input({
+                    name: 'name',
+                    placeholder: 'Имя *'
+                }).input__valid-name
+                +input({
+                    name: 'surname',
+                    placeholder: 'Фамилия'
+                })
+            .form-row
+                +input({
+                    name: 'phone-order-modal',
+                    placeholder: 'Телефон *'
+                }).input__valid-phone
+        .form-block
+            .form-block-title
+                h2 Custom select
+            .form-row
+                +select({
+                    name: 'type',
+                    placeholder: 'Тип объекта *',
+                    required: true,
+                    options: [
+                        { value: 'hotel', label: 'Гостиница' },
+                        { value: 'restaurant', label: 'Ресторан' },
+                        { value: 'cafe', label: 'Кафе' },
+                        { value: 'office', label: 'Офис' },
+                        { value: 'apartment', label: 'Апартаменты' },
+                        { value: 'spa', label: 'СПА' },
+                        { value: 'other', label: 'Другое' }
+                    ]
+                }).input__valid-object
+        .form-block
+            .form-block-title
+                h2 Поле для загрузки файла
+            .form-row
+                +input({
+                    name: 'file',
+                    type: 'file',
+                    placeholder: 'Прикрепить файл с ТЗ',
+                    hintEnabled: true,
+                    hintText: 'Загрузите файл (DOC, PDF, XLS) максимальный размер 100 МБ',
+                    maxFileSize: 100,
+                    allowedFileTypes: ['doc', 'docx', 'pdf', 'xls', 'xlsx']
+                }).input__valid-file
+
+        .form-block
+            .form-block-title
+                h2 Блок с чекбоксами
+            .form-row
+                +input({
+                    type: 'checkbox',
+                    name: 'option1',
+                    id: 'checkbox1',
+                    label: 'Опция 1'
+                })
+            .form-row
+                +input({
+                    type: 'checkbox',
+                    name: 'option2',
+                    id: 'checkbox2',
+                    label: 'Опция 2'
+                })
+
+        .form-block
+            .form-block-title
+                h2 Блок с радиокнопками
+            .form-row.form-row--radio
+                +input({
+                    type: 'radio',
+                    name: 'radioGroup',
+                    id: 'radio1',
+                    label: 'Опция 1'
+                })(checked)
+                +input({
+                    type: 'radio',
+                    name: 'radioGroup',
+                    id: 'radio2',
+                    label: 'Опция 2'
+                })
+
+        .form-footer
+            .form-footer__agreement
+                .form-group
+                    label(for="agreement")
+                        p Нажимая кнопку «Отправить заявку на расчёт» вы даёте свое согласие с&nbsp;
+                            a(href="/privacy" target="_blank") политикой конфиденциальности
+                            |  и с&nbsp;
+                            a(href="/personal-data" target="_blank") правилами обработки персональных данных
+                            | .
+                    input(type="checkbox" id="agreement" name="agreement" required).input
+
+            .form-footer__btn
+                button.btn(type="submit" disabled)
+                    .btn-desc
+                        span Отправить заявку на расчёт
+                    .btn-ico
+                        svg(xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none")
+                            path(d="M5.87351 12.3574L12 6.35742L5.87351 0.357422M11.6497 6.35742H0H0.623641" stroke="#292929")
