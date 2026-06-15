@@ -296,7 +296,7 @@
 		&__tab {
 			height: rem(36);
 			padding: rem(6) rem(16);
-			font-size: rem(20);
+			font-size: rem(16); // цифры бюджета/гостей чуть мельче (было 20 — крупно)
 		}
 
 		&__group--tight > .form-group { max-width: none; }

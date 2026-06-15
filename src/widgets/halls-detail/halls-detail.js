@@ -101,7 +101,7 @@ const initHallsDetail = () => {
 	let snapTimer = null;
 	let programmatic = false;
 	let lastY = window.scrollY;
-	const EARLY = 0.92; // карточка приподнялась (top < 92% экрана) → доскроллить
+	const EARLY = 0.97; // как только плашка ЧУТЬ показалась (top < 97% экрана) → доскроллить
 
 	const maybeSnap = () => {
 		if (programmatic) return;

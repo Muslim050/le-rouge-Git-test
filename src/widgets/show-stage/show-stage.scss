@@ -160,6 +160,7 @@
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
+			transition: opacity 0.22s ease; // кроссфейд при листании
 		}
 
 		&::after {
@@ -188,12 +189,14 @@
 		filter: saturate(0.92) brightness(0.92);
 	}
 
+	// Раскладка-карусель по дизайну (1026-3571): зазор между карточками ≈40% ширины
+	// боковой карточки (на 1440 = 90px), крайние карточки уходят за края кадра.
 	&__slot--outer-left {
-		left: calc(50% - #{rem(754)});
+		left: calc(50% - #{rem(938)});
 	}
 
 	&__slot--inner-left {
-		left: calc(50% - #{rem(482)});
+		left: calc(50% - #{rem(568)});
 	}
 
 	&__slot--center {
@@ -201,6 +204,7 @@
 		z-index: 2;
 		width: rem(396);
 		height: rem(704);
+		background: var(--black-color); // под маской низа кадра — фон секции, без серой кромки
 		transform: translate(-50%, -50%);
 		box-shadow:
 			0 rem(32) rem(80) rgba(0, 0, 0, 0.4),
@@ -224,17 +228,20 @@
 	}
 
 	&__slot--inner-right {
-		left: calc(50% + #{rem(218)});
+		left: calc(50% + #{rem(304)});
 	}
 
 	&__slot--outer-right {
-		left: calc(50% + #{rem(490)});
+		left: calc(50% + #{rem(674)});
 	}
 
 	&__center-img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		// низ кадра растворяем — иначе фото центральной карточки обрезается жёстко
+		-webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+		mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
 	}
 
 	&__play {
@@ -384,12 +391,13 @@
 			height: rem(400);
 		}
 
+		// позиции по дизайну 1026-3571 (1440): зазор 90px, крайние за краями кадра
 		&__slot--outer-left {
-			left: calc(50% - #{rem(629)});
+			left: calc(50% - #{rem(804)});
 		}
 
 		&__slot--inner-left {
-			left: calc(50% - #{rem(421)});
+			left: calc(50% - #{rem(490)});
 		}
 
 		&__slot--center {
@@ -398,11 +406,11 @@
 		}
 
 		&__slot--inner-right {
-			left: calc(50% + #{rem(197)});
+			left: calc(50% + #{rem(267)});
 		}
 
 		&__slot--outer-right {
-			left: calc(50% + #{rem(405)});
+			left: calc(50% + #{rem(581)});
 		}
 
 		&__play {

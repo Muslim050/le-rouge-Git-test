@@ -21,8 +21,7 @@ mixin photo-stack()
                         each item in photos
                             .swiper-slide
                                 figure.photo-stack__card
-                                    a.photo-stack__card-link(href=item.image aria-label='Открыть фото')
-                                        img.photo-stack__card-img(src=item.image alt=item.alt loading='lazy')
+                                    img.photo-stack__card-img(src=item.image alt=item.alt loading='lazy')
 
                 .photo-stack__nav
                     button.photo-stack__nav-btn.photo-stack__nav-btn--prev.btn-reset(type='button' aria-label='Назад')

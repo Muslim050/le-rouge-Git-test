@@ -100,18 +100,29 @@
 		}
 	}
 
-	// Фото с наездом на заголовок (PNG уже с наклоном и прозрачными углами)
+	// Кадр-маска: фикс-пропорция 519×500 (как Figma 743-2565). Любая картинка
+	// заполняет его (object-fit:cover) и обрезается наклонной трапецией через
+	// clip-path → не нужно готовить PNG с прозрачными углами вручную.
 	&__photo {
 		position: relative;
 		width: rem(540);
 		max-width: 90vw;
+		aspect-ratio: 519 / 500;
 		margin-bottom: rem(-48);
 		z-index: 1;
 
 		img {
 			width: 100%;
-			height: auto;
+			height: 100%;
+			object-fit: cover;
 			display: block;
+			// vip-залы — наклон трапеции как в макете
+			clip-path: polygon(0.8% 12.8%, 99% 0.4%, 87.9% 90.4%, 11.9% 98.8%);
+		}
+
+		// караоке — зеркальный наклон
+		.vip-karaoke__block:last-child & img {
+			clip-path: polygon(1% 0.4%, 99.2% 12.8%, 88.1% 98.8%, 12.1% 90.4%);
 		}
 
 		&-placeholder {

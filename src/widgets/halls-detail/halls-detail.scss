@@ -727,11 +727,12 @@ html:has(.halls-detail) {
 			display: block;
 		}
 
-		// ====== Галерея фото зала (горизонтальный скролл, листается стрелками) ======
-		// Как в events: несколько фото с peek'ом, scroll-snap, стрелки = scrollGalleryTo
+		// ====== Галерея фото зала — один-в-один как в events ======
+		// Портретные карточки 271×407 с peek'ом, горизонтальный scroll-snap, стрелки.
 		&__mobile-gallery {
 			display: flex;
-			padding-top: rem(28);
+			gap: rem(16);
+			padding: rem(28) rem(16) 0;
 			overflow-x: auto;
 			scroll-snap-type: x mandatory;
 			scrollbar-width: none;
@@ -739,35 +740,18 @@ html:has(.halls-detail) {
 			&::-webkit-scrollbar { display: none; }
 		}
 		&__mobile-gallery-item {
-			// Figma: одно фото на экран, без peek соседнего кадра.
-			// Слайд = полная ширина вьюпорта; боковые отступы 16px внутри → фото 328 при 360.
-			position: relative;
-			flex: 0 0 100%;
-			box-sizing: border-box;
-			padding: 0 rem(16);
+			flex-shrink: 0;
+			width: rem(271);
+			height: rem(407);
+			border-radius: rem(4);
+			overflow: hidden;
 			scroll-snap-align: start;
 		}
-		// Тёплое свечение из самого фото (Figma: мягкий свет за галереей, бьёт в стороны к краям)
-		&__mobile-gallery-glow {
-			position: absolute;
-			z-index: 0;
-			inset: 0;
+		&__mobile-gallery-img {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-			transform: scale(1.25);
-			filter: blur(26px) saturate(1.7) brightness(1.3);
-			opacity: 0.85;
-			pointer-events: none;
-		}
-		&__mobile-gallery-img {
-			position: relative;
-			z-index: 1;
-			width: 100%;
-			aspect-ratio: 328 / 246;
-			object-fit: cover;
 			display: block;
-			border-radius: rem(8);
 		}
 
 		// ====== Стрелки + линия ======

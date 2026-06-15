@@ -48,6 +48,8 @@
 			top: 0;
 			height: 100vh;
 			display: flex;
+			// фото по центру экрана (как было раньше) — при flex-start оно слишком
+			// прижималось к верху и снизу зиял большой пустой блок.
 			align-items: center;
 			justify-content: center;
 			overflow: hidden;
@@ -195,7 +197,7 @@
 	// Колонка управления: селект + подсказка + кнопка (одна колонка, gap 20)
 	&__plan-controls {
 		width: 100%;
-		max-width: rem(440);
+		max-width: rem(600);
 		display: flex;
 		flex-direction: column;
 		align-items: center;

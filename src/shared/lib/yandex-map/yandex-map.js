@@ -7,6 +7,26 @@
 // __PUBLIC__ задаётся DefinePlugin в webpack; '' = относительные пути (дев).
 const PUBLIC = typeof __PUBLIC__ !== 'undefined' ? __PUBLIC__ : '';
 const MARKER_ICON = `${PUBLIC}assets/img/footer/map-marker.svg`;
+const MAPS = new Set();
+
+let resizeRaf = 0;
+
+const syncMapViewport = ({ map, coords, zoom }) => {
+	map.container.fitToViewport();
+	map.setCenter(coords, zoom, { duration: 0 });
+};
+
+const syncAllMaps = () => {
+	MAPS.forEach(syncMapViewport);
+};
+
+const scheduleSyncAllMaps = () => {
+	if (resizeRaf) cancelAnimationFrame(resizeRaf);
+	resizeRaf = requestAnimationFrame(() => {
+		resizeRaf = 0;
+		syncAllMaps();
+	});
+};
 
 const initMap = el => {
 	const lat = parseFloat(el.dataset.lat);
@@ -45,6 +65,8 @@ const initMap = el => {
 	);
 
 	map.geoObjects.add(placemark);
+	MAPS.add({ map, coords: [lat, lng], zoom });
+	syncMapViewport({ map, coords: [lat, lng], zoom });
 	// карта загрузилась — помечаем контейнер (CSS прячет фолбэк-картинку)
 	el.closest('.footer__map, .contacts__map')?.classList.add('is-map-ready');
 };
@@ -64,3 +86,6 @@ if (document.readyState === 'loading') {
 } else {
 	initYandexMaps();
 }
+
+window.addEventListener('load', scheduleSyncAllMaps);
+window.addEventListener('resize', scheduleSyncAllMaps);

@@ -56,10 +56,20 @@ const initShowStage = () => {
 			}
 		};
 
+		let animating = false;
 		const move = dir => {
+			if (animating) return;
+			animating = true;
 			stopVideo(); // при листании останавливаем видео и возвращаем картинку
 			cursor = (cursor + dir + len) % len;
-			render();
+			// Плавная смена кадров (кроссфейд): гасим картинки → меняем src → проявляем,
+			// иначе листание происходило мгновенно, без анимации.
+			stage.querySelectorAll('.show-stage__slot img').forEach(img => { img.style.opacity = '0'; });
+			setTimeout(() => {
+				render();
+				stage.querySelectorAll('.show-stage__slot img').forEach(img => { img.style.opacity = ''; });
+				animating = false;
+			}, 220);
 		};
 
 		prev?.addEventListener('click', () => move(-1));

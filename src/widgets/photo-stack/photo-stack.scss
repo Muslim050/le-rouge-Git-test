@@ -7,7 +7,7 @@
 .photo-stack {
 	position: relative;
 	min-height: 100vh;
-	padding: rem(40) 0 rem(48);
+	padding: rem(150) 0 rem(48); // отступ 150px от предыдущей секции
 	background: var(--black-color);
 	overflow: hidden;
 	display: flex;
@@ -108,13 +108,6 @@
 		overflow: hidden;
 		background: #1a1a1a;
 
-		&-link {
-			display: block;
-			width: 100%;
-			height: 100%;
-			cursor: zoom-in;
-		}
-
 		&-img {
 			width: 100%;
 			height: 100%;
@@ -212,7 +205,7 @@
 	}
 
 	@media (max-width: $desktop-xl) {
-		padding: rem(28) 0 rem(36);
+		padding: rem(150) 0 rem(36);
 
 		&__container { gap: rem(28); }
 
@@ -359,7 +352,7 @@
 		display: block;
 		// sticky НЕ работает внутри предка с overflow:hidden — снимаем на стопке
 		overflow: visible;
-		padding: rem(56) 0 rem(96);
+		padding: rem(150) 0 rem(96); // отступ 150px от предыдущей секции
 
 		&__container {
 			display: block;

@@ -18,6 +18,7 @@ import '@/widgets/header/header';
 import '@/widgets/main-menu/main-menu';
 import '@/widgets/photo-stack/photo-stack';
 import '@/widgets/poster/poster';
+import '@/widgets/show-gallery/show-gallery';
 import '@/widgets/show-stage/show-stage';
 import '@/widgets/show-video/show-video';
 import '@/widgets/special-menu/special-menu';

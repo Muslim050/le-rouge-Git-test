@@ -83,7 +83,12 @@
 		}
 
 		.swiper-slide {
-			width: clamp(#{rem(320)}, 35vh, #{rem(500)});
+			// Ширина слайда = ширине фото. Figma 1920 (762-2857): фото 592px,
+			// высота — из aspect-ratio фото (592/758). vh-кап (56vh ≈ фото 72vh)
+			// страхует низкие/широкие окна от переполнения экрана. Раньше тут был
+			// vh-баз (35vh) — он задавал слайду неверную (узкую) ширину, из-за чего
+			// object-fit:contain ужимал фигуру и оставлял пустоту сверху.
+			width: min(#{rem(592)}, 56vh);
 			display: flex;
 			justify-content: center;
 			opacity: 1;
@@ -95,7 +100,10 @@
 	&__photo {
 		position: relative;
 		width: 100%;
-		height: clamp(#{rem(380)}, 55vh, #{rem(620)});
+		// Бокс точно в пропорциях фото (Figma 592×758) → картинка заполняет его
+		// целиком, без полей. (Был height в vh с другим соотношением — отсюда
+		// пустота сверху и слишком мелкая фигура.)
+		aspect-ratio: 592 / 758;
 		display: flex;
 		align-items: flex-end;
 		justify-content: center;
@@ -103,7 +111,7 @@
 		img {
 			width: 100%;
 			height: 100%;
-			object-fit: contain;
+			object-fit: cover;
 			object-position: center bottom;
 			display: block;
 			-webkit-user-drag: none;
@@ -332,11 +340,8 @@
 		}
 
 		&__swiper .swiper-slide {
-			width: clamp(#{rem(280)}, 32vh, #{rem(400)});
-		}
-
-		&__photo {
-			height: clamp(#{rem(340)}, 52vh, #{rem(520)});
+			// Figma 1440 (1074-5570): фото 432px (высота — из aspect-ratio базы)
+			width: min(#{rem(432)}, 56vh);
 		}
 
 		&__nav {

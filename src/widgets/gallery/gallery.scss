@@ -4,9 +4,11 @@
 	position: relative;
 	min-height: 100vh;
 	padding: rem(40) 0 rem(48);
+	// Верх секции = #0B0B0B (как низ special-menu) — иначе на стыке тёмная полоса.
+	// Раньше старт был #050505 (темнее фона над секцией) → грубый градиент на границе.
 	background:
 		radial-gradient(ellipse 55% 40% at 50% 48%, rgba(121, 78, 46, 0.12) 0%, rgba(11, 11, 11, 0) 74%),
-		linear-gradient(180deg, #050505 0%, var(--black-color) 14%, var(--black-color) 100%);
+		var(--black-color);
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
@@ -23,10 +25,10 @@
 		z-index: 0;
 	}
 
+	// Верхняя затемняющая вуаль убрана: секция special-menu сверху уже #0B0B0B,
+	// а доп-затемнение делало верх галереи темнее фона над ней → грубая полоса на стыке.
 	&::before {
-		top: 0;
-		height: rem(200);
-		background: linear-gradient(180deg, rgba(0, 0, 0, 0.74) 0%, rgba(0, 0, 0, 0) 100%);
+		display: none;
 	}
 
 	&::after {
@@ -102,6 +104,7 @@
 		}
 
 		.swiper-slide {
+			// Портретный формат как в макете (743-2541, 2:3)
 			width: clamp(#{rem(360)}, 38vw, #{rem(548)});
 			display: flex;
 			justify-content: center;
@@ -128,8 +131,8 @@
 		position: relative;
 		margin: 0;
 		width: 100%;
+		// Формат галереи — портрет 2:3 как в макете (743-2541). Высота из пропорции.
 		aspect-ratio: 2 / 3;
-		height: clamp(#{rem(480)}, 68vh, #{rem(760)});
 		border-radius: rem(8);
 		overflow: hidden;
 		border: 1px solid transparent;
@@ -247,7 +250,7 @@
 			&:not(.swiper-slide-active) { transform: scale(0.634); }
 		}
 
-		&__card { height: rem(530); }
+		// height не нужен — aspect-ratio 2/3 из базы (353 → 530)
 
 		&__nav {
 			padding: 0 rem(160);

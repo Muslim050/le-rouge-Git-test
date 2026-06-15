@@ -177,7 +177,6 @@ mixin halls-detail(mobHeroVideo = '')
                 .halls-detail__mobile-gallery
                     each src, i in halls[0].photos
                         .halls-detail__mobile-gallery-item
-                            img.halls-detail__mobile-gallery-glow(src=src alt='' aria-hidden='true')
                             img.halls-detail__mobile-gallery-img(src=src alt=`${halls[0].title} — фото ${i + 1}` data-gallery-i=i)
 
                 nav.halls-detail__mobile-arrows(aria-label='Переключение фото зала')

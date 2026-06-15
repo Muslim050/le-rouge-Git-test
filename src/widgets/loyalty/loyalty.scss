@@ -4,7 +4,7 @@
 	position: relative;
 	min-height: 100vh;
 	background: var(--black-color);
-	padding: rem(56) 0 rem(40);
+	padding: rem(150) 0 rem(40); // отступ 150px от предыдущей секции
 	color: var(--beige-color);
 	overflow: hidden;
 	display: flex;
@@ -146,7 +146,7 @@
 	}
 
 	@media (max-width: $desktop-xl) {
-		padding: rem(40) 0 rem(28);
+		padding: rem(150) 0 rem(28);
 
 		&__copy { gap: rem(12); }
 

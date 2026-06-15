@@ -87,7 +87,9 @@
 	&__card {
 		position: relative;
 		width: 100%;
-		height: clamp(#{rem(480)}, 65vh, #{rem(731)});
+		// Формат афиши — строго 3:4 (по требованию заказчика). Ширина = слайд (548),
+		// высота из пропорции (раньше height в vh давал разное соотношение по высоте окна).
+		aspect-ratio: 3 / 4;
 		border-radius: rem(8);
 		overflow: hidden;
 		border: 1px solid transparent;
@@ -268,7 +270,7 @@
 			}
 		}
 
-		&__card { height: rem(576); }
+		// height не нужен — aspect-ratio 3/4 из базы (слайд 432 → 432×576)
 
 		&__lead {
 			@include body-l;

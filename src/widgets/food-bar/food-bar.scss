@@ -103,11 +103,14 @@
 		display: flex;
 		justify-content: center;
 
-		// PNG уже с наклоном и прозрачными углами — без обрезки и rotate
+		// Кадр-маска: фикс-пропорция 500×660. Любая загруженная картинка заполняет его
+		// (object-fit:cover) и обрезается наклонной трапецией-маской из Figma (743-2474)
+		// через clip-path → не нужно готовить PNG с прозрачными углами вручную.
 		&-frame {
 			position: relative;
 			width: rem(500);
 			max-width: 90vw;
+			aspect-ratio: 500 / 660;
 
 			&::before {
 				content: '';
@@ -130,9 +133,18 @@
 
 			img {
 				width: 100%;
-				height: auto;
+				height: 100%;
+				object-fit: cover;
 				display: block;
+				// Маска-трапеция (наклон как в Figma). Кухня и бар — зеркальные наклоны,
+				// как в текущих кадрах; бар переопределяется ниже.
+				clip-path: polygon(0.4% 7%, 99.1% 0.3%, 87.3% 99.4%, 12.1% 96.1%);
 			}
+		}
+
+		// Бар — зеркальная трапеция (чуть другой наклон)
+		.food-bar__block:last-child & &-frame img {
+			clip-path: polygon(8.9% 0.3%, 86.1% 10.3%, 99.4% 92.4%, 0% 99.1%);
 		}
 
 		&-placeholder {
